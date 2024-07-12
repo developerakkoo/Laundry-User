@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HapticsService } from '../services/haptics.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  totalprice:number = 1200;
+  constructor(private haptics:HapticsService,
+              private router: Router
+  ) {}
 
+
+  checkout(){
+    this.haptics.hapticsImpactLight();
+    this.router.navigate(['payment-success']);
+  }
 }

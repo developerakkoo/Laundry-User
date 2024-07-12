@@ -1,17 +1,67 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
+    <ion-title class="header-text">
+     Welcome back,
+     <p style="margin: 0;">Akshay Jadhav</p>
     </ion-title>
+    <ion-button class="animate__animated animate__fadeIn" (click)="openPage('search')" slot="end" fill="clear">
+      <ion-icon slot="icon-only" name="search"></ion-icon>
+    </ion-button>
+    <ion-button class="animate__animated animate__swing" (click)="openPage('notifications')" slot="end" fill="clear">
+      <ion-icon slot="icon-only" name="notifications"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-list class="ion-padding">
+  <ion-list-header>
+    <ion-label>Categories</ion-label>
+  </ion-list-header>
+</ion-list>
+<div class="grid-container animate__animated animate__fadeIn" >
+  <div class="grid-item">
+    <img class="animate__animated animate__tada" src="assets/icon/wash.png" alt="Placeholder Image">
+    <p>Washing</p>
+  </div>
+  <div class="grid-item">
+    <img class="animate__animated animate__tada" src="assets/icon/dryclean.png" alt="Placeholder Image">
+    <p>Dry Clean</p>
+  </div>
+  <div class="grid-item">
+    <img class="animate__animated animate__tada" src="assets/icon/iron.png" alt="Placeholder Image">
+    <p>Ironing</p>
+  </div>
+  <div class="grid-item">
+    <img class="animate__animated animate__tada" src="assets/icon/bulky.png" alt="Placeholder Image">
+    <p>Bulky Items</p>
+  </div>
+  <div class="grid-item">
+    <img class="animate__animated animate__tada" src="assets/icon/carpet.png" alt="Placeholder Image">
+    <p>Carpet Wash</p>
+  </div>
+  <div class="grid-item">
+    <img class="animate__animated animate__tada" src="assets/icon/shoes.png" alt="Placeholder Image">
+    <p>Shoe Wash</p>
+  </div>
+</div>
+<app-banner class="animate__animated animate__fadeIn" imageUrl="assets/banner-top.svg"></app-banner>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<app-banner class="animate__animated animate__fadeIn" imageUrl="assets/how.svg"></app-banner>
+<ion-list>
+  <ion-list-header>
+    <ion-label>Top 
+      Laundries
+    </ion-label>
+    <ion-button><ion-icon size="small" slot="start" name="arrow-forward"></ion-icon></ion-button>
+  </ion-list-header>
+</ion-list>
+<div class="container">
+  <app-laundry-card
+    imageUrl="assets/laundry-demo.svg"
+    name="Location Name"
+    ratings="4.5"
+    address="123 Main St, City, Country">
+  </app-laundry-card>
+</div>
 </ion-content>

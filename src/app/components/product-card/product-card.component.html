@@ -1,0 +1,25 @@
+<div class="product-card">
+  <div class="product-info">
+    <img [src]="productImageUrl" alt="Product Image" class="product-image">
+    <div class="product-details">
+      <h2>{{productName}}</h2>
+      <p class="pricing">Price: {{productPrice}}</p>
+      <!-- <p class="quantity">Selected Quantity: {{quantity}}</p> -->
+      <div class="options">
+       
+          <ion-select mode="ios" style="margin: 0;" value="peperoni" interface="popover">
+            <ion-select-option value="peperoni">Only Wash</ion-select-option>
+            <ion-select-option value="hawaii">Only iron</ion-select-option>
+            <ion-select-option value="both">Both</ion-select-option>
+          </ion-select>
+      </div>
+    </div>
+  </div>
+  <div class="cart-actions">
+    <ion-button (click)="decrementQuantity()">-</ion-button>
+    <span>{{quantity}}</span>
+    <ion-button (click)="incrementQuantity()">+</ion-button>
+    <!-- <ion-button>Add to Cart</ion-button> -->
+  </div>
+
+</div>
