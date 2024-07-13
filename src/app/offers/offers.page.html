@@ -1,0 +1,33 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Offers</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+ <app-offer-card (appliedEvent)="promoCodeApplied($event)"></app-offer-card>
+
+ <ion-modal id="example-modal" #modal [isOpen]="isPromoCodeSuccessDialogOpen">
+  <ng-template>
+    
+      <div class="modal-container">
+        <img src="assets/icon/balloons.gif" alt="">
+        <p class="applied">'SAVE20' applied</p>
+        <p class="title">You Saved 20</p>
+        <p class="label">with this coupon code.</p>
+      </div>
+ 
+    <ion-footer lines="full">
+   
+       <ion-button (click)="okay()" expand="block" fill="clear" shape="round">
+        Woohoo! Thanks
+       </ion-button>
+    
+    </ion-footer>
+  </ng-template>
+</ion-modal>
+<canvas id="confetti-canvas"></canvas>
+</ion-content>

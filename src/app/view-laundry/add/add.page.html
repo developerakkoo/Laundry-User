@@ -1,0 +1,51 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Create Order</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="centered-image" *ngIf="items.length == 0">
+    <img src="assets/empty-laundry.png" alt="" />
+    <p>No Items Added!</p>
+  </div>
+
+  <ion-grid *ngIf="items.length > 0">
+    <ion-row>
+      <ion-col size="12">
+        <ion-card *ngFor="let item of items; let i = index" class="item-card">
+          <ion-card-header>
+            <ion-card-title>{{ item.item | uppercase }}</ion-card-title>
+            <ion-icon name="close-circle" class="close-icon" (click)="deleteItem(i)"></ion-icon>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Quantity: {{ item.quantity }} </p>
+            <p>Note: {{ item.note }}.</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-button
+      *ngIf="items.length > 0"
+      (click)="presentActionSheetForDeliveryPickupOrSelf()"
+      fill="solid"
+      color="light"
+      expand="block"
+      mode="ios"
+    >
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
+      Continue
+    </ion-button>
+    <ion-button (click)="addToOrder()" fill="clear" color="light" expand="full">
+      <ion-icon slot="end" name="add"></ion-icon>
+      Add Items
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,36 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Add Item</ion-title>
+    <ion-button (click)="close()" slot="end" fill="clear">
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+      <ion-select formControlName="item" mode="md" fill="outline" value="tshirt" label="Select Type" labelPlacement="stacked" interface="action-sheet" placeholder="Select Type">
+        <ion-select-option value="tshirt">T-Shirt</ion-select-option>
+        <ion-select-option value="jeans">Jeans</ion-select-option>
+        <ion-select-option value="shoes">Shoes</ion-select-option>
+        <ion-select-option value="blanket">Blanket</ion-select-option>
+      </ion-select>
+  <br>
+      <ion-textarea formControlName="note" col="10" mode="md" label="Extra Instructions..." label-placement="floating" fill="outline" placeholder="Wash with care, Only Dry Wash..."></ion-textarea>
+  
+      <ion-range (ionKnobMoveStart)="onIonKnobMoveStart($event)"
+    (ionKnobMoveEnd)="onIonKnobMoveEnd($event)" [(ngModel)]="quantity" formControlName="quantity" aria-label="Range with ticks" [ticks]="true" [pin]="true" [snaps]="true" [min]="1" [max]="50">
+      <div slot="label">
+        Quantity
+      </div>
+    </ion-range>
+
+    <ion-text color="primary" class="ion-text-center">
+      <h1 style="font-size: 8.625rem;">{{quantity}}</h1>
+    </ion-text>
+    <ion-button expand="block" mode="ios" color="primary" type="submit" [disabled]="form.invalid">
+      Add Item
+    </ion-button>
+  </form>
+</ion-content>

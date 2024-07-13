@@ -17,6 +17,26 @@ const routes: Routes = [
   {
     path: 'payment-success',
     loadChildren: () => import('./payment-success/payment-success.module').then( m => m.PaymentSuccessPageModule)
+  },
+  {
+    path: 'story',
+    loadChildren: () => import('./story/story.module').then( m => m.StoryPageModule)
+  },
+  {
+    path: 'view-laundry/:name/:id',
+    loadChildren: () => import('./view-laundry/view-laundry.module').then( m => m.ViewLaundryPageModule)
+  },
+  {
+    path: 'offers',
+    loadChildren: () => import('./offers/offers.module').then( m => m.OffersPageModule)
+  },
+  {
+    path: 'feedback',
+    loadChildren: () => import('./feedback/feedback.module').then( m => m.FeedbackPageModule)
+  },
+  {
+    path: 'helppage',
+    loadChildren: () => import('./helppage/helppage.module').then( m => m.HelppagePageModule)
   }
 ];
 @NgModule({

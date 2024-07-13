@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { HapticsService } from '../services/haptics.service';
 
 @Component({
   selector: 'app-tab3',
@@ -7,6 +9,14 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  constructor(private router: Router,
+              private haptics: HapticsService
+  ) {}
+
+
+  openPage(page:string){
+    this.haptics.hapticsImpactLight();
+    this.router.navigate([page]);
+  }
 
 }

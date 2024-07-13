@@ -1,0 +1,101 @@
+.offer-card {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    position: relative;
+    margin: 15px;
+  
+    .offer-code-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      position: relative;
+      width: 100%;
+  
+      .promo-code {
+        background-color: #dedede;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        flex-grow: 1;
+        border-radius: 5px;
+        margin: 0 10px;
+      }
+  
+      .cut-out {
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+      }
+  
+      .cut-out:first-child {
+        left: -3px;
+      }
+  
+      .cut-out:last-child {
+        right: -3px;
+      }
+    }
+  
+    .offer-details {
+      text-align: center;
+      width: 100%;
+  
+      .offer-description {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+  
+      .offer-more-details {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+  
+        p {
+          margin: 5px 0;
+        }
+      }
+  
+      .apply-button {
+        padding: 20px;
+        border-radius: 20px;
+        background: var(--ion-color-primary);
+        color: #f8f8f8;
+        width: 100%;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  /* Media queries for responsive design */
+  @media (max-width: 768px) {
+    .offer-card {
+      padding: 15px;
+  
+      .offer-code-section {
+        .promo-code {
+          font-size: 16px;
+          padding: 8px 16px;
+        }
+      }
+  
+      .offer-details {
+        .offer-description {
+          font-size: 14px;
+        }
+  
+        .offer-more-details {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  

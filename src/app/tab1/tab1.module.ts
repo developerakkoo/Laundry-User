@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { BannerComponent } from '../components/banner/banner.component';
 import { LaundryCardComponent } from '../laundry-card/laundry-card.component';
+import { SharedModule } from '../modules/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { LaundryCardComponent } from '../laundry-card/laundry-card.component';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab1PageRoutingModule
+    Tab1PageRoutingModule,
+    SharedModule,
   ],
-  declarations: [Tab1Page,BannerComponent, LaundryCardComponent]
+  declarations: [Tab1Page,BannerComponent]
 })
 export class Tab1PageModule {}

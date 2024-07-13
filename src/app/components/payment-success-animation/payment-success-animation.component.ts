@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import confetti from 'canvas-confetti';
 @Component({
   selector: 'app-payment-success-animation',
@@ -6,6 +6,7 @@ import confetti from 'canvas-confetti';
   styleUrls: ['./payment-success-animation.component.scss'],
 })
 export class PaymentSuccessAnimationComponent implements OnInit {
+  @Input() text!:string;
   constructor() {}
 
   ngOnInit() {}

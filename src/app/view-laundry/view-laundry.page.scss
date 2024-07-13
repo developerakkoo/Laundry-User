@@ -1,0 +1,73 @@
+.container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ion-badge{
+    padding: 10px;
+  }
+
+
+ion-toolbar, ion-footer{
+    --background: transparent;
+}
+
+
+  /* Container styles */
+.filter-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    background-color: #f0f0f0;
+  }
+  
+  /* Badge styles */
+  .filter-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #8F35C7;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-badge-outline {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #8F35C7;
+    color: #8F35C7;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .filter-badge:hover {
+    background-color: #8F35C7;
+  }
+  
+  /* Add custom scrollbar for better UX */
+  .filter-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .filter-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  
+  .filter-container::-webkit-scrollbar-thumb {
+    background-color: #8F35C7;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+  }
+  
