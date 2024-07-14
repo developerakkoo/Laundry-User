@@ -1,13 +1,16 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>feedback</ion-title>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar [color]="backgroundColor">
+    <ion-title>Feedback</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">feedback</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" [color]="backgroundColor" class="ion-padding">
+  <div class="emoji-container">
+    <ion-button fill="clear" (click)="setFeedback('happy')">😊</ion-button>
+    <ion-button fill="clear" (click)="setFeedback('neutral')">😐</ion-button>
+    <ion-button fill="clear" (click)="setFeedback('sad')">😢</ion-button>
+  </div>
 </ion-content>

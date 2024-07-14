@@ -1,0 +1,54 @@
+<ion-content [fullscreen]="true" class="animate__animated animate__fadeIn">
+  <div class="container Login_Container ion-padding">
+    <img src="assets/icon.svg" />
+    <ion-text color="primary" class="ion-text-center">
+      <h1>App name</h1>
+    </ion-text>
+
+    <div class="ion-padding Login_Form">
+      <form [formGroup]="form">
+        <ion-input
+          type="tel"
+          fill="outline"
+          label="Mobile number"
+          labelPlacement="stacked"
+          formControlName="mobnoctrl"
+          class=""
+        >
+          <ion-icon slot="start" name="call" aria-hidden="true"></ion-icon
+        ></ion-input>
+
+        <!-- <div class="show-error">
+                <div *ngIf="form.get('mobnoctrl').hasError('required') && form.get('mobnoctrl').dirty">Please enter
+                  mobile number
+                </div>
+                <div *ngIf="form.get('mobnoctrl').hasError('pattern') && form.get('mobnoctrl').dirty">
+                  Please enter 10 digit mobile number</div>
+              </div> -->
+
+        <br />
+        <ion-button
+          [disabled]="form.invalid"
+          color="primary"
+          (click)="getOTP()"
+          expand="block"
+          fill="solid"
+          mode="ios"
+        >
+          Continue
+          <ion-icon class="animate__animated animate__shakeX animate__slower animate__infinite" slot="end" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border animate__animated animate__fadeIn">
+  <ion-toolbar color="light" class="ion-no-border">
+    <ion-text class="ion-text-center" color="dark">
+      <ion-label style="font-size: 12px; text-align: center"
+        >By login, you agree to our terms and conditions
+      </ion-label>
+    </ion-text>
+  </ion-toolbar>
+</ion-footer>

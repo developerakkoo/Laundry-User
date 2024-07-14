@@ -17,7 +17,7 @@ export class PaymentSuccessPage implements OnInit {
 
   ionViewDidEnter(){
     this.interval = setInterval(() =>{
-      this.router.navigate(['tabs', 'tab1'],{skipLocationChange:true, replaceUrl:true})
+      this.router.navigate(['tabs','tabs', 'tab1'],{skipLocationChange:true, replaceUrl:true})
     },4000)
   }
 

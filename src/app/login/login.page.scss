@@ -1,0 +1,42 @@
+.Login_Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+.Login_Container img{
+    width: 200px;
+    height: auto;
+    margin-top: 30%;
+}
+.formCls{
+    margin-top: 20px;
+}
+.Input_num {
+    --border-color: var(--ion-color-success, #21AD4B);
+  }
+  .Input_num:hover {
+    --border-color: var(--ion-color-success, #21AD4B);
+  }
+.Login_Form{
+    margin-top: 10%;
+}
+.show-error{
+    padding-top: 0.2rem;
+    color: red;
+    font-size: 12px;
+}
+.Login_text h5{
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+ 
+}
+
+ion-text{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HapticsService } from '../services/haptics.service';
 
 @Component({
   selector: 'app-helppage',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelppagePage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+              private haptics: HapticsService,
+  ) { }
 
   ngOnInit() {
   }
 
+  openPage(page:string){
+    this.haptics.hapticsImpactLight();
+    this.router.navigate([page]);
+  }
 }

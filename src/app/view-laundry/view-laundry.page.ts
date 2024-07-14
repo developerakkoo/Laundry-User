@@ -33,7 +33,7 @@ export class ViewLaundryPage implements OnInit {
     setTimeout(() => {
       // Any calls to load data go here
       event.target.complete();
-    }, 200);
+    }, 500);
   }
    getLaundriesById(){
     this.isLoading = true;
@@ -41,7 +41,7 @@ export class ViewLaundryPage implements OnInit {
       this.isLoading = false;
       console.log("1");
       
-    },200)
+    },2000)
   }
 
 

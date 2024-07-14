@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>My Search</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/tab1"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tabs/tab1"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
   <ion-searchbar mode="ios" placeholder="Search laundries" inputmode="decimal" type="decimal" (ionClear)="onClearEvent($event)" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>

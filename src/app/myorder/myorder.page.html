@@ -1,0 +1,97 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>My Orders</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+ <ion-segment value="1" (ionChange)="segmentChanged($event)">
+  <ion-segment-button value="1">
+    <ion-label>Recent</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="2">
+    <ion-label>Previous</ion-label>
+  </ion-segment-button>
+ </ion-segment>
+ <ion-list>
+  <ion-accordion-group>
+   <ion-accordion  class="animate__animated animate__backInLeft">
+     <ion-item color="light"  slot="header" lines="none" class="ion-margin-top" detail>
+       <img class="hotel-thumbnail" crossOrigin="anonymous" src="https://placehold.co/60" />
+   
+       <div class="hotel-item-container">
+         <ion-label class="ion-margin-start">
+           <p class="title">Title</p>
+           <p class="sub-title">6 X</p>
+         </ion-label>
+         <div class="ion-margin-start rating-container">
+           <p class="rating">May 24, 2024</p>
+         </div>
+         <div class="sort-badge ion-margin-start">
+           <p>Received</p>
+           <!-- <p *ngIf="item.orderStatus === 1">Preparing</p>
+           <p *ngIf="item.orderStatus === 2">Delivery Started</p>
+           <p *ngIf="item.orderStatus === 3">Delivered</p>
+           <p *ngIf="item.orderStatus === 4">Cancelled</p> -->
+         </div>
+       </div>
+      
+     </ion-item>
+     <div class="ion-padding" slot="content">
+       <ion-list>
+         <ion-list-header>
+           <ion-label>Your Order Details</ion-label>
+         </ion-list-header>
+         <ion-item
+
+           class="ion-margin-top"
+          
+         >
+           <img class="hotel-thumbnail" crossOrigin="anonymous" src="https://placehold.co/60" />
+     
+           <div class="hotel-item-container">
+             <ion-label class="ion-margin-start">
+               <p class="title">Jeans</p>
+               <p class="sub-title">234</p> <span>X 4</span>
+             </ion-label>
+            
+             
+           </div>
+          
+         </ion-item>
+         
+       </ion-list>
+       <br>
+       <ion-item>
+         <ion-label>Subtotal</ion-label>
+         <p class="pricing" slot="end">300</p>
+       </ion-item>
+       <ion-item>
+         <ion-label>Delivery</ion-label>
+         <p class="pricing" slot="end">20</p>
+       </ion-item>
+       <ion-item>
+         <ion-label>Handling Fees</ion-label>
+         <p class="pricing" slot="end">20</p>
+       </ion-item>
+       <ion-item>
+         <ion-label>(GST)</ion-label>
+         <p class="pricing" slot="end">3%</p>
+       </ion-item>
+       <ion-item>
+         <ion-label>Total</ion-label>
+         <p class="pricing" slot="end">450</p>
+       </ion-item>
+       <ion-button  expand="block" fill="clear" shape="round">
+         Help
+       </ion-button>
+     </div>
+
+   </ion-accordion>
+  </ion-accordion-group>
+ </ion-list>
+
+</ion-content>

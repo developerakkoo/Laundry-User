@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController, ToastController } from '@ionic/angular';
 import { AddOrderModalPage } from '../add-order-modal/add-order-modal.page';
 import { HapticsService } from 'src/app/services/haptics.service';
 interface Item {
@@ -24,6 +24,7 @@ export class AddPage implements OnInit {
   constructor(private router:Router,
               private route:ActivatedRoute,
               private haptics: HapticsService,
+              private toastController: ToastController,
               private actionSheetController: ActionSheetController,
               private modalController: ModalController
   ) { }
@@ -31,6 +32,18 @@ export class AddPage implements OnInit {
   ngOnInit() {
   }
 
+  async presentToast(msg:string, duration:any, color: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: duration,
+      color: color,
+      position:'bottom',
+      animated:true,
+      icon:'rocket',
+      mode:'ios'
+    });
+    toast.present();
+  }
 
   async presentActionSheetForDeliveryPickupOrSelf() {
     this.haptics.hapticsImpactLight();
@@ -39,15 +52,17 @@ export class AddPage implements OnInit {
       
       buttons: [{
         text: 'Self Pickup',
-        icon: 'trash',
+        icon: 'walk',
         handler: () => {
-          
+          this.presentToast("Self Pickup Scheduled!", 2000, "success");
             console.log('Delete clicked');
         }
       }, {
         text: 'Schedule Pickup',
-        icon: 'share',
+        icon: 'bicycle',
         handler: () => {
+          this.presentToast("Order Pickup Scheduled!", 2000, "success");
+
           console.log('Share clicked');
         }
       }, {
