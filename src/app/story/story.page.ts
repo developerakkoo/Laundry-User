@@ -18,7 +18,7 @@ export class StoryPage implements OnInit {
   ionViewDidEnter(){
     this.interval = setInterval(() =>{
       this.router.navigate(['tabs','tabs','tab1']);
-    },3000)
+    },27000)
   }
 
   ionViewDidLeave(){

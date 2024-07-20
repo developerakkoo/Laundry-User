@@ -1,0 +1,23 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="container">
+    <div class="top-circle animate__animated animate__slideInDown">
+      <ion-text color="primary" class="ion-text-center">
+        <h1 class="lato-bold brand">Breezymart</h1>
+      </ion-text>
+    </div>
+
+    <div class="middle-img animate__animated animate__shakeY  animate__infinite">
+      <img src="/assets/laundry.svg" alt="" />
+    </div>
+
+    <div class="last-container animate__animated animate__slideInUp">
+      <p class="title">Let's start the Laundry 😎.</p>
+      <p class="subtitle">
+        Your Convenient Laundry Solution, Just a Tap Away & Enjoy!
+      </p>
+      <ion-button (click)="openPage('login')" expand="block" mode="ios">
+        Get Started
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

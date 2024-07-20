@@ -1,0 +1,29 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="container" *ngIf="!isOtpVerified">
+    <div class="first animate__animated animate__slideInDown">
+      <p class="dark-text">Verify Phone</p>
+      <p class="light-text">Code has been sent to +91{{phoneNumber}}</p>
+      <br />
+      <div class="otp-container ">
+      
+       
+          <ion-input  #input1  (ionInput)="onInputOne($event,1)" type="tel" maxlength="1" fill="clear" class="ion-text-center" mode="md" maxlength="1"></ion-input>
+          <ion-input #input2 (ionInput)="onInputTwo($event,2)" type="tel" maxlength="1" fill="clear" class="ion-text-center" mode="md" maxlength="1"></ion-input>
+          <ion-input #input3  (ionInput)="onInputThree($event,3)" type="tel" maxlength="1" fill="clear" class="ion-text-center" mode="md" maxlength="1"></ion-input>
+          <ion-input #input4  (ionInput)="onInputFour($event,4)" type="tel" maxlength="1" fill="clear" class="ion-text-center" mode="md" maxlength="1"></ion-input>
+        
+      </div>
+      <p class="bold-text">Did't get OTP code?</p>
+      <p class="primary-text">Resend Code</p>
+    </div>
+    <div class="last animate__animated animate__slideInUp">
+      <ion-button (click)="verifyOtp()" expand="block" mode="ios" fill="solid">
+        Verify
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="loading-container" *ngIf="isOtpVerified">
+    <img src="assets/otp-verify.gif" alt="">
+  </div>
+</ion-content>

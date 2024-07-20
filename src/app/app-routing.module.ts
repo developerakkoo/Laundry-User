@@ -43,8 +43,16 @@ const routes: Routes = [
     loadChildren: () => import('./myorder/myorder.module').then( m => m.MyorderPageModule)
   },
   {
-    path: '',
+    path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./start/start.module').then( m => m.StartPageModule)
+  },
+  {
+    path: 'otp/:phone',
+    loadChildren: () => import('./otp/otp.module').then( m => m.OtpPageModule)
   }
 ];
 @NgModule({

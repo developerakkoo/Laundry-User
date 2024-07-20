@@ -1,8 +1,9 @@
 .Login_Container{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
+    width: 100%;
     flex-direction: column;
 }
 .Login_Container img{
@@ -34,9 +35,31 @@
  
 }
 
+.input-text{
+    font-size: 14px;
+    font-weight: 300;
+}
+
 ion-text{
     display: flex;
-    align-content: center;
     justify-content: center;
-    align-items: center;
+    text-align: center;
+}
+.button-div{
+    width: 100vw;
+    padding: 20px;
+}
+
+.brand > .brand-text{
+    font-size: 2rem;
+    color: var(--ion-color-primary);
+    font-weight: 700;
+margin: 10px 0px;
+}
+
+
+
+
+ion-input{
+    --border-radius: 12px;
 }

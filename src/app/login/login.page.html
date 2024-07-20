@@ -1,53 +1,78 @@
-<ion-content [fullscreen]="true" class="animate__animated animate__fadeIn">
-  <div class="container Login_Container ion-padding">
-    <img src="assets/icon.svg" />
-    <ion-text color="primary" class="ion-text-center">
-      <h1>App name</h1>
-    </ion-text>
-
-    <div class="ion-padding Login_Form">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="Login_Container ion-margin-top">
+    <div class="animate__animated animate__slideInUp">
+      <div class="text-container">
+        <div class="brand">
+          <p class="lato-black brand-text">Breezy</p>
+          <p class="dark-text">Hi!👋 Welcome to Breezy.</p>
+          <p class="light-text">Create your account or Log in.</p>
+        </div>
+      </div>
+      <br />
       <form [formGroup]="form">
+        <div class="line">
+          <p class="input-text">Enter your phone number</p>
+        </div>
         <ion-input
+        #input
           type="tel"
-          fill="outline"
+          fill="solid"
+          lines="none"
+          mode="md"
           label="Mobile number"
           labelPlacement="stacked"
           formControlName="mobnoctrl"
-          class=""
+          counter="true"
+          maxlength="10"
+          helperText="Securing your personal information is our priority"
         >
           <ion-icon slot="start" name="call" aria-hidden="true"></ion-icon
         ></ion-input>
 
-        <!-- <div class="show-error">
-                <div *ngIf="form.get('mobnoctrl').hasError('required') && form.get('mobnoctrl').dirty">Please enter
-                  mobile number
-                </div>
-                <div *ngIf="form.get('mobnoctrl').hasError('pattern') && form.get('mobnoctrl').dirty">
-                  Please enter 10 digit mobile number</div>
-              </div> -->
-
         <br />
-        <ion-button
-          [disabled]="form.invalid"
-          color="primary"
-          (click)="getOTP()"
-          expand="block"
-          fill="solid"
-          mode="ios"
-        >
-          Continue
-          <ion-icon class="animate__animated animate__shakeX animate__slower animate__infinite" slot="end" name="arrow-forward"></ion-icon>
-        </ion-button>
       </form>
+    </div>
+
+    <div *ngIf="!submitted" class="button-div">
+      <ion-button
+        [disabled]="form.invalid"
+        color="primary"
+        (click)="getOTP()"
+        expand="block"
+        fill="solid"
+        mode="ios"
+        class="animate__animated animate__slideInUp"
+      >
+        Continue
+        <ion-icon
+          class="animate__animated animate__shakeX animate__infinite slow"
+          slot="end"
+          name="arrow-forward"
+        ></ion-icon>
+      </ion-button>
+    </div>
+    <div *ngIf="submitted" class="button-div">
+      <ion-button
+        [disabled]="form.invalid"
+        color="primary"
+        (click)="getOTP()"
+        expand="block"
+        fill="solid"
+        mode="ios"
+        class="animate__animated animate__slideInUp"
+      >
+        
+        <ion-spinner name="lines"></ion-spinner>
+      </ion-button>
     </div>
   </div>
 </ion-content>
 
-<ion-footer class="ion-no-border animate__animated animate__fadeIn">
+<ion-footer class="ion-no-border animate__animated animate__slideInUp">
   <ion-toolbar color="light" class="ion-no-border">
     <ion-text class="ion-text-center" color="dark">
       <ion-label style="font-size: 12px; text-align: center"
-        >By login, you agree to our terms and conditions
+        >By login, you agree to our <strong>terms and conditions.</strong>
       </ion-label>
     </ion-text>
   </ion-toolbar>

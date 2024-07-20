@@ -1,8 +1,8 @@
-<ion-header [translucent]="true" class="ion-no-border">
+<ion-header [translucent]="true" class="ion-no-border animate__animated animate__slideInDown">
   <ion-toolbar>
     <ion-title class="header-text">
-     Welcome back,
-     <p style="margin: 0;">Akshay Jadhav</p>
+      Your Location,
+     <p style="margin: 0;">Pune, Maharashtra</p>
     </ion-title>
     <ion-button class="animate__animated animate__fadeIn" (click)="openPage('search')" slot="end" fill="clear">
       <ion-icon slot="icon-only" name="search"></ion-icon>
@@ -19,7 +19,7 @@
     <ion-label>Categories</ion-label>
   </ion-list-header>
 </ion-list>
-<div class="grid-container animate__animated animate__fadeIn" >
+<div class="grid-container" >
   <div class="grid-item" (click)="openPage('view-laundry/Washing/1')">
     <img class="animate__animated animate__tada" src="assets/icon/wash.png" alt="Placeholder Image">
     <p>Washing</p>
