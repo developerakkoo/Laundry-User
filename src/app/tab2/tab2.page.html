@@ -6,14 +6,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
+  <app-product-card
+  productImageUrl="https://via.placeholder.com/100"
+  productName="Product Name"
+  productPrice="$10.00">
+  </app-product-card>
+  <app-product-card
+  productImageUrl="https://via.placeholder.com/100"
+  productName="Product Name"
+  productPrice="$10.00">
+  </app-product-card>
+  <app-product-card
+  productImageUrl="https://via.placeholder.com/100"
+  productName="Product Name"
+  productPrice="$10.00">
+  </app-product-card>
   <app-product-card
   productImageUrl="https://via.placeholder.com/100"
   productName="Product Name"
   productPrice="$10.00">
   </app-product-card>
 </ion-content>
-<ion-footer>
+<ion-footer class="animate__animated animate__slideInUp">
   <ion-toolbar color="primary">
    <ion-button color="light" (click)="checkout()" expand="block" fill="clear" shape="round">
     Your Order Total is {{totalprice |currency:"INR"}}

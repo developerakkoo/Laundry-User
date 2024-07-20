@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { HapticsService } from 'src/app/services/haptics.service';
 
 @Component({
   selector: 'app-product-card',
@@ -15,14 +16,16 @@ export class ProductCardComponent  implements OnInit {
 
   incrementQuantity() {
     this.quantity++;
+    this.haptics.hapticsImpactLight();
   }
 
   decrementQuantity() {
     if (this.quantity > 1) {
       this.quantity--;
+      this.haptics.hapticsImpactLight();
     }
   }
-  constructor() { }
+  constructor(private haptics: HapticsService) { }
 
   ngOnInit() {}
 

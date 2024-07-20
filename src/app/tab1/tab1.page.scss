@@ -25,7 +25,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 6px;
-    padding: 16px;
+    padding: 12px;
   }
 
   .grid-item {
@@ -34,8 +34,8 @@
     align-items: center;
     justify-content: center;
     // border: 1px solid #ccc;
-    padding: 16px;
-    border-radius: 8px;
+    padding: 12px;
+    border-radius: 3em;
     background-color: #d797ff1a;
     ;
     text-align: center;
