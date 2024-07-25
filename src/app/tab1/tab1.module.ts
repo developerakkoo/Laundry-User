@@ -15,11 +15,11 @@ import { SharedModule } from '../modules/shared/shared.module';
     IonicModule,
     CommonModule,
     FormsModule,
+    SharedModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
-    SharedModule,
   ],
-  declarations: [Tab1Page,BannerComponent],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  declarations: [Tab1Page, BannerComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class Tab1PageModule {}

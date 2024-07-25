@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>{{title}}</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/tab1"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tabs/tab1"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -65,10 +65,17 @@
       >
       </app-laundry-card>
     </ion-list>
+   
   </div>
+
+ 
+    
+
 </ion-content>
-<ion-footer color="light">
+<ion-footer color="light" class="ion-no-border">
   <ion-toolbar color="light">
+  <ion-searchbar placeholder="Filter services" inputmode="decimal" type="decimal" mode="ios" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
+
     <div class="filter-container">
       <div class="filter-badge">Filters</div>
       <div class="filter-badge-outline" (click)="applyFilter()">Near me</div>
@@ -76,60 +83,6 @@
       <div class="filter-badge-outline" (click)="applyFilter()">5 Km's Radius</div>
       <div class="filter-badge-outline" (click)="applyFilter()">Highest Rated</div>
     </div>
-  <!-- <swiper-container
-  [slidesPerView]="5"
-  [freeMode]="true"
-  class="ion-padding"
->
-  <swiper-slide>
-    <ion-badge
-      color="primary"
-      mode="ios"
-      outline="false"
-      (click)="applyFilter()"
-      >Filters
-    </ion-badge>
-  </swiper-slide>
-
-  <swiper-slide>
-    <ion-badge
-      color="primary"
-      mode="ios"
-      outline="false"
-      (click)="applyFilter()"
-      >Near me
-    </ion-badge>
-  </swiper-slide>
-  <swiper-slide>
-    <ion-badge
-      color="primary"
-      mode="ios"
-      outline="false"
-      (click)="applyFilter()"
-      >5 star
-    </ion-badge>
-  </swiper-slide>
-
-  <swiper-slide>
-    <ion-badge
-      color="primary"
-      mode="ios"
-      outline="false"
-      (click)="applyFilter()"
-      >Lowest
-    </ion-badge>
-  </swiper-slide>
-
-  <swiper-slide>
-    <ion-badge
-      color="primary"
-      mode="ios"
-      outline="false"
-      (click)="applyFilter()"
-      >Highest
-    </ion-badge>
-  </swiper-slide>
  
-</swiper-container> -->
   </ion-toolbar>
 </ion-footer>

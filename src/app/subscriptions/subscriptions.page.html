@@ -1,0 +1,18 @@
+<ion-header [translucent]="true" color="dark" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Subscription Plan</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <app-subscription-card></app-subscription-card>
+    <ion-button (click)="purchase()" expand="block" fill="solid" mode="ios">
+      Subscribe
+    </ion-button>
+  </div>
+
+</ion-content>

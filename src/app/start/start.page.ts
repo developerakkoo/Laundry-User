@@ -14,11 +14,20 @@ export class StartPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+  }
+  ionViewDidEnter(){
+// setTimeout(() =>{
+//       this.router.navigate(['login']);
+//       // this.haptics.hapticsImpactLight();
+//     },2000)
   }
 
   openPage(page:string){
-    this.haptics.hapticsImpactLight();
-    this.router.navigate([page]);
+    // setTimeout(() =>{
+      this.router.navigate(['login']);
+      this.haptics.hapticsImpactLight();
+    // },500)
   }
 
 }

@@ -135,7 +135,7 @@ export class OtpPage implements OnInit {
     this.isOtpVerified = true;
     setTimeout(() =>{
       this.isOtpVerified = false;
-      this.router.navigate(['tabs','tabs', 'tab1']);
+      this.router.navigate(['story']);
     },2000)
   }
 }

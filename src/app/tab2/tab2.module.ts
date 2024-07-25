@@ -7,15 +7,17 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { ProductCardComponent } from '../components/product-card/product-card.component';
+import { SharedModule } from '../modules/shared/shared.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
+    SharedModule,
     ExploreContainerComponentModule,
     Tab2PageRoutingModule
   ],
-  declarations: [Tab2Page,ProductCardComponent]
+  declarations: [Tab2Page]
 })
 export class Tab2PageModule {}

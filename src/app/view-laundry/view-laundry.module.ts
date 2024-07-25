@@ -14,8 +14,9 @@ import { SharedModule } from '../modules/shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     ViewLaundryPageRoutingModule,
-    SharedModule
+   
   ],
   declarations: [ViewLaundryPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

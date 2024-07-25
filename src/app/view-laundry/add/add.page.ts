@@ -15,7 +15,7 @@ interface Item {
 })
 export class AddPage implements OnInit {
 
-  items:any[] = [];
+  items:any[] = [  ];
   newItem: Item = {
     item: '',
     quantity: 0,
@@ -30,6 +30,78 @@ export class AddPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.items.push( {
+      "_id": "66a0d16483d5aa0964cd09ef",
+      "name": "shirt washing",
+      "type": 1,
+      "description": "rerum praesentium soluta",
+      "shopeId": "66a0ce2183d5aa0964cd09e0",
+      "categoryId": "66a0cc7e83d5aa0964cd09b4",
+      "perPeacePrice": 40,
+      "quantityAcceptedIn": 0,
+      "status": 0,
+      "createdAt": "2024-07-24T10:03:16.002Z",
+      "updatedAt": "2024-07-24T10:03:16.002Z",
+      "__v": 0
+  },
+  {
+      "_id": "66a0d21583d5aa0964cd09f2",
+      "name": "t-shirt washing",
+      "type": 1,
+      "description": "alias natus necessitatibus",
+      "shopeId": "66a0ce2183d5aa0964cd09e0",
+      "categoryId": "66a0cc7e83d5aa0964cd09b4",
+      "perPeacePrice": 35,
+      "quantityAcceptedIn": 0,
+      "status": 0,
+      "createdAt": "2024-07-24T10:06:13.781Z",
+      "updatedAt": "2024-07-24T10:06:13.781Z",
+      "__v": 0
+  },
+  {
+      "_id": "66a0d23183d5aa0964cd09f5",
+      "name": "Jeans washing",
+      "type": 1,
+      "description": "Adipisci quisquam saepe aut et.",
+      "shopeId": "66a0ce2183d5aa0964cd09e0",
+      "categoryId": "66a0cc7e83d5aa0964cd09b4",
+      "perPeacePrice": 50,
+      "quantityAcceptedIn": 0,
+      "status": 0,
+      "createdAt": "2024-07-24T10:06:41.714Z",
+      "updatedAt": "2024-07-24T10:06:41.714Z",
+      "__v": 0
+  },
+  {
+      "_id": "66a0d2a067025c7edd098863",
+      "name": "curtains washing",
+      "type": 1,
+      "description": "et qui non",
+      "shopeId": "66a0ce2183d5aa0964cd09e0",
+      "categoryId": "66a0cc7e83d5aa0964cd09b4",
+      "perKgPrice": 100,
+      "quantityAcceptedIn": 1,
+      "status": 0,
+      "createdAt": "2024-07-24T10:08:32.093Z",
+      "updatedAt": "2024-07-24T10:08:32.093Z",
+      "__v": 0
+  },
+  {
+      "_id": "66a0d54c67025c7edd098891",
+      "name": "Shirt Dry Clean",
+      "type": 2,
+      "description": "assumenda error in",
+      "shopeId": "66a0ce2183d5aa0964cd09e0",
+      "categoryId": "66a0cc9e83d5aa0964cd09bc",
+      "perPeacePrice": 60,
+      "quantityAcceptedIn": 0,
+      "status": 0,
+      "createdAt": "2024-07-24T10:19:56.912Z",
+      "updatedAt": "2024-07-24T10:19:56.912Z",
+      "__v": 0
+  });
+   
+    
   }
 
   async presentToast(msg:string, duration:any, color: string) {
@@ -45,6 +117,9 @@ export class AddPage implements OnInit {
     toast.present();
   }
 
+  onSearchChange(ev:any){
+
+  }
   async presentActionSheetForDeliveryPickupOrSelf() {
     this.haptics.hapticsImpactLight();
     const actionSheet = await this.actionSheetController.create({
@@ -93,16 +168,16 @@ export class AddPage implements OnInit {
   
     const data = await modal.onDidDismiss();
     console.log(data.data)
-    this.addItem(data.data);
   
   }
 
 
-  addItem(data:Item) {
+  addItem() {
   
-      this.items.push({ ...data });
-      this.newItem = { item: '', quantity: 0, note: '' };
-      console.log(this.items);
+      // this.items.push({ ...data });
+      // this.newItem = { item: '', quantity: 0, note: '' };
+      // console.log(this.items);
+      this.presentToast("Item Added to cart", 2000, "primary");
     this.haptics.hapticsImpactLight();
       
     
@@ -117,7 +192,9 @@ export class AddPage implements OnInit {
     this.presentModal();
 
   }
-
+  applyFilter(){
+    this.haptics.hapticsImpactLight();
+  }
 
 
 }

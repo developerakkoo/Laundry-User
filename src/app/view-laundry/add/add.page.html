@@ -2,50 +2,73 @@
   <ion-toolbar>
     <ion-title>Create Order</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tabs/tab1"></ion-back-button>
     </ion-buttons>
+   
   </ion-toolbar>
+  <ion-searchbar placeholder="Filter services" inputmode="decimal" type="decimal" mode="ios" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
+
 </ion-header>
+<ion-toolbar>
+  <div class="filter-container">
+    <div class="filter-badge">Filters</div>
+    <div class="filter-badge-outline" (click)="applyFilter()">Low to high</div>
+    <div class="filter-badge-outline" (click)="applyFilter()">By KG</div>
+    <div class="filter-badge-outline" (click)="applyFilter()"> Only dryclean</div>
+    <div class="filter-badge-outline" (click)="applyFilter()">Highest Rated</div>
+  </div>
+</ion-toolbar>
 
 <ion-content [fullscreen]="true">
-  <div class="centered-image" *ngIf="items.length == 0">
+  <!-- <div class="centered-image" *ngIf="items.length == 0">
     <img src="assets/empty-laundry.png" alt="" />
     <p>No Items Added!</p>
-  </div>
+  </div> -->
 
-  <ion-grid *ngIf="items.length > 0">
+  <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <ion-card *ngFor="let item of items; let i = index" class="item-card">
-          <ion-card-header>
-            <ion-card-title>{{ item.item | uppercase }}</ion-card-title>
-            <ion-icon name="close-circle" class="close-icon" (click)="deleteItem(i)"></ion-icon>
-          </ion-card-header>
-          <ion-card-content>
-            <p>Quantity: {{ item.quantity }} </p>
-            <p>Note: {{ item.note }}.</p>
-          </ion-card-content>
-        </ion-card>
+        <ion-list>
+          <app-product-card
+  productImageUrl="https://via.placeholder.com/100"
+  productName="Jeans"
+  [quantityAcceptedIn]="0"
+  _id="66a0d23183d5aa0964cd09f5"
+  productPrice="100.00">
+  </app-product-card>
+
+  <app-product-card
+  productImageUrl="https://via.placeholder.com/100"
+  productName="Bedsheets"
+  [quantityAcceptedIn]="0"
+  _id="66a0d23183d5aa0964cd09f5"
+  productPrice="100.00">
+  </app-product-card>
+
+  <app-product-card
+  productImageUrl="https://via.placeholder.com/100"
+  productName="Shoes"
+  [quantityAcceptedIn]="0"
+  _id="66a0d23183d5aa0964cd09f5"
+  productPrice="100.00">
+  </app-product-card>
+
+
+  <app-product-card
+  productImageUrl="https://via.placeholder.com/100"
+  productName="Shirts"
+  [quantityAcceptedIn]="0"
+  _id="66a0d23183d5aa0964cd09f5"
+  productPrice="100.00">
+  </app-product-card>
+        </ion-list>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-button
-      *ngIf="items.length > 0"
-      (click)="presentActionSheetForDeliveryPickupOrSelf()"
-      fill="solid"
-      color="light"
-      expand="block"
-      mode="ios"
-    >
-      <ion-icon slot="end" name="arrow-forward"></ion-icon>
-      Continue
-    </ion-button>
-    <ion-button (click)="addToOrder()" fill="clear" color="light" expand="full">
-      <ion-icon slot="end" name="add"></ion-icon>
-      Add Items
-    </ion-button>
+<ion-footer color="light" class="ion-no-border">
+  <ion-toolbar color="light">
+  
+ 
   </ion-toolbar>
 </ion-footer>

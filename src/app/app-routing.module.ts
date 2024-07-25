@@ -53,6 +53,10 @@ const routes: Routes = [
   {
     path: 'otp/:phone',
     loadChildren: () => import('./otp/otp.module').then( m => m.OtpPageModule)
+  },
+  {
+    path: 'subscriptions',
+    loadChildren: () => import('./subscriptions/subscriptions.module').then( m => m.SubscriptionsPageModule)
   }
 ];
 @NgModule({

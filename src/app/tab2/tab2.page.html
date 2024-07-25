@@ -30,7 +30,7 @@
 </ion-content>
 <ion-footer class="animate__animated animate__slideInUp">
   <ion-toolbar color="primary">
-   <ion-button color="light" (click)="checkout()" expand="block" fill="clear" shape="round">
+   <ion-button color="light" (click)="presentActionSheet()" expand="block" fill="clear" shape="round">
     Your Order Total is {{totalprice |currency:"INR"}}
     <ion-icon class="animate__animated animate__shakeX animate__slower animate__infinite" slot="end" name="arrow-forward-outline"></ion-icon>
    </ion-button>
