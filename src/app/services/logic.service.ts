@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
@@ -8,86 +8,38 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class LogicService {
 
-  categories:any[] = [  {
-    "statusCode": 200,
-    "data": [
-        {
-            "_id": "66a0cc7e83d5aa0964cd09b4",
-            "name": "Washing",
-            "createdAt": "2024-07-24T09:42:22.321Z",
-            "updatedAt": "2024-07-24T09:42:22.379Z",
-            "__v": 0,
-            "image_url": "http://localhost:3000/uploads/1721814142304-198759459.jpeg",
-            "relativePath": "uploads/1721814142304-198759459.jpeg"
-        },
-        {
-            "_id": "66a0cc9e83d5aa0964cd09bc",
-            "name": "Dry Clean",
-            "createdAt": "2024-07-24T09:42:54.594Z",
-            "updatedAt": "2024-07-24T09:42:54.618Z",
-            "__v": 0,
-            "image_url": "http://localhost:3000/uploads/1721814174581-654483860.jpeg",
-            "relativePath": "uploads/1721814174581-654483860.jpeg"
-        },
-        {
-            "_id": "66a0ccbb83d5aa0964cd09c2",
-            "name": "Press",
-            "createdAt": "2024-07-24T09:43:23.114Z",
-            "updatedAt": "2024-07-24T09:43:23.137Z",
-            "__v": 0,
-            "image_url": "http://localhost:3000/uploads/1721814203101-942857776.jpeg",
-            "relativePath": "uploads/1721814203101-942857776.jpeg"
-        },
-        {
-            "_id": "66a0ccd883d5aa0964cd09c8",
-            "name": "shoe care",
-            "createdAt": "2024-07-24T09:43:52.162Z",
-            "updatedAt": "2024-07-24T09:43:52.186Z",
-            "__v": 0,
-            "image_url": "http://localhost:3000/uploads/1721814232149-326054933.jpeg",
-            "relativePath": "uploads/1721814232149-326054933.jpeg"
-        },
-        {
-            "_id": "66a0ccf383d5aa0964cd09ce",
-            "name": "test1",
-            "createdAt": "2024-07-24T09:44:19.764Z",
-            "updatedAt": "2024-07-24T09:44:19.787Z",
-            "__v": 0,
-            "image_url": "http://localhost:3000/uploads/1721814259751-510544434.jpeg",
-            "relativePath": "uploads/1721814259751-510544434.jpeg"
-        },
-        {
-            "_id": "66a0ccff83d5aa0964cd09d4",
-            "name": "test2",
-            "createdAt": "2024-07-24T09:44:31.296Z",
-            "updatedAt": "2024-07-24T09:44:31.350Z",
-            "__v": 0,
-            "image_url": "http://localhost:3000/uploads/1721814271282-349342767.jpeg",
-            "relativePath": "uploads/1721814271282-349342767.jpeg"
-        }
-    ],
-    "message": "Category fetched successfully",
-    "success": true
-}];
+  categories:any[] = [];
   laundriesByCategory:any[] = [];
   services:any[] = [];
   allLaundries:any[] = [];
 
-  categoriesEvent:BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.categories);
-  laundriesByCategoryEvent:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  servicesEvent:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  allLaundriesEvent:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-
+  categoriesSubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.categories);
+  category$ = this.categoriesSubject.asObservable();
+  laundriesByCategorySubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  servicesSubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  allLaundriesSubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  laundry$ = this.allLaundriesSubject.asObservable();
   constructor(private http:HttpClient) { }
 
+  // Error handling method
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    // Log error or display a user-friendly message
+    console.error('An error occurred:', error.message);
+    // Optionally, you can display a user-friendly message to the user here
+    return throwError('Something went wrong; please try again later.');
+  }
 
   getAllCategories(){
-    // this.http.get(environment.URL)
-    this.categoriesEvent.next(this.categories);
+   this.http.get(environment.URL + `get-categories`)
+   .pipe(tap((data:any) =>{
+    console.log(data);
+    
+    this.categoriesSubject.next(data);
+   }),catchError(this.handleError)).subscribe()
   }
 
   getLaundryByCategory(){
-
+    
   }
 
   getServiceByLaundry(){
@@ -95,7 +47,12 @@ export class LogicService {
   }
 
   getAllLaundries(){
-
+    this.http.get(environment.URL + `shop/get-all`)
+    .pipe(tap((data:any) =>{
+     console.log(data);
+     
+     this.allLaundriesSubject.next(data);
+    }),catchError(this.handleError)).subscribe();
   }
 
 }

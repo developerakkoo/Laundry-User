@@ -12,9 +12,9 @@ export class ExploreComponent  implements OnInit {
 
   ngOnInit() {
 
-    setInterval(() =>{
-      this.animate();
-    },1000)
+    // setInterval(() =>{
+    //   this.animate();
+    // },1000)
   }
 
   animate(){

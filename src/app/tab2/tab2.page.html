@@ -6,7 +6,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
+ <ion-card class="ion-padding">
+  <ion-card-header>
+    <ion-card-subtitle>(Add more 100 worth items to get free delivery!)</ion-card-subtitle>
+    <ion-card-title>Cart Items(4 Items)</ion-card-title>
+  </ion-card-header>
   <app-product-card
   productImageUrl="https://via.placeholder.com/100"
   productName="Product Name"
@@ -27,6 +32,7 @@
   productName="Product Name"
   productPrice="$10.00">
   </app-product-card>
+ </ion-card>
 </ion-content>
 <ion-footer class="animate__animated animate__slideInUp">
   <ion-toolbar color="primary">

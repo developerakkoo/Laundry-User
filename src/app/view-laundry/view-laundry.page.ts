@@ -13,6 +13,7 @@ export class ViewLaundryPage implements OnInit {
   categoryId: any;
 
   isLoading: boolean = false;
+  isFilterOpen: boolean = true;
   constructor(
     private router: Router,
     private haptics: HapticsService,

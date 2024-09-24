@@ -74,12 +74,26 @@ export class Tab1Page {
   ) {}
 
   ionViewDidEnter(){
+    this.logic.getAllCategories();
+    this.logic.getAllLaundries();
     this.getAllCategories();
   }
 
 
   getAllCategories(){
-    this.logic.categoriesEvent.subscribe({
+    this.logic.category$.subscribe({
+      next:async(value:any) =>{
+        console.log(value);
+        
+        
+      },
+      error:async(error:any) =>{
+        console.log(error);
+        
+      }
+    })
+
+    this.logic.laundry$.subscribe({
       next:async(value:any) =>{
         console.log(value);
         

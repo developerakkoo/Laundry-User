@@ -1,11 +1,15 @@
 <div class="card">
   <img [src]="imageUrl" alt="Image" class="card-image">
+  <div class="icon-top">
+    <ion-icon class="icon" (click)="action('like')" color="danger" slot="start" [name]="heartIcon"></ion-icon>
+    <ion-icon class="icon" (click)="action('share')" color="primary" slot="start"  name="share-outline"></ion-icon>
+  </div>
   <div class="card-content">
     <div class="card-header">
       <div>
         <h2>{{name}}</h2>
         <p>
-          <!-- <ion-icon name="star"></ion-icon> -->
+          <ion-icon color="success" name="star"></ion-icon>
           {{ratings}}
         </p>
       </div>

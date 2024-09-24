@@ -3,7 +3,7 @@
 }
 
 .header-text > p{
-    font-size:16px; font-weight: 400; line-height: 22px;
+    font-size:16px; font-weight: 400; line-height: 22px; margin: 2px;
 }
 
 .category-grid{
@@ -35,16 +35,23 @@
     justify-content: center;
     // border: 1px solid #ccc;
     padding: 12px;
-    border-radius: 3em;
+    border-radius: 1em;
     background-color: #d797ff1a;
     ;
     text-align: center;
   }
 
   .grid-item img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 8px;
+    max-width: 50px;
+    height: 50px;
+    margin-bottom: 2px;
+  }
+
+  .grid-item p {
+    margin: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #383139;
   }
 
  ion-list > ion-list-header > ion-label{

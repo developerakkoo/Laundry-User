@@ -1,74 +1,168 @@
-<ion-header [translucent]="true" class="ion-no-border animate__animated animate__slideInDown">
+<ion-header
+  [translucent]="true"
+  class="ion-no-border animate__animated animate__slideInDown"
+>
   <ion-toolbar>
     <ion-title class="header-text">
       Your Location,
-     <p style="margin: 0;">Pune, Maharashtra</p>
+      <p style="margin: 0">Pune, Maharashtra</p>
     </ion-title>
-    <ion-button class="animate__animated animate__fadeIn" (click)="openPage('search')" slot="end" fill="clear">
-      <ion-icon slot="icon-only" name="search"></ion-icon>
+    <ion-button
+      class="animate__animated animate__fadeIn"
+      (click)="openPage('search')"
+      slot="end"
+      fill="clear"
+    >
+      <ion-icon slot="icon-only" name="search-outline"></ion-icon>
     </ion-button>
-    <ion-button class="animate__animated animate__swing" (click)="openPage('notifications')" slot="end" fill="clear">
-      <ion-icon slot="icon-only" name="notifications"></ion-icon>
+    <ion-button
+      class="animate__animated animate__swing"
+      (click)="openPage('notifications')"
+      slot="end"
+      fill="clear"
+    >
+      <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <swiper-container [loop]="true" autoplay="true" delay="1000" [slidesPerView]="1">
-    <swiper-slide><app-banner class="animate__animated animate__fadeIn" imageUrl="assets/banner-top.svg"></app-banner>
+  <swiper-container
+    [loop]="true"
+    autoplay="true"
+    delay="1000"
+    [slidesPerView]="1"
+  >
+    <swiper-slide
+      ><app-banner
+        class="animate__animated animate__fadeIn"
+        imageUrl="assets/banner-top.svg"
+      ></app-banner>
     </swiper-slide>
-    <swiper-slide><app-banner class="animate__animated animate__fadeIn" imageUrl="assets/banner-top.svg"></app-banner>
+    <swiper-slide
+      ><app-banner
+        class="animate__animated animate__fadeIn"
+        imageUrl="assets/banner-top.svg"
+      ></app-banner>
     </swiper-slide>
-    <swiper-slide><app-banner class="animate__animated animate__fadeIn" imageUrl="assets/banner-top.svg"></app-banner>
+    <swiper-slide
+      ><app-banner
+        class="animate__animated animate__fadeIn"
+        imageUrl="assets/banner-top.svg"
+      ></app-banner>
     </swiper-slide>
   </swiper-container>
-<ion-list class="ion-padding">
-  <ion-list-header>
-    <ion-label>What's on your mind?</ion-label>
-  </ion-list-header>
-</ion-list>
-<div class="grid-container" >
-  <div class="grid-item" (click)="openPage('view-laundry/Washing/1')">
-    <img class="animate__animated animate__tada" src="assets/icon/wash.png" alt="Placeholder Image">
-    <p>Washing</p>
+  <ion-list class="ion-padding">
+    <ion-list-header>
+      <ion-label class="nunito-bold">What's on your mind?</ion-label>
+    </ion-list-header>
+  </ion-list>
+  <div class="grid-container">
+    <div class="grid-item" (click)="openPage('view-laundry/Washing/1')">
+      <img
+        class="animate__animated animate__tada"
+        src="assets/icon/laundry.png"
+        alt="Placeholder Image"
+      />
+      <p>Washing</p>
+    </div>
+    <div class="grid-item" (click)="openPage('view-laundry/Dry Clean/1')">
+      <img
+        class="animate__animated animate__tada"
+        src="assets/icon/clean-clothes.png"
+        alt="Placeholder Image"
+      />
+      <p>Dry Clean</p>
+    </div>
+    <div class="grid-item" (click)="openPage('view-laundry/Ironing/1')">
+      <img
+        class="animate__animated animate__tada"
+        src="assets/icon/iron.png"
+        alt="Placeholder Image"
+      />
+      <p>Ironing</p>
+    </div>
+    <div class="grid-item" (click)="openPage('view-laundry/Bulky Items/1')">
+      <img
+        class="animate__animated animate__tada"
+        src="assets/icon/sweater.png"
+        alt="Placeholder Image"
+      />
+      <p>Bulky Items</p>
+    </div>
+    <div class="grid-item" (click)="openPage('view-laundry/Carpet Wash/1')">
+      <img
+        class="animate__animated animate__tada"
+        src="assets/icon/power-washing.png"
+        alt="Placeholder Image"
+      />
+      <p>Carpet Wash</p>
+    </div>
+    <div class="grid-item" (click)="openPage('view-laundry/Shoe wash/1')">
+      <img
+        class="animate__animated animate__tada"
+        src="assets/icon/sneakers.png"
+        alt="Placeholder Image"
+      />
+      <p>Shoe Wash</p>
+    </div>
   </div>
-  <div class="grid-item" (click)="openPage('view-laundry/Dry Clean/1')">
-    <img class="animate__animated animate__tada" src="assets/icon/dryclean.png" alt="Placeholder Image">
-    <p>Dry Clean</p>
-  </div>
-  <div class="grid-item" (click)="openPage('view-laundry/Ironing/1')">
-    <img class="animate__animated animate__tada" src="assets/icon/iron.png" alt="Placeholder Image">
-    <p>Ironing</p>
-  </div>
-  <div class="grid-item" (click)="openPage('view-laundry/Bulky Items/1')">
-    <img class="animate__animated animate__tada" src="assets/icon/bulky.png" alt="Placeholder Image">
-    <p>Bulky Items</p>
-  </div>
-  <div class="grid-item" (click)="openPage('view-laundry/Carpet Wash/1')">
-    <img class="animate__animated animate__tada" src="assets/icon/carpet.png" alt="Placeholder Image">
-    <p>Carpet Wash</p>
-  </div>
-  <div class="grid-item" (click)="openPage('view-laundry/Shoe wash/1')">
-    <img class="animate__animated animate__tada" src="assets/icon/shoes.png" alt="Placeholder Image">
-    <p>Shoe Wash</p>
-  </div>
-</div>
-<ion-list>
-  <ion-list-header>
-    <ion-label>Explore
-    </ion-label>
-  </ion-list-header>
-</ion-list>
-<app-explore></app-explore>
-<app-banner class="animate__animated animate__fadeIn" imageUrl="assets/how.svg"></app-banner>
-<ion-list>
-  <ion-list-header>
-    <ion-label>Best for you
-    </ion-label>
-    <ion-button><ion-icon size="small" slot="start" name="arrow-forward"></ion-icon></ion-button>
-  </ion-list-header>
-</ion-list>
-<div class="container">
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="nunito-bold">Explore </ion-label>
+    </ion-list-header>
+  </ion-list>
+  <app-explore></app-explore>
+  <app-banner
+    class="animate__animated animate__fadeIn"
+    imageUrl="assets/how.svg"
+  ></app-banner>
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="nunito-bold">Best for you </ion-label>
+      <ion-button
+        ><ion-icon size="small" slot="start" name="arrow-forward"></ion-icon
+      ></ion-button>
+    </ion-list-header>
+  </ion-list>
+  <swiper-container [slidesPerView]="1.1" [spaceBetween]="15">
+    <swiper-slide
+      ><app-laundry-card
+        imageUrl="assets/laundry.svg"
+        name="Location Name"
+        ratings="4.5"
+        address="123 Main St, City, Country"
+      >
+      </app-laundry-card>
+    </swiper-slide>
+    <swiper-slide
+      ><app-laundry-card
+        imageUrl="assets/laundry.svg"
+        name="Location Name"
+        ratings="4.5"
+        address="123 Main St, City, Country"
+      >
+      </app-laundry-card>
+    </swiper-slide>
+    <swiper-slide
+      ><app-laundry-card
+        imageUrl="assets/laundry.svg"
+        name="Location Name"
+        ratings="4.5"
+        address="123 Main St, City, Country"
+      >
+      </app-laundry-card>
+    </swiper-slide>
+  </swiper-container>
+  <ion-list>
+    <ion-list-header>
+      <ion-label class="nunito-bold">Top Laundries </ion-label>
+      <ion-button
+        ><ion-icon size="small" slot="start" name="arrow-forward"></ion-icon
+      ></ion-button>
+    </ion-list-header>
+  </ion-list>
+
   <app-laundry-card
     imageUrl="assets/laundry-demo.svg"
     name="Location Name"
@@ -93,5 +187,5 @@ name="Location Name"
 ratings="4.5"
 address="123 Main St, City, Country">
 </app-laundry-card>
-</div>
+
 </ion-content>
