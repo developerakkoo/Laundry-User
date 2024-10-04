@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -15,8 +15,12 @@ export class LogicService {
 
   categoriesSubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>(this.categories);
   category$ = this.categoriesSubject.asObservable();
+
   laundriesByCategorySubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  laundryByCategory$ = this.laundriesByCategorySubject.asObservable();
+
   servicesSubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+
   allLaundriesSubject:BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   laundry$ = this.allLaundriesSubject.asObservable();
   constructor(private http:HttpClient) { }
@@ -30,7 +34,7 @@ export class LogicService {
   }
 
   getAllCategories(){
-   this.http.get(environment.URL + `get-categories`)
+   this.http.get(environment.URL + `partner/category/getAll`)
    .pipe(tap((data:any) =>{
     console.log(data);
     
@@ -38,16 +42,42 @@ export class LogicService {
    }),catchError(this.handleError)).subscribe()
   }
 
-  getLaundryByCategory(){
-    
+  getLaundryByCategory(latitude:any, longitude:any, categoryId:any,userId:any){
+    // Create an instance of HttpParams
+    let params = new HttpParams()
+    .set('categoryId', "66a7496d1f27b4f5fb506c1d")
+    .set('userId', userId)
+    .set('latitude', latitude) // Convert number to string
+    .set('longitude', longitude); // Convert number to string
+    this.http.get(environment.URL + `partner/shop/get-all`,{params})
+    .pipe(tap((data:any) =>{
+     console.log(data);
+     
+     this.laundriesByCategorySubject.next(data);
+    }),catchError(this.handleError)).subscribe();
   }
 
   getServiceByLaundry(){
-
+// Create an instance of HttpParams
+let params = new HttpParams()
+.set('search', "")
+.set('latitude', "18.5925785") // Convert number to string
+.set('longitude', "73.7183639"); // Convert number to string
+this.http.get(environment.URL + `partner/shop/get/by/category`,{params})
+.pipe(tap((data:any) =>{
+ console.log(data);
+ 
+ this.allLaundriesSubject.next(data);
+}),catchError(this.handleError)).subscribe();
   }
 
   getAllLaundries(){
-    this.http.get(environment.URL + `shop/get-all`)
+     // Create an instance of HttpParams
+     let params = new HttpParams()
+     .set('search', "")
+     .set('latitude', "18.5925785") // Convert number to string
+     .set('longitude', "73.7183639"); // Convert number to string
+    this.http.get(environment.URL + `partner/shop/get-all`,{params})
     .pipe(tap((data:any) =>{
      console.log(data);
      
