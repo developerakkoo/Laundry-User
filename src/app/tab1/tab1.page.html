@@ -164,12 +164,15 @@
   </ion-list>
 
   <app-laundry-card
+  *ngFor="let item of allLaundries"
     imageUrl="assets/laundry-demo.svg"
-    name="Location Name"
+    [id]="item._id"
+    [name]="item?.name"
     ratings="4.5"
-    address="123 Main St, City, Country">
+    (click)="openLaundryServicePage(item._id, item?.category[0]?.name)"
+    [address]="item?.address?.city">
   </app-laundry-card>
-  <app-laundry-card
+  <!-- <app-laundry-card
   imageUrl="assets/laundry-demo.svg"
   name="Location Name"
   ratings="4.5"
@@ -186,6 +189,6 @@ imageUrl="assets/laundry-demo.svg"
 name="Location Name"
 ratings="4.5"
 address="123 Main St, City, Country">
-</app-laundry-card>
+</app-laundry-card> -->
 
 </ion-content>

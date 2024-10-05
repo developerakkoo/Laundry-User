@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HapticsService } from '../services/haptics.service';
 
 @Component({
@@ -8,11 +8,14 @@ import { HapticsService } from '../services/haptics.service';
 })
 export class LaundryCardComponent  implements OnInit {
   @Input() imageUrl!: string;
+  @Input() id!: string;
   @Input() name!: string;
   @Input() ratings!: string;
   @Input() address!: string;
   heartIcon:string = 'heart-outline';
   isLiked:boolean = false;
+
+  @Output() clickEvent = new EventEmitter();
   constructor(private haptics: HapticsService,
 
   ) { }
@@ -37,5 +40,9 @@ export class LaundryCardComponent  implements OnInit {
       this.haptics.hapticsImpactLight();
       
     }
+  }
+
+  clickHandler(){
+    this.clickEvent.emit(this.id);
   }
 }

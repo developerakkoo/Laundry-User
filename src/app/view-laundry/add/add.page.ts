@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ActionSheetController, ModalController, ToastController } from '@ionic/angular';
 import { AddOrderModalPage } from '../add-order-modal/add-order-modal.page';
 import { HapticsService } from 'src/app/services/haptics.service';
+import { LogicService } from 'src/app/services/logic.service';
+import { HttpErrorResponse } from '@angular/common/http';
 interface Item {
   item: string;
   quantity: number;
@@ -15,6 +17,8 @@ interface Item {
 })
 export class AddPage implements OnInit {
 
+  laundryId:any;
+
   items:any[] = [  ];
   newItem: Item = {
     item: '',
@@ -23,6 +27,7 @@ export class AddPage implements OnInit {
   };
   constructor(private router:Router,
               private route:ActivatedRoute,
+              private logic:LogicService,
               private haptics: HapticsService,
               private toastController: ToastController,
               private actionSheetController: ActionSheetController,
@@ -30,80 +35,73 @@ export class AddPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.items.push( {
-      "_id": "66a0d16483d5aa0964cd09ef",
-      "name": "shirt washing",
-      "type": 1,
-      "description": "rerum praesentium soluta",
-      "shopeId": "66a0ce2183d5aa0964cd09e0",
-      "categoryId": "66a0cc7e83d5aa0964cd09b4",
-      "perPeacePrice": 40,
-      "quantityAcceptedIn": 0,
-      "status": 0,
-      "createdAt": "2024-07-24T10:03:16.002Z",
-      "updatedAt": "2024-07-24T10:03:16.002Z",
-      "__v": 0
-  },
-  {
-      "_id": "66a0d21583d5aa0964cd09f2",
-      "name": "t-shirt washing",
-      "type": 1,
-      "description": "alias natus necessitatibus",
-      "shopeId": "66a0ce2183d5aa0964cd09e0",
-      "categoryId": "66a0cc7e83d5aa0964cd09b4",
-      "perPeacePrice": 35,
-      "quantityAcceptedIn": 0,
-      "status": 0,
-      "createdAt": "2024-07-24T10:06:13.781Z",
-      "updatedAt": "2024-07-24T10:06:13.781Z",
-      "__v": 0
-  },
-  {
-      "_id": "66a0d23183d5aa0964cd09f5",
-      "name": "Jeans washing",
-      "type": 1,
-      "description": "Adipisci quisquam saepe aut et.",
-      "shopeId": "66a0ce2183d5aa0964cd09e0",
-      "categoryId": "66a0cc7e83d5aa0964cd09b4",
-      "perPeacePrice": 50,
-      "quantityAcceptedIn": 0,
-      "status": 0,
-      "createdAt": "2024-07-24T10:06:41.714Z",
-      "updatedAt": "2024-07-24T10:06:41.714Z",
-      "__v": 0
-  },
-  {
-      "_id": "66a0d2a067025c7edd098863",
-      "name": "curtains washing",
-      "type": 1,
-      "description": "et qui non",
-      "shopeId": "66a0ce2183d5aa0964cd09e0",
-      "categoryId": "66a0cc7e83d5aa0964cd09b4",
-      "perKgPrice": 100,
-      "quantityAcceptedIn": 1,
-      "status": 0,
-      "createdAt": "2024-07-24T10:08:32.093Z",
-      "updatedAt": "2024-07-24T10:08:32.093Z",
-      "__v": 0
-  },
-  {
-      "_id": "66a0d54c67025c7edd098891",
-      "name": "Shirt Dry Clean",
-      "type": 2,
-      "description": "assumenda error in",
-      "shopeId": "66a0ce2183d5aa0964cd09e0",
-      "categoryId": "66a0cc9e83d5aa0964cd09bc",
-      "perPeacePrice": 60,
-      "quantityAcceptedIn": 0,
-      "status": 0,
-      "createdAt": "2024-07-24T10:19:56.912Z",
-      "updatedAt": "2024-07-24T10:19:56.912Z",
-      "__v": 0
-  });
    
+    this.laundryId = this.route.snapshot.paramMap.get('id');
     
   }
 
+
+  ionViewDidEnter(){
+    this.getAllServices();
+  }
+  // categoryId
+  // : 
+  // "66a7496d1f27b4f5fb506c1d"
+  // createdAt
+  // : 
+  // "2024-10-02T15:43:51.089Z"
+  // description
+  // : 
+  // "jeans washing service"
+  // image_url
+  // : 
+  // "https://api.breezyemart.com/uploads/1727883836182-195779749.jpg"
+  // name
+  // : 
+  // "Jeans"
+  // perKgPrice
+  // : 
+  // 20
+  // perPeacePrice
+  // : 
+  // null
+  // quantityAcceptedIn
+  // : 
+  // 1
+  // relativePath
+  // : 
+  // "uploads/1727883836182-195779749.jpg"
+  // shopeId
+  // : 
+  // "66fd2f3d5db1311f2a81658e"
+  // status
+  // : 
+  // 0
+  // type
+  // : 
+  // 1
+  // updatedAt
+  // : 
+  // "2024-10-02T15:43:56.193Z"
+  // __v
+  // : 
+  // 0
+  // _id
+  // : 
+  // "66fd6a37000063de85d7092d"
+  async getAllServices(){
+    this.logic.getServiceByLaundryId(this.laundryId)
+    .subscribe({
+      next:async(value:any) =>{
+        console.log(value);
+        this.items = value['data']['content'];
+      },
+      error:async(error:HttpErrorResponse) =>{
+        console.log(error);
+        
+      }
+    })
+  }
   async presentToast(msg:string, duration:any, color: string) {
     const toast = await this.toastController.create({
       message: msg,
@@ -177,7 +175,7 @@ export class AddPage implements OnInit {
       // this.items.push({ ...data });
       // this.newItem = { item: '', quantity: 0, note: '' };
       // console.log(this.items);
-      this.presentToast("Item Added to cart", 2000, "primary");
+     // this.presentToast("Item Added to cart", 2000, "primary");
     this.haptics.hapticsImpactLight();
       
     

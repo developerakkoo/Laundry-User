@@ -9,7 +9,7 @@
   <ion-searchbar placeholder="Filter services" inputmode="decimal" type="decimal" mode="ios" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
 
 </ion-header>
-<ion-toolbar>
+<!-- <ion-toolbar>
   <div class="filter-container">
     <div class="filter-badge">Filters</div>
     <div class="filter-badge-outline" (click)="applyFilter()">Low to high</div>
@@ -17,7 +17,7 @@
     <div class="filter-badge-outline" (click)="applyFilter()"> Only dryclean</div>
     <div class="filter-badge-outline" (click)="applyFilter()">Highest Rated</div>
   </div>
-</ion-toolbar>
+</ion-toolbar> -->
 
 <ion-content [fullscreen]="true">
   <!-- <div class="centered-image" *ngIf="items.length == 0">
@@ -30,37 +30,16 @@
       <ion-col size="12">
         <ion-list>
           <app-product-card
-  productImageUrl="https://via.placeholder.com/100"
-  productName="Jeans"
-  [quantityAcceptedIn]="0"
-  _id="66a0d23183d5aa0964cd09f5"
+          *ngFor="let item of items"
+  [productImageUrl]="item?.image_url"
+  [productName]="item?.name"
+  [quantityAcceptedIn]="item?.quantityAcceptedIn"
+  [_id]="item._id"
+  [desc]="item?.description"
   productPrice="100.00">
   </app-product-card>
 
-  <app-product-card
-  productImageUrl="https://via.placeholder.com/100"
-  productName="Bedsheets"
-  [quantityAcceptedIn]="0"
-  _id="66a0d23183d5aa0964cd09f5"
-  productPrice="100.00">
-  </app-product-card>
-
-  <app-product-card
-  productImageUrl="https://via.placeholder.com/100"
-  productName="Shoes"
-  [quantityAcceptedIn]="0"
-  _id="66a0d23183d5aa0964cd09f5"
-  productPrice="100.00">
-  </app-product-card>
-
-
-  <app-product-card
-  productImageUrl="https://via.placeholder.com/100"
-  productName="Shirts"
-  [quantityAcceptedIn]="0"
-  _id="66a0d23183d5aa0964cd09f5"
-  productPrice="100.00">
-  </app-product-card>
+  
         </ion-list>
       </ion-col>
     </ion-row>

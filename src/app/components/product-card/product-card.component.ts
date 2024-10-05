@@ -10,6 +10,7 @@ import { HapticsService } from 'src/app/services/haptics.service';
 export class ProductCardComponent  implements OnInit {
   @Input() productImageUrl!: string;
   @Input() productName!: string;
+  @Input() desc!: string;
   @Input() productPrice!: string;
   @Input() _id!: string;
   @Input() quantityAcceptedIn!: number; // 0 = item 1 = kg

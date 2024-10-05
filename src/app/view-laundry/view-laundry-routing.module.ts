@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ViewLaundryPage
   },
   {
-    path: 'add',
+    path: 'add/:id',
     loadChildren: () => import('./add/add.module').then( m => m.AddPageModule)
   },
   {
