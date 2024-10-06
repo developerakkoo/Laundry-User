@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { HapticsService } from 'src/app/services/haptics.service';
 
@@ -15,19 +15,21 @@ export class ProductCardComponent  implements OnInit {
   @Input() _id!: string;
   @Input() quantityAcceptedIn!: number; // 0 = item 1 = kg
   
-  quantity: number = 1;
+  @ Input() quantity: number = 0;
   selectedOption: string = 'wash';
 
+ @Output() quantityEvent = new EventEmitter();
+ @Output() quantityEventRemove = new EventEmitter();
   incrementQuantity() {
     this.quantity++;
-    this.presentToast("Item Added to cart", 2000, "primary");
-
+    this.quantityEvent.emit({quantity: this.quantity, id:this._id,type: this.quantityAcceptedIn});
     this.haptics.hapticsImpactLight();
   }
 
   decrementQuantity() {
-    if (this.quantity > 1) {
+    if (this.quantity >=0 ) {
       this.quantity--;
+    this.quantityEventRemove.emit({quantity: this.quantity, id:this._id, type: this.quantityAcceptedIn});
       this.haptics.hapticsImpactLight();
     }
   }
@@ -50,7 +52,5 @@ export class ProductCardComponent  implements OnInit {
     toast.present();
   }
 
-  add(){
-    
-  }
+
 }

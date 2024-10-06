@@ -36,6 +36,8 @@
   [quantityAcceptedIn]="item?.quantityAcceptedIn"
   [_id]="item._id"
   [desc]="item?.description"
+  (quantityEvent)="addItem($event)"
+  (quantityEventRemove)="deleteItem($event)"
   productPrice="100.00">
   </app-product-card>
 
@@ -45,9 +47,8 @@
     </ion-row>
   </ion-grid>
 </ion-content>
-<ion-footer color="light" class="ion-no-border">
-  <ion-toolbar color="light">
-  
- 
+<ion-footer color="primary" class="ion-no-border" routerLink="tabs/tabs/tab2">
+  <ion-toolbar color="primary" class="ion-text-center">
+  You have {{products.length}} Items in your cart.
   </ion-toolbar>
 </ion-footer>

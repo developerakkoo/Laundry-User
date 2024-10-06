@@ -19,6 +19,7 @@ export class AddPage implements OnInit {
 
   laundryId:any;
 
+  products:any[] = [];
   items:any[] = [  ];
   newItem: Item = {
     item: '',
@@ -43,6 +44,7 @@ export class AddPage implements OnInit {
 
   ionViewDidEnter(){
     this.getAllServices();
+    this.getCart();
   }
   // categoryId
   // : 
@@ -170,8 +172,20 @@ export class AddPage implements OnInit {
   }
 
 
-  addItem() {
-  
+  addItem(ev:any) {
+    console.log(ev);
+    
+    this.logic.addToCart(ev.id, ev.quantity, ev.type)
+    .subscribe({
+      next:async(value:any) =>{
+        console.log(value);
+        this.getCart();
+      },
+      error:async(error:HttpErrorResponse) =>{
+        console.log(error);
+        
+      }
+    })
       // this.items.push({ ...data });
       // this.newItem = { item: '', quantity: 0, note: '' };
       // console.log(this.items);
@@ -181,14 +195,38 @@ export class AddPage implements OnInit {
     
   }
 
-  deleteItem(index: number) {
-    this.items.splice(index, 1);
-    this.haptics.hapticsVibrate();
-
+  deleteItem(ev:any) {
+    this.logic.removeFromCart(ev.id, ev.quantity)
+    .subscribe({
+      next:async(value:any) =>{
+        console.log(value);
+        this.haptics.hapticsVibrate();
+        this.getCart();
+      },
+      error:async(error:HttpErrorResponse) =>{
+        console.log(error);
+        this.haptics.hapticsVibrate();
+        
+      }
+    })
   }
   addToOrder(){
     this.presentModal();
 
+  }
+
+  getCart(){
+    this.logic.getCart()
+    .subscribe({
+      next:async(value:any) =>{
+        console.log(value);
+        this.products = value['data']['products']
+      },
+      error:async(error:HttpErrorResponse) =>{
+        console.log(error);
+        
+      }
+    })
   }
   applyFilter(){
     this.haptics.hapticsImpactLight();
