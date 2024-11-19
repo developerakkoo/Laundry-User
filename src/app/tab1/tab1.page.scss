@@ -13,6 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .category-grid > .category-flex-box{
@@ -26,6 +27,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 6px;
     padding: 12px;
+    background: #ffffff;
   }
 
   .grid-item {
@@ -54,18 +56,26 @@
     color: #383139;
   }
 
+  ion-list > ion-list-header{
+    --background:white;
+  }
+
  ion-list > ion-list-header > ion-label{
     font-size: 16px;
   }
   @media (max-width: 768px) {
     .grid-container {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    background: #ffffff;
+
     }
   }
 
   @media (max-width: 480px) {
     .grid-container {
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    background: #ffffff;
+
     }
   }
 

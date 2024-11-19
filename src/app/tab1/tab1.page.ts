@@ -32,6 +32,7 @@ export class Tab1Page {
 
   ionViewDidEnter(){
     this.getAllLaundries();
+    this.getAllCategories();
     // this.checkForGrantedPermission();
    
 
@@ -41,6 +42,8 @@ export class Tab1Page {
   getAllCategories(){
     this.logic.category$.subscribe({
       next:async(value:any) =>{
+        console.log("The Categories");
+        
         console.log(value);
         this.categories = value['data'];
         
