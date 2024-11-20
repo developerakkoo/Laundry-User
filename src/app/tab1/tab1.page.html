@@ -167,12 +167,17 @@
   *ngFor="let item of allLaundries"
     imageUrl="assets/laundry-demo.svg"
     [id]="item._id"
+    [likes]="item?.likes"
+    [categories]="item?.category"
     [name]="item?.name"
     ratings="4.5"
-    (click)="openLaundryServicePage(item._id, item?.category[0]?.name)"
+    [category]="item?.category[0]?.name"
+    [currentUserId]="userId"
     [address]="item?.address?.city">
   </app-laundry-card>
   <!-- <app-laundry-card
+    (click)="openLaundryServicePage(item._id, item?.category[0]?.name)"
+
   imageUrl="assets/laundry-demo.svg"
   name="Location Name"
   ratings="4.5"

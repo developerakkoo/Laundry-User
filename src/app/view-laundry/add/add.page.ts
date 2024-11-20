@@ -26,6 +26,9 @@ export class AddPage implements OnInit {
     quantity: 0,
     note: ''
   };
+
+  // users: any[] = [{ name: 'John' }, { name: 'Jane' }, { name: 'Mario' }];
+  productFilter: any = { name: '' };
   constructor(private router:Router,
               private route:ActivatedRoute,
               private logic:LogicService,

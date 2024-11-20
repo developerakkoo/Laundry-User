@@ -49,6 +49,15 @@ export class LogicService {
   }
 
 
+  async getUserId() : Promise<string>{
+const userData = await this.storage.get("userId");
+if(userData){
+  return userData;
+}
+
+throw new Error("User Not Found in local Storgare");
+  }
+
   register(body:{}){
     return this.http.post(environment.URL + "partner/register", body);
   }
@@ -109,6 +118,17 @@ this.http.get(environment.URL + `partner/shop/get/by/category`,{params})
   getServiceByLaundryId(laundryId:any){
     return this.http.get(environment.URL + `partner/service/get/shopId/${laundryId}`);
   }
+
+
+  like(shopId:string){
+    return this.http.post(environment.URL + `partner/shop/like/${shopId}/${this.userId.value}`,{});
+  }
+
+  unlike(shopId:string){
+    return this.http.post(environment.URL + `partner/shop/unlike/${shopId}/${this.userId.value}`,{});
+  }
+
+
   // userId, serviceId, quantity, selectedQuantityTypee
   addToCart( serviceId:any, quantity:any, selectedQuantityType:any){
       return this.http.post(environment.URL + `cart/add`,{

@@ -6,8 +6,7 @@
     </ion-buttons>
    
   </ion-toolbar>
-  <ion-searchbar placeholder="Filter services" inputmode="decimal" type="decimal" mode="ios" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
-
+  <ion-searchbar placeholder="Filter services" inputmode="decimal" type="decimal" mode="ios" [(ngModel)]="productFilter.name" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
 </ion-header>
 <!-- <ion-toolbar>
   <div class="filter-container">
@@ -27,10 +26,10 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12">
+      <ion-col size="12" *ngIf="(items | filterBy: productFilter).length > 0">
         <ion-list>
           <app-product-card
-          *ngFor="let item of items"
+          *ngFor="let item of items | filterBy: productFilter"
   [productImageUrl]="item?.image_url"
   [productName]="item?.name"
   [quantityAcceptedIn]="item?.quantityAcceptedIn"
@@ -40,9 +39,14 @@
   (quantityEventRemove)="deleteItem($event)"
   productPrice="100.00">
   </app-product-card>
-
-  
         </ion-list>
+      </ion-col>
+      <ion-col size="12"  *ngIf="(items | filterBy: productFilter).length == 0">
+         <div class="container">
+          <img src="assets/no-results.svg" alt="" srcset="">
+          <p class="search-heading">Sorry we couldn't find any matches for your search.</p>
+          <p class="search-sub-heading">Please try searching with another term.</p>
+         </div>
       </ion-col>
     </ion-row>
   </ion-grid>

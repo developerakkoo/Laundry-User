@@ -21,9 +21,9 @@ export class AppComponent {
     console.log(userId);
     if (userId != null || userId != undefined) {
       console.log('userid not null');
-      // this.router.navigateByUrl("profile/view-order/order-details/66b0c149fc0895d2718a4499");
+      this.router.navigateByUrl("view-laundry/Akshay%20Laundry/66fd2f3d5db1311f2a81658e/add/66fd2f3d5db1311f2a81658e");
       // this.router.navigate(['block']);
-      this.router.navigate(['tabs', 'tabs', 'tab1']);
+      // this.router.navigate(['tabs', 'tabs', 'tab1']);
     } else {
       this.router.navigate(['']);
     }

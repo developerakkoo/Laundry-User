@@ -8,12 +8,13 @@ import { AddPageRoutingModule } from './add-routing.module';
 
 import { AddPage } from './add.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-
+import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     SharedModule,
+    FilterPipeModule,
     IonicModule,
     AddPageRoutingModule,
   ],

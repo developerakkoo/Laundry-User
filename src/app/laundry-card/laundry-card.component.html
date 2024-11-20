@@ -1,10 +1,10 @@
 <div class="card">
   <img [src]="imageUrl" alt="Image" class="card-image">
   <div class="icon-top">
-    <ion-icon class="icon" (click)="action('like')" color="danger" slot="start" [name]="heartIcon"></ion-icon>
+    <ion-icon class="icon" (click)="action('like')" color="danger" slot="start" [name]="isLiked ? 'heart' : 'heart-outline'"></ion-icon>
     <ion-icon class="icon" (click)="action('share')" color="primary" slot="start"  name="share-outline"></ion-icon>
   </div>
-  <div class="card-content">
+  <div class="card-content" (click)="clickHandler()">
     <div class="card-header">
       <div>
         <h2>{{name}}</h2>

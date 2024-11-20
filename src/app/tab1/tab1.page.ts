@@ -21,6 +21,7 @@ export class Tab1Page {
   categories:any[] = [];
    allLaundries:any[] = [];
 
+   userId:any;
 
   constructor(private haptics: HapticsService,
               private router: Router,
@@ -31,11 +32,19 @@ export class Tab1Page {
   ) {}
 
   ionViewDidEnter(){
+    this.getUserId();
     this.getAllLaundries();
     this.getAllCategories();
     // this.checkForGrantedPermission();
    
 
+  }
+
+
+  async getUserId(){
+    this.userId = await this.logic.getUserId();
+    console.log(`UserId in tab1 page ${this.userId}`);
+    
   }
 
 
@@ -78,12 +87,11 @@ export class Tab1Page {
     this.haptics.hapticsImpactLight();
   }
 
-  openLaundryServicePage(id:any,name:any){
+  openLaundryServicePage(ev:any){
     console.log("Laundry id received in event");
-    console.log(id);
-    console.log(name);
+    console.log(ev);
     // view-laundry/Washing/1/add
-    this.router.navigate(["view-laundry", name, id,"add",id]);
+    this.router.navigate(["view-laundry", ev.name, ev.id,"add",ev.id]);
     
     
   }
