@@ -46,7 +46,8 @@ export class AddPage implements OnInit {
 
 
   ionViewDidEnter(){
-    this.getAllServices();
+    this.fetchCartAndServices();
+    // this.getAllServices();
     this.getCart();
   }
   // categoryId
@@ -100,6 +101,22 @@ export class AddPage implements OnInit {
       next:async(value:any) =>{
         console.log(value);
         this.items = value['data']['content'];
+      },
+      error:async(error:HttpErrorResponse) =>{
+        console.log(error);
+        
+      }
+    })
+  }
+
+  async fetchCartAndServices(){
+    this.logic.fetchCartAndServices(this.laundryId)
+    .subscribe({
+      next:async(value:any) =>{
+        console.log("FEtch CArt and Services REsponse");
+        
+        console.log(value);
+        this.items = value;
       },
       error:async(error:HttpErrorResponse) =>{
         console.log(error);

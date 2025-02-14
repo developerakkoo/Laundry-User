@@ -57,6 +57,10 @@ const routes: Routes = [
   {
     path: 'subscriptions',
     loadChildren: () => import('./subscriptions/subscriptions.module').then( m => m.SubscriptionsPageModule)
+  },
+  {
+    path: 'address',
+    loadChildren: () => import('./address/address.module').then( m => m.AddressPageModule)
   }
 ];
 @NgModule({

@@ -34,6 +34,7 @@
   [productName]="item?.name"
   [quantityAcceptedIn]="item?.quantityAcceptedIn"
   [_id]="item._id"
+  [quantity]="item?.quantity"
   [desc]="item?.description"
   (quantityEvent)="addItem($event)"
   (quantityEventRemove)="deleteItem($event)"

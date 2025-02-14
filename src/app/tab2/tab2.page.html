@@ -1,83 +1,102 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-    Cart
-    </ion-title>
+    <ion-title> Cart </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="cart.length == 0">
-
+<ion-content [fullscreen]="true" *ngIf="products.length == 0">
   <ion-text color="primary" class="ion-text-center">
-    <h1>Your cart is empty!
-    </h1>
+    <h1>Your cart is empty!</h1>
   </ion-text>
 </ion-content>
-<ion-content [fullscreen]="true" *ngIf="cart.length > 0">
- <ion-card class="ion-padding">
-  <ion-card-header>
-    <ion-card-subtitle>(Add more 100 worth items to get free delivery!)</ion-card-subtitle>
-    <ion-card-title>Cart Items({{products.length}} Items)</ion-card-title>
-  </ion-card-header>
-  <app-product-card
-  *ngFor="let item of products"
-  [productImageUrl]="item?.serviceId?.image_url"
-  [productName]="item?.serviceId?.name"
-  [quantityAcceptedIn]="item?.selectedQuantityType"
-  [quantity]="item?.quantity"
-  [desc]="item?.serviceId?.description"
-  [productPrice]="item?.serviceId?.perKgPrice">
-  </app-product-card>
-  
- </ion-card>
- <ion-card>
-  <div class="icon">
-    <ion-chip color="primary" mode="ios" outline="true">
-      <ion-label>Edit</ion-label>
-    </ion-chip>
-  </div>
-  <ion-card-header>
-    <ion-card-subtitle>Shipping Details </ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    <p><strong>Delivery To:</strong></p>
-    <p>{{currentAddress?.address}}</p>
-  </ion-card-content>
-</ion-card>
-<ion-card>
-  <ion-card-header>
-    <ion-card-subtitle>Order Details</ion-card-subtitle>
-  </ion-card-header>
-  <ion-item>
-    <ion-label style="font-size: 14px; font-weight: 300">Subtotal</ion-label>
-    <p class="pricing" slot="end">{{subtotal | currency:"INR"}}</p>
-  </ion-item>
-  <ion-item>
-    <ion-label style="font-size: 14px; font-weight: 300">Delivery</ion-label>
-    <p class="pricing" slot="end">{{deliveryCharges | currency:"INR"}}</p>
-  </ion-item>
-  <ion-item>
-    <ion-label style="font-size: 14px; font-weight: 300"
-      >Handling Fees</ion-label
+<ion-content [fullscreen]="true" *ngIf="products.length > 0">
+  <ion-card class="ion-padding">
+    <ion-card-header>
+      <ion-card-subtitle
+        >(Add more 100 worth items to get free delivery!)</ion-card-subtitle
+      >
+      <ion-card-title>Cart Items({{products.length}} Items)</ion-card-title>
+    </ion-card-header>
+    <app-product-card
+      *ngFor="let item of products"
+      [productImageUrl]="item?.serviceId?.image_url"
+      [productName]="item?.serviceId?.name"
+      [quantityAcceptedIn]="item?.selectedQuantityType"
+      [quantity]="item?.quantity"
+      [desc]="item?.serviceId?.description"
+      (quantityEvent)="addItem($event)"
+      (quantityEventRemove)="deleteItem($event)"
+      [_id]="item?.serviceId?._id"
+      [productPrice]="item?.serviceId?.perKgPrice"
     >
-    <p class="pricing" slot="end">{{handlingFeed + "%"}}</p>
-  </ion-item>
-  <ion-item *ngIf="gstCharges > 0">
-    <ion-label style="font-size: 14px; font-weight: 300">(GST)</ion-label>
-    <p class="pricing" slot="end">{{gstCharges | currency:"INR"}}</p>
-  </ion-item>
-  <ion-item>
-    <ion-label style="font-size: 14px; font-weight: 300">Total</ion-label>
-    <p class="pricing" slot="end">{{total | currency:"INR"}}</p>
-  </ion-item>
-</ion-card>
-
+    </app-product-card>
+  </ion-card>
+  <ion-card>
+    <div class="icon">
+      <ion-chip
+        color="primary"
+        mode="ios"
+        outline="true"
+        (click)="openModalAddress()"
+      >
+        <ion-label>Select</ion-label>
+      </ion-chip>
+    </div>
+    <ion-card-header>
+      <ion-card-subtitle>Shipping Details </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Delivery To:</strong></p>
+      <p>{{address?.address | titlecase}}</p>
+      <p></p
+    ></ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Order Details</ion-card-subtitle>
+    </ion-card-header>
+    <ion-item>
+      <ion-label style="font-size: 14px; font-weight: 300">Subtotal</ion-label>
+      <p class="pricing" slot="end">{{subtotal | currency:"INR"}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 14px; font-weight: 300">Delivery</ion-label>
+      <p class="pricing" slot="end">{{deliveryCharges | currency:"INR"}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 14px; font-weight: 300"
+        >Handling Fees</ion-label
+      >
+      <p class="pricing" slot="end">{{handlingFeed + "%"}}</p>
+    </ion-item>
+    <ion-item *ngIf="gstCharges > 0">
+      <ion-label style="font-size: 14px; font-weight: 300">(GST)</ion-label>
+      <p class="pricing" slot="end">{{gstCharges | currency:"INR"}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-label style="font-size: 14px; font-weight: 300">Total</ion-label>
+      <p class="pricing" slot="end">{{total | currency:"INR"}}</p>
+    </ion-item>
+  </ion-card>
 </ion-content>
-<ion-footer class="animate__animated animate__slideInUp" *ngIf="cart.length > 0">
+<ion-footer
+  class="animate__animated animate__slideInUp"
+  *ngIf="products.length > 0"
+>
   <ion-toolbar color="primary">
-   <ion-button color="light" (click)="presentActionSheet()" expand="block" fill="clear" shape="round">
-    Your Order Total is {{totalprice |currency:"INR"}}
-    <ion-icon class="animate__animated animate__shakeX animate__slower animate__infinite" slot="end" name="arrow-forward-outline"></ion-icon>
-   </ion-button>
+    <ion-button
+      color="light"
+      (click)="presentActionSheet()"
+      expand="block"
+      fill="clear"
+      shape="round"
+    >
+      Your Order Total is {{total |currency:"INR"}}
+      <ion-icon
+        class="animate__animated animate__shakeX animate__slower animate__infinite"
+        slot="end"
+        name="arrow-forward-outline"
+      ></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-footer>

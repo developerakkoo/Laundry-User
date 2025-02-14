@@ -15,20 +15,24 @@ export class ProductCardComponent  implements OnInit {
   @Input() _id!: string;
   @Input() quantityAcceptedIn!: number; // 0 = item 1 = kg
   
-  @ Input() quantity: number = 0;
+  @ Input() quantity!: number;
   selectedOption: string = 'wash';
 
  @Output() quantityEvent = new EventEmitter();
  @Output() quantityEventRemove = new EventEmitter();
   incrementQuantity() {
     this.quantity++;
+    console.log("Quantity passesd");
+    
+    console.log(this.quantity);
+    
     this.quantityEvent.emit({quantity: this.quantity, id:this._id,type: this.quantityAcceptedIn});
     this.haptics.hapticsImpactLight();
   }
 
   decrementQuantity() {
-    if (this.quantity >=0 ) {
-      this.quantity--;
+    if (this.quantity > 0 ) {
+      // this.quantity--;
     this.quantityEventRemove.emit({quantity: this.quantity, id:this._id, type: this.quantityAcceptedIn});
       this.haptics.hapticsImpactLight();
     }

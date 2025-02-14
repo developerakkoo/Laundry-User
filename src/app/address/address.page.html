@@ -1,0 +1,45 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Select Address</ion-title>
+    <ion-button (click)="close()" slot="end" fill="clear">
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container" *ngIf="address.length == 0">
+    <img src="assets/no-results.svg" alt="" srcset="" />
+    <ion-text color="primary" class="ion-text-center">
+      <p>You have no addresses added!</p>
+    </ion-text>
+  </div>
+
+  <ion-list *ngIf="address.length > 0">
+    <ion-list-header>
+      <ion-label>Saved Addresses</ion-label>
+    </ion-list-header>
+    <ion-item lines="full" *ngFor="let item of address" (click)="setAddressDefault(item)">
+      <ion-icon color="primary" name="home-outline" slot="start"></ion-icon>
+      <ion-label>
+        {{item.type |titlecase }}
+        <p>{{item.address}}</p>
+      </ion-label>
+      <ion-icon color="medium" name="pencil-outline" slot="end"></ion-icon>
+    </ion-item>
+   
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-no-border" color="primary">
+    <ion-button
+      (click)="openAddAddressPage()"
+      color="light"
+      expand="block"
+      fill="clear"
+    >
+      Add new address
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
