@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HapticsService } from '../services/haptics.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 export class PaymentSuccessPage implements OnInit {
 
   interval:any;
-  constructor(private router:Router) { }
+  constructor(private router:Router,
+              private haptics:HapticsService
+  ) { }
 
   ngOnInit() {
 
@@ -17,7 +20,8 @@ export class PaymentSuccessPage implements OnInit {
 
   ionViewDidEnter(){
     this.interval = setInterval(() =>{
-      this.router.navigate(['tabs','tabs', 'tab1'],{skipLocationChange:true, replaceUrl:true})
+      this.haptics.hapticsImpactLight();
+      this.router.navigate(['tabs','tabs', 'tab3'],{skipLocationChange:true, replaceUrl:true})
     },4000)
   }
 

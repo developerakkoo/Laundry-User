@@ -227,7 +227,7 @@ export class Tab2Page {
           this.handlingFeed = value['data']['platformFee'];
           this.total = value['data']['totalAmountToPay'];
           this.subtotal = value['data']['subtotal'];
-          this.getAllOffers(this.total);
+          this.getAllOffers(this.subtotal);
 
           if (this.subtotal < 500) {
             this.addMoreItemsWorthAmount = 500 - this.subtotal;
@@ -300,7 +300,7 @@ const dropoffTime = moment().add(12, 'hours').format("hA");
     subscribe({
       next:async(value:any) => {
         console.log(value);
-        
+        this.haptics.hapticsImpactLight();
         this.router.navigate(['payment-success']);
 
       },

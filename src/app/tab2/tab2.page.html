@@ -20,9 +20,9 @@
 <ion-content [fullscreen]="true" *ngIf="products.length > 0">
   <ion-card class="ion-padding">
     <ion-card-header>
-      <ion-card-subtitle
+      <!-- <ion-card-subtitle
         >(Add more 100 worth items to get free delivery!)</ion-card-subtitle
-      >
+      > -->
       <ion-card-title>Cart Items({{products.length}} Items)</ion-card-title>
     </ion-card-header>
     <app-product-card
@@ -69,6 +69,7 @@
         mode="ios"
         outline="true"
        (click)="applyOffer()"
+       [disabled]="offerFirst.length == 0"
       >
         <ion-label>Apply</ion-label>
       </ion-chip>
@@ -79,11 +80,16 @@
         mode="ios"
         outline="true"
        (click)="removeOffer()"
+       [disabled]="offerFirst.length == 0"
+
       >
         <ion-label>Remove</ion-label>
       </ion-chip>
     </div>
-    <ion-card-header>
+    <ion-card-header *ngIf="offerFirst.length == 0">
+      <ion-card-subtitle>You have no offers currently!</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-header *ngIf="offerFirst.length > 0">
       <ion-card-subtitle *ngIf="!isPromoCodeApplied">Save {{offerFirst[0]['discountAmount'] | currency:"INR"}} with '{{offerFirst[0]['code']}}' </ion-card-subtitle>
       <ion-card-subtitle *ngIf="isPromoCodeApplied">You have saved {{offerFirst[0]['discountAmount'] | currency:"INR"}} with '{{offerFirst[0]['code']}}' </ion-card-subtitle>
     </ion-card-header>

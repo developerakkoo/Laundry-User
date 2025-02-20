@@ -10,6 +10,7 @@ import {
   forkJoin,
   map,
   Observable,
+  of,
   tap,
   throwError,
 } from 'rxjs';
@@ -214,16 +215,25 @@ export class LogicService {
     });
   }
   fetchCartAndServices(laundryId: string): Observable<any> {
-    const cart$ = this.http.get(environment.URL + `cart/${this.userId.value}`);
-    const services$ = this.http.get(
-      environment.URL + `partner/service/get/shopId/${laundryId}`
+    const cart$ = this.http.get(environment.URL + `cart/${this.userId.value}`).pipe(
+      catchError((error) => {
+        console.error("Cart fetch error:", error);
+        return of({ data: { products: [] } }); // Return empty cart
+      })
     );
-
+  
+    const services$ = this.http.get(environment.URL + `partner/service/get/shopId/${laundryId}`).pipe(
+      catchError((error) => {
+        console.error("Services fetch error:", error);
+        return of({ data: { content: [] } }); // Return empty services
+      })
+    );
+  
     return forkJoin([cart$, services$]).pipe(
       map(([cartResponse, servicesResponse]: any[]) => {
         const cartItems = cartResponse.data.products || [];
         const services = servicesResponse.data.content || [];
-
+  
         // Merge services with cart items
         const enrichedServices = services.map((service: any) => {
           const cartItem = cartItems.find(
@@ -234,11 +244,12 @@ export class LogicService {
             quantity: cartItem ? cartItem.quantity : 0, // Add quantity if in cart
           };
         });
-
+  
         return enrichedServices;
       })
     );
   }
+  
   getCart() {
     return this.http.get(environment.URL + `cart/${this.userId.value}`);
   }
