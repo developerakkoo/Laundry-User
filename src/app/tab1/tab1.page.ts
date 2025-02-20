@@ -92,8 +92,6 @@ export class Tab1Page {
     console.log(ev);
     // view-laundry/Washing/1/add
     this.router.navigate(["view-laundry", ev.name, ev.id,"add",ev.id]);
-    
-    
   }
 
   async checkForGrantedPermission() {

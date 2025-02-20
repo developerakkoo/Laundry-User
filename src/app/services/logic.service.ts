@@ -175,6 +175,11 @@ export class LogicService {
     );
   }
 
+  getAllOffers() {
+    return this.http.get(
+      environment.URL + `admin/promoCode/get-all`
+    );
+  }
   like(shopId: string) {
     return this.http.post(
       environment.URL + `partner/shop/like/${shopId}/${this.userId.value}`,
@@ -268,4 +273,26 @@ export class LogicService {
       }
     );
   }
+
+
+  placeOrder( dropoffAddressId:any, pickupAddressId:any,pickupTime:any,dropoffTime:any,selfService:any,
+    priceDetails:any,orderType:any,){
+    return this.http.post(environment.URL + 'order/place',{
+      userId: this.userId.value,
+      dropoffAddressId,
+      pickupAddressId,
+      pickupTime,
+      dropoffTime,
+      selfService,
+      priceDetails,
+      orderType,
+    })
+  }
+
+
+  getAllUserOrders(){
+    return this.http.get(environment.URL + `order/get-by/userId/${this.userId.value}`);
+  }
+
+
 }

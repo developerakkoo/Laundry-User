@@ -5,9 +5,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="products.length == 0">
-  <ion-text color="primary" class="ion-text-center">
-    <h1>Your cart is empty!</h1>
-  </ion-text>
+ 
+  <div class="center-container">
+
+    <img  class="centered-image" src="assets/empty-laundry.png" alt="" srcset="">
+    <ion-text color="primary" class="ion-text-center">
+      <p>Your cart is empty!</p>
+    </ion-text>
+    <ion-button (click)="goToHome()" color="primary" expand="block" fill="solid" mode="ios">
+      Go And Add Your Laundry now!
+    </ion-button>
+  </div>
 </ion-content>
 <ion-content [fullscreen]="true" *ngIf="products.length > 0">
   <ion-card class="ion-padding">
@@ -51,7 +59,41 @@
       <p></p
     ></ion-card-content>
   </ion-card>
+
+
   <ion-card>
+    <div class="icon">
+      <ion-chip
+      *ngIf="!isPromoCodeApplied"
+        color="primary"
+        mode="ios"
+        outline="true"
+       (click)="applyOffer()"
+      >
+        <ion-label>Apply</ion-label>
+      </ion-chip>
+
+      <ion-chip
+      *ngIf="isPromoCodeApplied"
+        color="danger"
+        mode="ios"
+        outline="true"
+       (click)="removeOffer()"
+      >
+        <ion-label>Remove</ion-label>
+      </ion-chip>
+    </div>
+    <ion-card-header>
+      <ion-card-subtitle *ngIf="!isPromoCodeApplied">Save {{offerFirst[0]['discountAmount'] | currency:"INR"}} with '{{offerFirst[0]['code']}}' </ion-card-subtitle>
+      <ion-card-subtitle *ngIf="isPromoCodeApplied">You have saved {{offerFirst[0]['discountAmount'] | currency:"INR"}} with '{{offerFirst[0]['code']}}' </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p [routerLink]="['/offers']" routerLinkActive="router-link-active" ><strong>View all coupons</strong></p>
+    </ion-card-content>
+  </ion-card>
+
+    
+<ion-card>
     <ion-card-header>
       <ion-card-subtitle>Order Details</ion-card-subtitle>
     </ion-card-header>
@@ -78,6 +120,18 @@
       <p class="pricing" slot="end">{{total | currency:"INR"}}</p>
     </ion-item>
   </ion-card>
+<canvas id="confetti-canvas"></canvas>
+<ion-modal id="example-modal" #modal [animated]="true" [isOpen]="isPromoCodeSuccessDialogOpen">
+  <ng-template>
+    
+      <div class="modal-container">
+        <img src="assets/icon/balloons.gif" alt="">
+        <p class="applied">'{{offerFirst[0]['code']}}' applied</p>
+        <p class="title">You Saved {{offerFirst[0]['discountAmount'] | currency:"INR"}}</p>
+        <p class="label">with this coupon code.</p>
+      </div>
+  </ng-template>
+</ion-modal>
 </ion-content>
 <ion-footer
   class="animate__animated animate__slideInUp"

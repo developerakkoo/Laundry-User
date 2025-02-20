@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LogicService } from '../services/logic.service';
+import { HapticsService } from '../services/haptics.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-myorder',
@@ -8,11 +11,34 @@ import { Component, OnInit } from '@angular/core';
 export class MyorderPage implements OnInit {
 
   isRecentOrder:boolean = true;
-  constructor() { }
+
+  orders:any[] = [];
+  isLoading:boolean = false;
+  constructor(private logic: LogicService,
+              private haptics:HapticsService
+  ) { }
 
   ngOnInit() {
   }
 
+  ionViewDidEnter(){
+this.getOrders();
+  }
+
+
+  getOrders(){
+    this.logic.getAllUserOrders()
+    .subscribe({
+      next:(value:any) =>{
+        console.log(value);
+        
+      },
+      error:(error:HttpErrorResponse) =>{
+        console.log(error);
+        
+      }
+    })
+  }
 
   segmentChanged(ev:any){
     console.log(ev.detail.value);

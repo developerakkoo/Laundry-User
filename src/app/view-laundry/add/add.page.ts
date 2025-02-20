@@ -99,6 +99,8 @@ export class AddPage implements OnInit {
     this.logic.getServiceByLaundryId(this.laundryId)
     .subscribe({
       next:async(value:any) =>{
+        console.log("services");
+        
         console.log(value);
         this.items = value['data']['content'];
       },

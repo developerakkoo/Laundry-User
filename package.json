@@ -33,6 +33,7 @@
     "canvas-confetti": "^1.9.3",
     "capacitor-native-settings": "^6.0.1",
     "ionicons": "^7.0.0",
+    "moment": "^2.30.1",
     "ng-otp-input": "^1.9.3",
     "ngx-filter-pipe": "^3.0.1",
     "rxjs": "~7.8.0",

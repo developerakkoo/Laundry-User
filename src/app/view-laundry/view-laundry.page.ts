@@ -50,6 +50,8 @@ export class ViewLaundryPage implements OnInit {
     // laundryByCategory
     this.logic.laundryByCategory$.subscribe({
       next:async(value:any) =>{
+        console.log("Fetching all laundries");
+        
         console.log(value);
         this.allLaundries = value['data'];
         

@@ -5,9 +5,11 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { LogicService } from '../services/logic.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Position } from '@capacitor/geolocation';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AddressPage } from '../address/address.page';
 import { DataService } from '../services/data.service';
+import confetti from 'canvas-confetti';
+import moment from 'moment';
 declare var Razorpay: any;
 
 @Component({
@@ -17,13 +19,17 @@ declare var Razorpay: any;
 })
 export class Tab2Page {
   products: any[] = [];
+  offers: any[] = [];
+  offerFirst:any;
   totalprice: any;
   userId: any;
   addressId: any;
+  shopId:any;
   currentAddress: any;
   cart: any[] = [];
   address: any;
 
+  orderType!:number;
   subtotal: number = 0;
   total: number = 0;
   deliveryCharges: number = 50;
@@ -34,6 +40,7 @@ export class Tab2Page {
   promoCode: string = '';
   promoCodeInputFillType: string = 'outline';
   isPromoCodeApplied: boolean = false;
+  isPromoCodeSuccessDialogOpen:boolean = false;
 
   priceDetailsObject: any = {};
   coordinates!: Position;
@@ -41,13 +48,15 @@ export class Tab2Page {
 
   shopLat: any;
   shopLng: any;
+
+  offerSubscription: Subscription = new Subscription();
   constructor(
     private haptics: HapticsService,
     private router: Router,
     private logic: LogicService,
     private modalController: ModalController,
     private actionSheetController: ActionSheetController,
-    private storage: DataService
+    private storage: DataService,
   ) {}
 
   ionViewDidEnter() {
@@ -55,14 +64,19 @@ export class Tab2Page {
     this.getAddress();
   }
 
+
+  goToHome(){
+    this.router.navigate(['tabs','tabs','tab1']);
+  }
   async getAddress() {
     this.address = await this.storage.get('address');
     console.log(this.address['address']);
   }
   getCart() {
-    this.logic.getCart().subscribe({
+   this.logic.getCart().subscribe({
       next: async (value: any) => {
         console.log(value);
+        this.shopId = value['data']['shopId']['_id'];
         this.products = value['data']['products'];
         this.totalprice = value['data']['totalPrice'];
         this.calculateTotalAmountForPayment('');
@@ -129,6 +143,7 @@ export class Tab2Page {
           handler: () => {
             console.log('Delete clicked');
             this.haptics.hapticsImpactLight();
+            this.orderType = 0;
             this.checkout();
           },
         },
@@ -138,6 +153,8 @@ export class Tab2Page {
           handler: () => {
             console.log('Share clicked');
             this.haptics.hapticsImpactLight();
+            this.orderType = 1;
+
             this.checkout();
 
             // this.router.navigate(['payment-success']);
@@ -155,6 +172,41 @@ export class Tab2Page {
     });
 
     await actionSheet.present();
+  }
+
+
+  async getAllOffers(minOrderAmount:number){
+    console.log(minOrderAmount);
+    
+    this.offerSubscription =  this.logic.getAllOffers().subscribe({
+      next:async(value:any) =>{
+        console.log("Loading All Offers");
+        
+        console.log(value['data']);
+        this.offers = value['data'];
+        this.offerFirst = this.offers.filter((offer:any) => { return Number(minOrderAmount) > offer.minOrderAmount});
+        console.log(this.offerFirst);
+        
+        
+      },
+      error:async(error:HttpErrorResponse) =>{
+        console.log(error);
+        
+      }
+    })
+  }
+
+  applyOffer(){
+    console.log(this.offerFirst[0]['code']);
+    this.haptics.hapticsImpactMedium();
+    this.isPromoCodeSuccessDialogOpen = true;
+
+    this.launchConfetti();
+    this.calculateTotalAmountForPayment(this.offerFirst[0]['code']);
+  }
+
+  removeOffer(){
+    this.calculateTotalAmountForPayment("");
   }
 
   calculateTotalAmountForPayment(promoCode: string) {
@@ -175,6 +227,8 @@ export class Tab2Page {
           this.handlingFeed = value['data']['platformFee'];
           this.total = value['data']['totalAmountToPay'];
           this.subtotal = value['data']['subtotal'];
+          this.getAllOffers(this.total);
+
           if (this.subtotal < 500) {
             this.addMoreItemsWorthAmount = 500 - this.subtotal;
           }
@@ -204,8 +258,7 @@ export class Tab2Page {
       order_id: orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       handler: (response: any) => {
         console.log('Payment Success');
-        this.router.navigate(['payment-success']);
-
+        this.placeOrder();
         // alert(response.razorpay_payment_id);
         // alert(response.razorpay_order_id);
         // alert(response.razorpay_signature);
@@ -239,6 +292,24 @@ export class Tab2Page {
     rzp1.open();
   }
 
+
+  async placeOrder(){
+    const pickupTime = moment().add(2, 'hours').format("hA");
+const dropoffTime = moment().add(12, 'hours').format("hA");
+    this.logic.placeOrder(this.shopId,this.addressId,pickupTime,dropoffTime,false,this.priceDetailsObject,this.orderType).
+    subscribe({
+      next:async(value:any) => {
+        console.log(value);
+        
+        this.router.navigate(['payment-success']);
+
+      },
+      error:async(error:HttpErrorResponse) =>{
+        console.log(error);
+        
+      }
+    })
+  }
   async openModalAddress() {
     const modal = await this.modalController.create({
       component: AddressPage,
@@ -253,5 +324,40 @@ export class Tab2Page {
     // this.userId = data['data']['userId'];
     // this.currentAddress = data['data'];
     // this.coordinates = data['data']['coordinates'];
+  }
+
+  launchConfetti() {
+    const duration = 2 * 1000; // 2 seconds
+    const end = Date.now() + duration;
+
+    const colors = ['#a864fd', '#29cdff','#78ff44','#ff718d', '#fdff6a'];
+
+    (function frame() {
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 30,
+        origin: { x: 0 },
+        colors: colors,
+      });
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 30,
+        origin: { x: 1 },
+        colors: colors,
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+
+      }
+    })();
+
+    setTimeout(() =>{
+    this.isPromoCodeSuccessDialogOpen = false;
+    this.haptics.hapticsImpactLight();
+
+    },2000)
   }
 }
