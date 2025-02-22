@@ -69,7 +69,9 @@ export class LoginPage implements OnInit {
           console.log(accessToken);
           await this.data.set("userId", userId);
           await this.data.set("accessToken", accessToken);
-          this.router.navigate(['otp', this.form.value.phoneNumber]);
+          // this.router.navigate(['otp', this.form.value.phoneNumber]);
+      this.router.navigate(['story']);
+
           
         },
         error:(error:HttpErrorResponse) =>{
