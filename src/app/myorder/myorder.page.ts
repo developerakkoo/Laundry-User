@@ -9,49 +9,39 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./myorder.page.scss'],
 })
 export class MyorderPage implements OnInit {
+  isRecentOrder: boolean = true;
 
-  isRecentOrder:boolean = true;
+  orders: any[] = [];
+  isLoading: boolean = false;
+  constructor(private logic: LogicService, private haptics: HapticsService) {}
 
-  orders:any[] = [];
-  isLoading:boolean = false;
-  constructor(private logic: LogicService,
-              private haptics:HapticsService
-  ) { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  ionViewDidEnter() {
+    this.getOrders();
   }
 
-  ionViewDidEnter(){
-this.getOrders();
-  }
-
-
-  getOrders(){
-    this.logic.getAllUserOrders()
-    .subscribe({
-      next:(value:any) =>{
+  getOrders() {
+    this.logic.getAllUserOrders().subscribe({
+      next: (value: any) => {
         console.log(value);
-        
+        this.orders = value['value'];
       },
-      error:(error:HttpErrorResponse) =>{
+      error: (error: HttpErrorResponse) => {
         console.log(error);
-        
-      }
-    })
+      },
+    });
   }
 
-  segmentChanged(ev:any){
+  segmentChanged(ev: any) {
     console.log(ev.detail.value);
     let segmentNo = ev.detail.value;
-    if(segmentNo === 1){
-      console.log("Recent Orders");
+    if (segmentNo === 1) {
+      console.log('Recent Orders');
       this.isRecentOrder = true;
-      
-    }else if(segmentNo === 2){
-      console.log("Previous Orders");
+    } else if (segmentNo === 2) {
+      console.log('Previous Orders');
       this.isRecentOrder = false;
-
     }
   }
-
 }

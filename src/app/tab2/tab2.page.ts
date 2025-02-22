@@ -296,7 +296,7 @@ export class Tab2Page {
   async placeOrder(){
     const pickupTime = moment().add(2, 'hours').format("hA");
 const dropoffTime = moment().add(12, 'hours').format("hA");
-    this.logic.placeOrder(this.shopId,this.addressId,pickupTime,dropoffTime,false,this.priceDetailsObject,this.orderType).
+    this.logic.placeOrder(this.shopId,this.addressId,pickupTime,dropoffTime,false,this.priceDetailsObject,this.orderType, this.products).
     subscribe({
       next:async(value:any) => {
         console.log(value);
