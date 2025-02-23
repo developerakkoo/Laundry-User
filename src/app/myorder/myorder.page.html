@@ -32,7 +32,7 @@
           <img
             class="hotel-thumbnail"
             crossorigin="anonymous"
-            src="https://placehold.co/60"
+            src="assets/washing.gif"
           />
 
           <div class="hotel-item-container">
@@ -60,18 +60,20 @@
             <ion-list-header>
               <ion-label>Your Order Details</ion-label>
             </ion-list-header>
-            <ion-item class="ion-margin-top" *ngFor="let item of item.items">
+            <ion-item class="ion-margin-top" *ngFor="let i of item.items">
               <img
                 class="hotel-thumbnail"
                 crossorigin="anonymous"
-                src="https://placehold.co/60"
+                [src]="i.serviceId.image_url"
               />
 
               <div class="hotel-item-container">
                 <ion-label class="ion-margin-start">
-                  <p class="title">Jeans</p>
-                  <p class="sub-title">234</p>
-                  <span>X 4</span>
+                  <p class="title">{{i.serviceId.name}}</p>
+                  <p class="sub-title">
+                    {{i.serviceId.perKgPrice | currency:"INR"}}
+                  </p>
+                  <span>X {{i.quantity}}</span>
                 </ion-label>
               </div>
             </ion-item>
@@ -80,25 +82,35 @@
 
           <ion-item>
             <ion-label>Subtotal</ion-label>
-            <p class="pricing" slot="end">{{item.priceDetails.subtotal | currency:"INR"}}</p>
+            <p class="pricing" slot="end">
+              {{item.priceDetails.subtotal | currency:"INR"}}
+            </p>
           </ion-item>
           <ion-item>
             <ion-label>Delivery</ion-label>
-            <p class="pricing" slot="end">{{item.priceDetails.deliveryCharges | currency:"INR"}}</p>
+            <p class="pricing" slot="end">
+              {{item.priceDetails.deliveryCharges | currency:"INR"}}
+            </p>
           </ion-item>
           <ion-item>
             <ion-label>Handling Fees</ion-label>
-            <p class="pricing" slot="end">{{item.priceDetails.platformFee | currency:"INR"}}</p>
+            <p class="pricing" slot="end">
+              {{item.priceDetails.platformFee | currency:"INR"}}
+            </p>
           </ion-item>
           <ion-item>
             <ion-label>(GST)</ion-label>
-            <p class="pricing" slot="end">{{item.priceDetails.gstAmount | currency:"INR"}}%</p>
+            <p class="pricing" slot="end">
+              {{item.priceDetails.gstAmount | currency:"INR"}}%
+            </p>
           </ion-item>
           <ion-item>
             <ion-label>Total</ion-label>
-            <p class="pricing" slot="end">{{item.priceDetails.totalAmountToPay | currency:"INR"}}%</p>
-          
+            <p class="pricing" slot="end">
+              {{item.priceDetails.totalAmountToPay | currency:"INR"}}%
+            </p>
           </ion-item>
+          <br />
           <ion-button expand="block" fill="clear" shape="round">
             Help
           </ion-button>

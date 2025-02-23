@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Profile Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-input
+      required
+      fill="outline"
+      mode="md"
+      lines="none"
+      formControlName="name"
+      type="text"
+      labelPlacement="stacked"
+      label="Name"
+    ></ion-input>
+    <br />
+    <ion-input
+      fill="outline"
+      mode="md"
+      lines="none"
+      required
+      label="Email"
+      labelPlacement="stacked"
+      helperText="Email is required for Order related updates and bills."
+      formControlName="email"
+      type="email"
+    ></ion-input>
+    <ion-button
+      mode="ios"
+      fill="solid"
+      expand="block"
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Save
+    </ion-button>
+  </form>
+</ion-content>

@@ -29,6 +29,7 @@ export class LogicService {
 
   accessToken: BehaviorSubject<string> = new BehaviorSubject('');
   userId: BehaviorSubject<string> = new BehaviorSubject('');
+  userProfileUpdated: BehaviorSubject<string> = new BehaviorSubject('');
 
   categoriesSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(
     this.categories
@@ -56,9 +57,11 @@ export class LogicService {
   async init() {
     let token = await this.storage.get('accessToken');
     let userId = await this.storage.get('userId');
+    let profileUpdated = await this.storage.get('profileUpdated');
 
     this.accessToken.next(token);
     this.userId.next(userId);
+    this.userProfileUpdated.next(profileUpdated);
   }
   // Error handling method
   private handleError(error: HttpErrorResponse): Observable<never> {
@@ -83,6 +86,24 @@ export class LogicService {
 
   login(body: {}) {
     return this.http.post(environment.URL + 'user/login', body);
+  }
+
+  logout() {
+    return this.http.get(
+      environment.URL + `user/logout?userId=${this.userId.value}`
+    );
+  }
+  getUserProfile() {
+    return this.http.get(
+      environment.URL + `user/get-current-user?userId=${this.userId.value}`
+    );
+  }
+
+  updateUserProfile(body: {}) {
+    return this.http.put(
+      environment.URL + `user/update-profile?userId=${this.userId.value}`,
+      body
+    );
   }
 
   getAllCategories() {

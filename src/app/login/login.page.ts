@@ -65,6 +65,8 @@ export class LoginPage implements OnInit {
           console.log(accessToken);
           await this.data.set('userId', userId);
           await this.data.set('accessToken', accessToken);
+          await this.data.set('profileUpdated', '0');
+          this.logic.init();
           // this.router.navigate(['otp', this.form.value.phoneNumber]);
           this.router.navigate(['story']);
         },

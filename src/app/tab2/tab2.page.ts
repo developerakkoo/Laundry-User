@@ -10,6 +10,7 @@ import { AddressPage } from '../address/address.page';
 import { DataService } from '../services/data.service';
 import confetti from 'canvas-confetti';
 import moment from 'moment';
+import { EditProfilePage } from '../edit-profile/edit-profile.page';
 declare var Razorpay: any;
 
 @Component({
@@ -20,16 +21,18 @@ declare var Razorpay: any;
 export class Tab2Page {
   products: any[] = [];
   offers: any[] = [];
-  offerFirst:any;
+  offerFirst: any;
   totalprice: any;
   userId: any;
   addressId: any;
-  shopId:any;
+  shopId: any;
   currentAddress: any;
   cart: any[] = [];
   address: any;
 
-  orderType!:number;
+  isUserProfileUpdated: any;
+
+  orderType!: number;
   subtotal: number = 0;
   total: number = 0;
   deliveryCharges: number = 50;
@@ -40,7 +43,7 @@ export class Tab2Page {
   promoCode: string = '';
   promoCodeInputFillType: string = 'outline';
   isPromoCodeApplied: boolean = false;
-  isPromoCodeSuccessDialogOpen:boolean = false;
+  isPromoCodeSuccessDialogOpen: boolean = false;
 
   priceDetailsObject: any = {};
   coordinates!: Position;
@@ -56,24 +59,33 @@ export class Tab2Page {
     private logic: LogicService,
     private modalController: ModalController,
     private actionSheetController: ActionSheetController,
-    private storage: DataService,
+    private storage: DataService
   ) {}
 
   ionViewDidEnter() {
     this.getCart();
     this.getAddress();
+    this.getData();
   }
 
+  ionViewDidLeave() {
+    this.getCart();
+    this.getData();
+  }
 
-  goToHome(){
-    this.router.navigate(['tabs','tabs','tab1']);
+  async getData() {
+    this.isUserProfileUpdated = await this.storage.get('profileUpdated');
+    console.log(this.isUserProfileUpdated + 'Profile Update status');
+  }
+  goToHome() {
+    this.router.navigate(['tabs', 'tabs', 'tab1']);
   }
   async getAddress() {
     this.address = await this.storage.get('address');
     console.log(this.address['address']);
   }
   getCart() {
-   this.logic.getCart().subscribe({
+    this.logic.getCart().subscribe({
       next: async (value: any) => {
         console.log(value);
         this.shopId = value['data']['shopId']['_id'];
@@ -129,6 +141,25 @@ export class Tab2Page {
       },
     });
   }
+
+  async presentUserProfileUpdateSheet() {
+    const modal = await this.modalController.create({
+      component: EditProfilePage,
+      animated: true,
+      handle: true,
+      mode: 'ios',
+      initialBreakpoint: 0.75,
+      componentProps: { value: 123 },
+    });
+
+    await modal.present();
+
+    const data = await modal.onDidDismiss();
+    console.log(data);
+    this.getData();
+    this.checkout();
+  }
+
   async presentActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Choose Delivery Option',
@@ -144,7 +175,11 @@ export class Tab2Page {
             console.log('Delete clicked');
             this.haptics.hapticsImpactLight();
             this.orderType = 0;
-            this.checkout();
+            if (this.isUserProfileUpdated == '0') {
+              this.presentUserProfileUpdateSheet();
+            } else {
+              this.checkout();
+            }
           },
         },
         {
@@ -154,10 +189,11 @@ export class Tab2Page {
             console.log('Share clicked');
             this.haptics.hapticsImpactLight();
             this.orderType = 1;
-
-            this.checkout();
-
-            // this.router.navigate(['payment-success']);
+            if (this.isUserProfileUpdated == '0') {
+              this.presentUserProfileUpdateSheet();
+            } else {
+              this.checkout();
+            }
           },
         },
         {
@@ -174,29 +210,27 @@ export class Tab2Page {
     await actionSheet.present();
   }
 
-
-  async getAllOffers(minOrderAmount:number){
+  async getAllOffers(minOrderAmount: number) {
     console.log(minOrderAmount);
-    
-    this.offerSubscription =  this.logic.getAllOffers().subscribe({
-      next:async(value:any) =>{
-        console.log("Loading All Offers");
-        
+
+    this.offerSubscription = this.logic.getAllOffers().subscribe({
+      next: async (value: any) => {
+        console.log('Loading All Offers');
+
         console.log(value['data']);
         this.offers = value['data'];
-        this.offerFirst = this.offers.filter((offer:any) => { return Number(minOrderAmount) > offer.minOrderAmount});
+        this.offerFirst = this.offers.filter((offer: any) => {
+          return Number(minOrderAmount) > offer.minOrderAmount;
+        });
         console.log(this.offerFirst);
-        
-        
       },
-      error:async(error:HttpErrorResponse) =>{
+      error: async (error: HttpErrorResponse) => {
         console.log(error);
-        
-      }
-    })
+      },
+    });
   }
 
-  applyOffer(){
+  applyOffer() {
     console.log(this.offerFirst[0]['code']);
     this.haptics.hapticsImpactMedium();
     this.isPromoCodeSuccessDialogOpen = true;
@@ -205,8 +239,8 @@ export class Tab2Page {
     this.calculateTotalAmountForPayment(this.offerFirst[0]['code']);
   }
 
-  removeOffer(){
-    this.calculateTotalAmountForPayment("");
+  removeOffer() {
+    this.calculateTotalAmountForPayment('');
   }
 
   calculateTotalAmountForPayment(promoCode: string) {
@@ -292,23 +326,30 @@ export class Tab2Page {
     rzp1.open();
   }
 
-
-  async placeOrder(){
-    const pickupTime = moment().add(2, 'hours').format("hA");
-const dropoffTime = moment().add(12, 'hours').format("hA");
-    this.logic.placeOrder(this.shopId,this.addressId,pickupTime,dropoffTime,false,this.priceDetailsObject,this.orderType, this.products).
-    subscribe({
-      next:async(value:any) => {
-        console.log(value);
-        this.haptics.hapticsImpactLight();
-        this.router.navigate(['payment-success']);
-
-      },
-      error:async(error:HttpErrorResponse) =>{
-        console.log(error);
-        
-      }
-    })
+  async placeOrder() {
+    const pickupTime = moment().add(2, 'hours').format('hA');
+    const dropoffTime = moment().add(12, 'hours').format('hA');
+    this.logic
+      .placeOrder(
+        this.shopId,
+        this.addressId,
+        pickupTime,
+        dropoffTime,
+        false,
+        this.priceDetailsObject,
+        this.orderType,
+        this.products
+      )
+      .subscribe({
+        next: async (value: any) => {
+          console.log(value);
+          this.haptics.hapticsImpactLight();
+          this.router.navigate(['payment-success']);
+        },
+        error: async (error: HttpErrorResponse) => {
+          console.log(error);
+        },
+      });
   }
   async openModalAddress() {
     const modal = await this.modalController.create({
@@ -330,7 +371,7 @@ const dropoffTime = moment().add(12, 'hours').format("hA");
     const duration = 2 * 1000; // 2 seconds
     const end = Date.now() + duration;
 
-    const colors = ['#a864fd', '#29cdff','#78ff44','#ff718d', '#fdff6a'];
+    const colors = ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'];
 
     (function frame() {
       confetti({
@@ -350,14 +391,12 @@ const dropoffTime = moment().add(12, 'hours').format("hA");
 
       if (Date.now() < end) {
         requestAnimationFrame(frame);
-
       }
     })();
 
-    setTimeout(() =>{
-    this.isPromoCodeSuccessDialogOpen = false;
-    this.haptics.hapticsImpactLight();
-
-    },2000)
+    setTimeout(() => {
+      this.isPromoCodeSuccessDialogOpen = false;
+      this.haptics.hapticsImpactLight();
+    }, 2000);
   }
 }
