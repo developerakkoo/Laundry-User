@@ -7,11 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { SearchPageRoutingModule } from './search-routing.module';
 
 import { SearchPage } from './search.page';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    FilterPipeModule,
     IonicModule,
     SearchPageRoutingModule
   ],

@@ -126,30 +126,17 @@
     </ion-list-header>
   </ion-list>
   <swiper-container [slidesPerView]="1.1" [spaceBetween]="15">
-    <swiper-slide
-      ><app-laundry-card
-        imageUrl="assets/laundry.svg"
-        name="Location Name"
+    <swiper-slide *ngFor="let item of allLaundries">
+      <app-laundry-card
+        imageUrl="assets/laundry-demo.svg"
+        [id]="item._id"
+        [likes]="item?.likes"
+        [categories]="item?.category"
+        [name]="item?.name"
         ratings="4.5"
-        address="123 Main St, City, Country"
-      >
-      </app-laundry-card>
-    </swiper-slide>
-    <swiper-slide
-      ><app-laundry-card
-        imageUrl="assets/laundry.svg"
-        name="Location Name"
-        ratings="4.5"
-        address="123 Main St, City, Country"
-      >
-      </app-laundry-card>
-    </swiper-slide>
-    <swiper-slide
-      ><app-laundry-card
-        imageUrl="assets/laundry.svg"
-        name="Location Name"
-        ratings="4.5"
-        address="123 Main St, City, Country"
+        [category]="item?.category[0]?.name"
+        [currentUserId]="userId"
+        [address]="item?.address?.city"
       >
       </app-laundry-card>
     </swiper-slide>
@@ -164,7 +151,7 @@
   </ion-list>
 
   <app-laundry-card
-  *ngFor="let item of allLaundries"
+    *ngFor="let item of allLaundries"
     imageUrl="assets/laundry-demo.svg"
     [id]="item._id"
     [likes]="item?.likes"
@@ -173,8 +160,7 @@
     ratings="4.5"
     [category]="item?.category[0]?.name"
     [currentUserId]="userId"
-    [address]="item?.address?.city">
+    [address]="item?.address?.city"
+  >
   </app-laundry-card>
- 
-
 </ion-content>

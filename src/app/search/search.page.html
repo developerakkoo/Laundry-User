@@ -5,25 +5,36 @@
       <ion-back-button defaultHref="/tabs/tabs/tab1"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar mode="ios" placeholder="Search laundries" inputmode="decimal" type="decimal" (ionClear)="onClearEvent($event)" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
+  <ion-searchbar
+    mode="ios"
+    placeholder="Search laundries"
+    inputmode="decimal"
+    type="decimal"
+    [(ngModel)]="laundryFilter.name"
+    (ionClear)="onClearEvent($event)"
+    (ionChange)="onSearchChange($event)"
+    [debounce]="250"
+    showCancelButton="always"
+  ></ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
- <ion-list>
-  <ion-list-header>
-    <ion-label>Your recent searches</ion-label>
-    <ion-button>Clear All</ion-button>
-  </ion-list-header>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Your recent searches</ion-label>
+      <ion-button>Clear All</ion-button>
+    </ion-list-header>
 
-  <ion-item>
-    <ion-thumbnail slot="start">
-      <img src="https://placehold.co/100" />
-    </ion-thumbnail>
+    <ion-item *ngFor="let item of allLaundries | filterBy: laundryFilter">
+      <ion-thumbnail slot="start">
+        <img src="https://placehold.co/100" />
+      </ion-thumbnail>
 
-    <ion-label>New Laundry
-      <p>1 km away</p>
-    </ion-label>
-    <ion-icon slot="end" name="close"></ion-icon>
-  </ion-item>
- </ion-list>
+      <ion-label
+        >{{item.name}}
+        <p>Best in Class services</p>
+      </ion-label>
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-subscription-card',
@@ -8,6 +8,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class SubscriptionCardComponent  implements OnInit {
 
   planNumber:any = 1;
+  @Input() title = '';
+  @Input() price = '';
+  @Input() validity = 0;
+
+  
   @ViewChild("first") first!:ElementRef;
   @ViewChild("second") second!:ElementRef;
   @ViewChild("badge") badge!:ElementRef;

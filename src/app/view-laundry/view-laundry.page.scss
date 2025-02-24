@@ -60,6 +60,24 @@
     width: auto;
     font-size: 12px;
   }
+  .filter-badge-solid {
+    display: flex;
+    padding: 6px 6px;
+    margin: 3px;
+    border: 1px solid #8F35C7;
+    background-color: #8F35C7;
+    color: #f9f9f9;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    /* flex-shrink: 0; */
+    transition: background-color .3s ease;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: auto;
+    font-size: 12px;
+  }
   
   
   .filter-badge:hover {

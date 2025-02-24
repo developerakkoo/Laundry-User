@@ -8,11 +8,13 @@ import { ViewLaundryPageRoutingModule } from './view-laundry-routing.module';
 
 import { ViewLaundryPage } from './view-laundry.page';
 import { SharedModule } from '../modules/shared/shared.module';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    FilterPipeModule,
     IonicModule,
     SharedModule,
     ViewLaundryPageRoutingModule,

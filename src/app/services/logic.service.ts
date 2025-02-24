@@ -336,4 +336,22 @@ export class LogicService {
       environment.URL + `order/get/order/${this.userId.value}`
     );
   }
+
+  getUserSubscription() {
+    return this.http.get(environment.URL + `subscription/get/all-plans`);
+  }
+
+  getSubscriptionByUserId() {
+    return this.http.get(
+      environment.URL + `subscription/get/${this.userId.value}`
+    );
+  }
+  purchaseSubscription(planId: any, paymentDetails: any) {
+    //"{paymentId: skjdbfbkfhbvugfvu,success: true}"
+    return this.http.post(environment.URL + `subscription/purchase`, {
+      userId: this.userId.value,
+      planId: planId,
+      paymentDetails: paymentDetails,
+    });
+  }
 }

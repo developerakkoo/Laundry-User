@@ -8,11 +8,33 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container">
-    <app-subscription-card></app-subscription-card>
-    <ion-button (click)="purchase()" expand="block" fill="solid" mode="ios">
+  <div class="container-flex">
+    <ion-radio-group name="auto"  [value]="selectedPlanId" (ionChange)="radioButtonEvent($event)">
+      <div *ngFor="let item of subs" #first class="container" [class.active]="selectedPlanId === item._id">
+        <div *ngIf="item.validity == 3" #badge class="badge" [class.active]="item.validity == 3">
+          <p>Best value</p>
+        </div>
+        <div class="first">
+          <p>{{ item.name }}</p>
+          <p>
+            Only ${{ item.price | currency : "INR" }} for {{ item.validity }}
+            months
+          </p>
+        </div>
+        <div class="last">
+          <ion-radio [value]="item._id" mode="md"></ion-radio>
+        </div>
+      </div>
+    </ion-radio-group>
+
+    <ion-button
+      color="primary"
+      (click)="purchase()"
+      expand="block"
+      fill="solid"
+      mode="ios"
+    >
       Subscribe
     </ion-button>
   </div>
-
 </ion-content>

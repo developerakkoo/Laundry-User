@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  URL:"http://192.168.1.8:3000"
+  URL: 'https://api.breezyemart.com/api/v1/',
 };
 
 /*
