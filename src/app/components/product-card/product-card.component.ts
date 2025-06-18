@@ -11,7 +11,8 @@ export class ProductCardComponent  implements OnInit {
   @Input() productImageUrl!: string;
   @Input() productName!: string;
   @Input() desc!: string;
-  @Input() productPrice!: string;
+  @Input() productPricePerKg!: number;
+  @Input() productPricePerPiece!: number;
   @Input() _id!: string;
   @Input() quantityAcceptedIn!: number; // 0 = item 1 = kg
   
@@ -32,7 +33,7 @@ export class ProductCardComponent  implements OnInit {
 
   decrementQuantity() {
     if (this.quantity > 0 ) {
-      // this.quantity--;
+      this.quantity--;
     this.quantityEventRemove.emit({quantity: this.quantity, id:this._id, type: this.quantityAcceptedIn});
       this.haptics.hapticsImpactLight();
     }

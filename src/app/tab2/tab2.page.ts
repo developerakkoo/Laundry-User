@@ -82,7 +82,10 @@ export class Tab2Page {
   }
   async getAddress() {
     this.address = await this.storage.get('address');
-    console.log(this.address['address']);
+    console.log('Below is the Address');
+
+    console.log(this.address['_id']);
+    this.addressId = this.address['_id'];
   }
   getCart() {
     this.logic.getCart().subscribe({

@@ -44,7 +44,9 @@
       (quantityEvent)="addItem($event)"
       (quantityEventRemove)="deleteItem($event)"
       [_id]="item?.serviceId?._id"
-      [productPrice]="item?.serviceId?.perKgPrice"
+      [productPricePerKg]="item?.serviceId?.perKgPrice"
+      [productPricePerPiece]="item?.serviceId?.perPeacePrice
+"
     >
     </app-product-card>
   </ion-card>

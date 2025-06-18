@@ -8,10 +8,14 @@
     />
     <div class="product-details">
       <h2>{{ productName }}</h2>
-      <p class="pricing">
-        Price: {{ productPrice }}
-        <span *ngIf="quantityAcceptedIn == 1">per KG</span>
-        <span *ngIf="quantityAcceptedIn == 0">per Item</span>
+      <p class="pricing" *ngIf="quantityAcceptedIn == 1">
+        Price: {{ productPricePerKg }}
+        <span>per KG</span>
+      </p>
+
+      <p class="pricing" *ngIf="quantityAcceptedIn == 0">
+        Price: {{ productPricePerPiece }}
+        <span>per Item</span>
       </p>
       <p class="quantity">About: {{ desc }}</p>
     </div>
