@@ -9,101 +9,107 @@ import { Router } from '@angular/router';
   templateUrl: './laundry-card.component.html',
   styleUrls: ['./laundry-card.component.scss'],
 })
-export class LaundryCardComponent  implements OnInit {
+export class LaundryCardComponent implements OnInit {
   @Input() imageUrl!: string;
   @Input() id!: string;
   @Input() name!: string;
   @Input() ratings!: string;
   @Input() address!: string;
-  heartIcon:string = 'heart-outline';
-  isLiked:boolean = false;
-  @Input() likes!: string[]; // Array of user IDs who liked this shop
+  @Input() likes: string[] = []; // Array of user IDs who liked this shop
   @Input() currentUserId!: string;
   @Input() category!: string;
-  @Input() categories:[] = [];
+  @Input() categories: any[] = [];
 
   @Output() clickEvent = new EventEmitter();
-  constructor(private haptics: HapticsService,
-    private logic: LogicService,
-    private router:Router
 
-  ) { }
+  isLiked: boolean = false;
+  isProcessing: boolean = false;
+
+  constructor(
+    private haptics: HapticsService,
+    private logic: LogicService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
-    // this.currentUserId = await this.logic.getUserId();
-    console.log(`UserId in Laundry CArd Component:- ${this.currentUserId}`);
-    this.isLiked = this.likes.includes(this.currentUserId);
+    console.log(`UserId in Laundry Card Component:- ${this.currentUserId}`);
+
+    // Check if current user has liked this shop
+    if (this.likes && this.currentUserId) {
+      this.isLiked = this.likes.includes(this.currentUserId);
+    }
+
     console.log(`User Like Status:- ${this.isLiked} for ${this.id}`);
-    
-    
   }
 
+  action(type: string) {
+    if (type === 'like') {
+      if (this.isProcessing) return; // Prevent multiple clicks
 
+      console.log('Like action triggered');
+      this.haptics.hapticsImpactLight();
 
-  action(type:string){
-    if(type === 'like'){
-      console.log('like');
-      this.heartIcon = 'heart';
-      if(this.isLiked == true){
-        this.isLiked = false;
-        this.heartIcon = 'heart-outline';
+      if (this.isLiked) {
         this.unlikeShop();
-      }else  if(this.isLiked == false){
-        this.isLiked = true;
-        this.heartIcon = 'heart';
+      } else {
         this.likeShop();
       }
+    } else if (type === 'share') {
+      console.log('Share action triggered');
       this.haptics.hapticsImpactLight();
-    }
-    else {
-      console.log("share");
-      this.haptics.hapticsImpactLight();
-      
+      this.share();
     }
   }
 
+  likeShop() {
+    this.isProcessing = true;
 
-  likeShop(){
-    this.logic.like(this.id)
-    .subscribe({
-      next:async(value:any) =>{
-        console.log(value);
-        this.likes.push(this.currentUserId);
-        console.log("Shop Liked");
-        
-      },
-      error:async(error:HttpErrorResponse) =>{
-        console.log(error);
-        this.isLiked = false;
-      }
-    })
-  }
-
-
-  unlikeShop(){
-    this.logic.unlike(this.id)
-    .subscribe({
-      next:async(value:any) =>{
-        console.log(value);
-        this.likes = this.likes.filter(id => id !== this.currentUserId);
-        console.log("Shop unLiked!");
-        
-        
-      },
-      error:async(error:HttpErrorResponse) =>{
-        console.log(error);
+    this.logic.like(this.id).subscribe({
+      next: async (value: any) => {
+        console.log('Shop liked successfully:', value);
         this.isLiked = true;
-        
-      }
-    })
-  }
-  clickHandler(){
-    this.router.navigate(["view-laundry", this.name, this.id,"add",this.id]);
-    this.clickEvent.emit({id:this.id, category:this.category});
+        this.likes.push(this.currentUserId);
+        this.haptics.hapticsImpactMedium();
+        this.isProcessing = false;
+      },
+      error: async (error: HttpErrorResponse) => {
+        console.error('Error liking shop:', error);
+        this.isLiked = false;
+        this.isProcessing = false;
+        // You could add a toast notification here for error feedback
+      },
+    });
   }
 
-  share(){
-    console.log("Share clicked!");
-    
+  unlikeShop() {
+    this.isProcessing = true;
+
+    this.logic.unlike(this.id).subscribe({
+      next: async (value: any) => {
+        console.log('Shop unliked successfully:', value);
+        this.isLiked = false;
+        this.likes = this.likes.filter((id) => id !== this.currentUserId);
+        this.haptics.hapticsImpactLight();
+        this.isProcessing = false;
+      },
+      error: async (error: HttpErrorResponse) => {
+        console.error('Error unliking shop:', error);
+        this.isLiked = true;
+        this.isProcessing = false;
+        // You could add a toast notification here for error feedback
+      },
+    });
+  }
+
+  clickHandler() {
+    this.haptics.hapticsImpactLight();
+    this.router.navigate(['view-laundry', this.name, this.id, 'add', this.id]);
+    this.clickEvent.emit({ id: this.id, category: this.category });
+  }
+
+  share() {
+    console.log('Share functionality - implement sharing logic here');
+    // You can implement actual sharing functionality here
+    // For example: Web Share API, social media sharing, etc.
   }
 }

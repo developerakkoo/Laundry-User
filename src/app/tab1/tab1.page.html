@@ -1,133 +1,203 @@
-<ion-header
-  [translucent]="true"
-  class="ion-no-border animate__animated animate__slideInDown"
->
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title class="header-text">
-      Your Location,
-      <p style="margin: 0">Pune, Maharashtra</p>
-    </ion-title>
-    <ion-button
-      class="animate__animated animate__fadeIn circular-button"
-      (click)="openPage('search')"
-      slot="end"
-      fill="clear"
-    >
-      <ion-icon slot="icon-only" name="search-outline"></ion-icon>
-    </ion-button>
-    <ion-button
-      class="animate__animated animate__swing circular-button"
-      (click)="openPage('notifications')"
-      slot="end"
-      fill="clear"
-    >
-      <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
-    </ion-button>
+    <div class="header-content">
+      <div class="location-info">
+        <ion-icon name="location" class="location-icon"></ion-icon>
+        <div class="location-text">
+          <h2 class="location-title">Your Location</h2>
+          <p class="location-subtitle">Pune, Maharashtra</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <ion-button
+          class="header-action-btn search-btn"
+          (click)="openPage('search')"
+          fill="clear"
+        >
+          <ion-icon name="search-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+
+        <ion-button
+          class="header-action-btn notification-btn"
+          (click)="openPage('notifications')"
+          fill="clear"
+        >
+          <ion-icon name="notifications-outline" slot="icon-only"></ion-icon>
+          <div class="notification-badge"></div>
+        </ion-button>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <swiper-container
-    [loop]="true"
-    autoplay="true"
-    delay="1000"
-    [slidesPerView]="1"
-  >
-    <swiper-slide
-      ><app-banner
-        class="animate__animated animate__fadeIn"
-        imageUrl="assets/banner-top.svg"
-      ></app-banner>
-    </swiper-slide>
-    <swiper-slide
-      ><app-banner
-        class="animate__animated animate__fadeIn"
-        imageUrl="assets/banner-top.svg"
-      ></app-banner>
-    </swiper-slide>
-    <swiper-slide
-      ><app-banner
-        class="animate__animated animate__fadeIn"
-        imageUrl="assets/banner-top.svg"
-      ></app-banner>
-    </swiper-slide>
-  </swiper-container>
-  <ion-list class="ion-padding">
-    <ion-list-header>
-      <ion-label class="nunito-bold">What's on your mind?</ion-label>
-    </ion-list-header>
-  </ion-list>
-  <div class="grid-container">
-    <div class="grid-item" (click)="openPage('view-laundry/Washing/1')">
-      <img
-        class="animate__animated animate__tada"
-        src="assets/icon/laundry.png"
-        alt="Placeholder Image"
-      />
-      <p>Washing</p>
+  <!-- Hero Banner Section -->
+  <div class="hero-section">
+    <swiper-container
+      [loop]="true"
+      autoplay="true"
+      delay="3000"
+      [slidesPerView]="1"
+      class="hero-swiper"
+    >
+      <swiper-slide>
+        <app-banner
+          class="hero-banner"
+          imageUrl="assets/banner-top.svg"
+        ></app-banner>
+      </swiper-slide>
+      <swiper-slide>
+        <app-banner
+          class="hero-banner"
+          imageUrl="assets/banner-top.svg"
+        ></app-banner>
+      </swiper-slide>
+      <swiper-slide>
+        <app-banner
+          class="hero-banner"
+          imageUrl="assets/banner-top.svg"
+        ></app-banner>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <!-- Services Grid Section -->
+  <div class="services-section">
+    <div class="section-header">
+      <h2 class="section-title">What's on your mind?</h2>
+      <!-- <p class="section-subtitle">Choose from our premium laundry services</p> -->
     </div>
-    <div class="grid-item" (click)="openPage('view-laundry/Dry Clean/1')">
-      <img
-        class="animate__animated animate__tada"
-        src="assets/icon/clean-clothes.png"
-        alt="Placeholder Image"
-      />
-      <p>Dry Clean</p>
-    </div>
-    <div class="grid-item" (click)="openPage('view-laundry/Ironing/1')">
-      <img
-        class="animate__animated animate__tada"
-        src="assets/icon/iron.png"
-        alt="Placeholder Image"
-      />
-      <p>Ironing</p>
-    </div>
-    <div class="grid-item" (click)="openPage('view-laundry/Bulky Items/1')">
-      <img
-        class="animate__animated animate__tada"
-        src="assets/icon/sweater.png"
-        alt="Placeholder Image"
-      />
-      <p>Bulky Items</p>
-    </div>
-    <div class="grid-item" (click)="openPage('view-laundry/Carpet Wash/1')">
-      <img
-        class="animate__animated animate__tada"
-        src="assets/icon/power-washing.png"
-        alt="Placeholder Image"
-      />
-      <p>Carpet Wash</p>
-    </div>
-    <div class="grid-item" (click)="openPage('view-laundry/Shoe wash/1')">
-      <img
-        class="animate__animated animate__tada"
-        src="assets/icon/sneakers.png"
-        alt="Placeholder Image"
-      />
-      <p>Shoe Wash</p>
+
+    <div class="services-grid">
+      <div
+        class="service-card washing"
+        (click)="openPage('view-laundry/Washing/1')"
+      >
+        <div class="service-icon">
+          <img src="assets/icon/laundry.png" alt="Washing" />
+        </div>
+        <h3 class="service-name">Washing</h3>
+        <p class="service-desc">Professional washing service</p>
+      </div>
+
+      <div
+        class="service-card dry-clean"
+        (click)="openPage('view-laundry/Dry Clean/1')"
+      >
+        <div class="service-icon">
+          <img src="assets/icon/clean-clothes.png" alt="Dry Clean" />
+        </div>
+        <h3 class="service-name">Dry Clean</h3>
+        <p class="service-desc">Expert dry cleaning</p>
+      </div>
+
+      <div
+        class="service-card ironing"
+        (click)="openPage('view-laundry/Ironing/1')"
+      >
+        <div class="service-icon">
+          <img src="assets/icon/iron.png" alt="Ironing" />
+        </div>
+        <h3 class="service-name">Ironing</h3>
+        <p class="service-desc">Perfect press & fold</p>
+      </div>
+
+      <div
+        class="service-card bulky"
+        (click)="openPage('view-laundry/Bulky Items/1')"
+      >
+        <div class="service-icon">
+          <img src="assets/icon/sweater.png" alt="Bulky Items" />
+        </div>
+        <h3 class="service-name">Bulky Items</h3>
+        <p class="service-desc">Heavy duty cleaning</p>
+      </div>
+
+      <div
+        class="service-card carpet"
+        (click)="openPage('view-laundry/Carpet Wash/1')"
+      >
+        <div class="service-icon">
+          <img src="assets/icon/power-washing.png" alt="Carpet Wash" />
+        </div>
+        <h3 class="service-name">Carpet Wash</h3>
+        <p class="service-desc">Deep carpet cleaning</p>
+      </div>
+
+      <div
+        class="service-card shoes"
+        (click)="openPage('view-laundry/Shoe wash/1')"
+      >
+        <div class="service-icon">
+          <img src="assets/icon/sneakers.png" alt="Shoe Wash" />
+        </div>
+        <h3 class="service-name">Shoe Wash</h3>
+        <p class="service-desc">Sneaker restoration</p>
+      </div>
     </div>
   </div>
-  <ion-list>
-    <ion-list-header>
-      <ion-label class="nunito-bold">Explore </ion-label>
-    </ion-list-header>
-  </ion-list>
-  <app-explore></app-explore>
-  <app-banner
-    class="animate__animated animate__fadeIn"
-    imageUrl="assets/how.svg"
-  ></app-banner>
-  <ion-list>
-    <ion-list-header>
-      <ion-label class="nunito-bold">Best for you </ion-label>
-      <ion-button
-        ><ion-icon size="small" slot="start" name="arrow-forward"></ion-icon
-      ></ion-button>
-    </ion-list-header>
-  </ion-list>
-  <swiper-container [slidesPerView]="1.1" [spaceBetween]="15">
-    <swiper-slide *ngFor="let item of allLaundries">
+
+  <!-- Explore Section -->
+  <div class="explore-section">
+    <div class="section-header">
+      <h2 class="section-title">Explore</h2>
+      <!-- <p class="section-subtitle">Discover amazing laundry options</p> -->
+    </div>
+    <app-explore></app-explore>
+  </div>
+
+  <!-- How It Works Banner -->
+  <div class="how-it-works-section">
+    <app-banner
+      class="how-it-works-banner"
+      imageUrl="assets/how.svg"
+    ></app-banner>
+  </div>
+
+  <!-- Best For You Section -->
+  <div class="best-for-you-section">
+    <div class="section-header">
+      <h2 class="section-title">Best for you</h2>
+      <ion-button class="view-all-btn" fill="clear">
+        <span>View All</span>
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="laundries-swiper">
+      <swiper-container [slidesPerView]="1.1" [spaceBetween]="16">
+        <swiper-slide *ngFor="let item of allLaundries">
+          <app-laundry-card
+            imageUrl="assets/laundry-demo.svg"
+            [id]="item._id"
+            [likes]="item?.likes"
+            [categories]="item?.category"
+            [name]="item?.name"
+            ratings="4.5"
+            [category]="item?.category[0]?.name"
+            [currentUserId]="userId"
+            [address]="item?.address?.city"
+          >
+          </app-laundry-card>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </div>
+
+  <!-- Top Laundries Section -->
+  <div class="top-laundries-section">
+    <div class="section-header">
+      <h2 class="section-title">Top Laundries</h2>
+      <ion-button class="view-all-btn" fill="clear">
+        <span>View All</span>
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="laundries-grid">
       <app-laundry-card
+        *ngFor="let item of allLaundries"
         imageUrl="assets/laundry-demo.svg"
         [id]="item._id"
         [likes]="item?.likes"
@@ -139,28 +209,6 @@
         [address]="item?.address?.city"
       >
       </app-laundry-card>
-    </swiper-slide>
-  </swiper-container>
-  <ion-list>
-    <ion-list-header>
-      <ion-label class="nunito-bold">Top Laundries </ion-label>
-      <ion-button
-        ><ion-icon size="small" slot="start" name="arrow-forward"></ion-icon
-      ></ion-button>
-    </ion-list-header>
-  </ion-list>
-
-  <app-laundry-card
-    *ngFor="let item of allLaundries"
-    imageUrl="assets/laundry-demo.svg"
-    [id]="item._id"
-    [likes]="item?.likes"
-    [categories]="item?.category"
-    [name]="item?.name"
-    ratings="4.5"
-    [category]="item?.category[0]?.name"
-    [currentUserId]="userId"
-    [address]="item?.address?.city"
-  >
-  </app-laundry-card>
+    </div>
+  </div>
 </ion-content>

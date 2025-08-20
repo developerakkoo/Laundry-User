@@ -1,11 +1,768 @@
+// Premium Help Page Styling - Professional Design
 
-
-ion-label{
-    font-size: 20px;
-    font-weight: 700;
-   
+// Premium Content Background
+.premium-content {
+  --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --color: #1e293b;
+  padding: 0;
 }
 
-ion-card{
-    border-radius: 16px;
+// Premium Header Styling
+.premium-header {
+  --background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  
+  .premium-toolbar {
+    --background: transparent;
+    --border-color: transparent;
+    --color: #1e293b;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    
+    .premium-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: 0.5px;
+    }
+    
+    .premium-back-button {
+      --color: #64748b;
+      --color-hover: #3b82f6;
+      --color-activated: #3b82f6;
+      --icon-font-size: 24px;
+      --icon-padding-start: 8px;
+      --icon-padding-end: 8px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      --border-radius: 12px;
+      --background: rgba(59, 130, 246, 0.1);
+      --background-hover: rgba(59, 130, 246, 0.2);
+      --background-activated: rgba(59, 130, 246, 0.2);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateX(-2px);
+      }
+    }
+  }
+}
+
+// Premium Hero Section
+.help-hero {
+  padding: 32px 24px;
+  background: linear-gradient(135deg, 
+    rgba(139, 92, 246, 0.1) 0%, 
+    rgba(59, 130, 246, 0.1) 100%);
+  border-radius: 0 0 32px 32px;
+  margin-bottom: 24px;
+  
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    
+    .hero-text {
+      flex: 1;
+      
+      .hero-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1e293b;
+        margin: 0 0 12px 0;
+        background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: titleGlow 3s ease-in-out infinite alternate;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #374151;
+        margin: 0 0 8px 0;
+      }
+      
+      .hero-description {
+        font-size: 1rem;
+        color: #6b7280;
+        margin: 0;
+        line-height: 1.5;
+      }
+    }
+    
+    .hero-illustration {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      flex-shrink: 0;
+      
+      .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        animation: float 6s ease-in-out infinite;
+      }
+      
+      .illustration-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, 
+          rgba(139, 92, 246, 0.1) 0%, 
+          rgba(59, 130, 246, 0.1) 100%);
+        border-radius: 50%;
+        animation: pulse 4s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+// Premium Support Options
+.support-options {
+  padding: 0 24px 24px;
+}
+
+.support-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(-2px);
+  }
+}
+
+// Card Headers
+.card-header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 0 2px 2px 0;
+  }
+  
+  &.chat-header::before {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  }
+  
+  &.phone-header::before {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  }
+  
+  &.email-header::before {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  }
+  
+  &.whatsapp-header::before {
+    background: linear-gradient(135deg, #25d366 0%, #4ade80 100%);
+  }
+}
+
+.header-icon-container {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  .chat-header & {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+  }
+  
+  .phone-header & {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+  }
+  
+  .email-header & {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+  }
+  
+  .whatsapp-header & {
+    background: rgba(37, 211, 102, 0.1);
+    color: #25d366;
+  }
+  
+  .header-icon {
+    font-size: 24px;
+  }
+}
+
+.header-content {
+  flex: 1;
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+  }
+  
+  .card-subtitle {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0;
+  }
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &.online {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  
+  &.available {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+  
+  .status-text {
+    font-weight: 600;
+  }
+}
+
+// Card Body
+.card-body {
+  padding: 0 24px 24px;
+}
+
+.support-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(139, 92, 246, 0.05);
+    transform: translateX(4px);
+  }
+}
+
+.support-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(139, 92, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  .phone-avatar-icon,
+  .email-avatar-icon,
+  .whatsapp-avatar-icon {
+    font-size: 24px;
+    color: #8b5cf6;
+  }
+}
+
+.support-info {
+  flex: 1;
+  
+  .support-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+  }
+  
+  .support-description {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin: 0 0 4px 0;
+  }
+  
+  .phone-number,
+  .email-address,
+  .whatsapp-number {
+    font-size: 0.85rem;
+    color: #8b5cf6;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.arrow-icon {
+  font-size: 20px;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+  
+  .support-option:hover & {
+    color: #8b5cf6;
+    transform: translateX(4px);
+  }
+}
+
+// Premium FAQ Section
+.faq-section {
+  padding: 0 24px 32px;
+}
+
+.faq-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  
+  .faq-icon {
+    font-size: 28px;
+    color: #8b5cf6;
+  }
+  
+  .faq-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.premium-faq-item {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  transition: all 0.3s ease;
+  
+  .question-icon {
+    font-size: 20px;
+    color: #8b5cf6;
+    flex-shrink: 0;
+  }
+  
+  .question-text {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+  }
+  
+  .chevron-icon {
+    font-size: 20px;
+    color: #9ca3af;
+    transition: all 0.3s ease;
+    
+    &.rotated {
+      transform: rotate(180deg);
+      color: #8b5cf6;
+    }
+  }
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.expanded {
+    max-height: 200px;
+    padding: 0 24px 20px;
+  }
+  
+  p {
+    font-size: 0.95rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// Premium Contact Footer
+.contact-footer {
+  background: linear-gradient(135deg, 
+    rgba(139, 92, 246, 0.05) 0%, 
+    rgba(59, 130, 246, 0.05) 100%);
+  border-radius: 32px 32px 0 0;
+  padding: 32px 24px;
+  margin-top: 24px;
+}
+
+.footer-content {
+  text-align: center;
+  
+  .footer-icon {
+    font-size: 32px;
+    color: #8b5cf6;
+    margin-bottom: 16px;
+  }
+  
+  .footer-text {
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+  }
+}
+
+.emergency-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 16px;
+  max-width: fit-content;
+  margin: 0 auto;
+  
+  .emergency-icon {
+    font-size: 18px;
+    color: #dc2626;
+  }
+  
+  .emergency-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #dc2626;
+  }
+}
+
+// Premium Animations
+@keyframes titleGlow {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.6));
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation for support cards
+.support-card {
+  animation: cardSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+}
+
+// Responsive Design
+@media (max-width: 480px) {
+  .premium-header {
+    .premium-toolbar {
+      .premium-title {
+        font-size: 1.25rem;
+      }
+    }
+  }
+  
+  .help-hero {
+    padding: 24px 20px;
+    
+    .hero-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 20px;
+      
+      .hero-text {
+        .hero-title {
+          font-size: 2rem;
+        }
+        
+        .hero-subtitle {
+          font-size: 1.1rem;
+        }
+      }
+      
+      .hero-illustration {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+  
+  .support-options {
+    padding: 0 20px 20px;
+  }
+  
+  .support-card {
+    .card-header {
+      padding: 16px 20px;
+      gap: 12px;
+    }
+    
+    .card-body {
+      padding: 0 20px 20px;
+    }
+  }
+  
+  .faq-section {
+    padding: 0 20px 24px;
+  }
+  
+  .faq-question {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+  
+  .faq-answer.expanded {
+    padding: 0 20px 16px;
+  }
+  
+  .contact-footer {
+    padding: 24px 20px;
+  }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  .premium-content {
+    --background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --color: #f1f5f9;
+  }
+  
+  .premium-header {
+    --background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: rgba(148, 163, 184, 0.2);
+  }
+  
+  .premium-toolbar {
+    .premium-title {
+      color: #f1f5f9;
+    }
+    
+    .premium-back-button {
+      --color: #94a3b8;
+      --color-hover: #60a5fa;
+      --color-activated: #60a5fa;
+      --background: rgba(96, 165, 250, 0.1);
+      --background-hover: rgba(96, 165, 250, 0.2);
+      --background-activated: rgba(96, 165, 250, 0.2);
+    }
+  }
+  
+  .help-hero {
+    background: linear-gradient(135deg, 
+      rgba(139, 92, 246, 0.15) 0%, 
+      rgba(59, 130, 246, 0.15) 100%);
+    
+    .hero-text {
+      .hero-title {
+        color: #f1f5f9;
+      }
+      
+      .hero-subtitle {
+        color: #d1d5db;
+      }
+      
+      .hero-description {
+        color: #9ca3af;
+      }
+    }
+  }
+  
+  .support-card {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(148, 163, 184, 0.2);
+    
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+  }
+  
+  .card-header {
+    .header-content {
+      .card-title {
+        color: #f1f5f9;
+      }
+      
+      .card-subtitle {
+        color: #9ca3af;
+      }
+    }
+  }
+  
+  .support-option {
+    background: rgba(15, 23, 42, 0.8);
+    
+    &:hover {
+      background: rgba(139, 92, 246, 0.1);
+    }
+  }
+  
+  .support-info {
+    .support-name {
+      color: #f1f5f9;
+    }
+    
+    .support-description {
+      color: #9ca3af;
+    }
+  }
+  
+  .premium-faq-item {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(148, 163, 184, 0.2);
+    
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+  }
+  
+  .faq-question {
+    .question-text {
+      color: #f1f5f9;
+    }
+  }
+  
+  .faq-answer {
+    p {
+      color: #9ca3af;
+    }
+  }
+  
+  .contact-footer {
+    background: linear-gradient(135deg, 
+      rgba(139, 92, 246, 0.1) 0%, 
+      rgba(59, 130, 246, 0.1) 100%);
+  }
+  
+  .footer-content {
+    .footer-text {
+      color: #9ca3af;
+    }
+  }
+}
+
+// Enhanced focus states for accessibility
+.support-card:focus,
+.premium-faq-item:focus {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
+}
+
+// Hover effects for interactive elements
+.support-card:hover,
+.premium-faq-item:hover {
+  cursor: pointer;
+}
+
+// Smooth transitions for all interactive elements
+.support-card,
+.premium-faq-item,
+.support-option,
+.arrow-icon,
+.chevron-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

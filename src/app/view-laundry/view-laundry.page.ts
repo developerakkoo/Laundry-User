@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ActionSheetController, IonicSlides } from '@ionic/angular';
+import {
+  ActionSheetController,
+  IonicSlides,
+  ModalController,
+} from '@ionic/angular';
 import { HapticsService } from '../services/haptics.service';
 import { LogicService } from '../services/logic.service';
+
 @Component({
   selector: 'app-view-laundry',
   templateUrl: './view-laundry.page.html',
@@ -19,22 +24,26 @@ export class ViewLaundryPage implements OnInit {
   selectedFilter: string = '';
 
   laundryFilter: any = { name: '' };
+
   constructor(
     private router: Router,
     private haptics: HapticsService,
     private route: ActivatedRoute,
     private logic: LogicService,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private modalController: ModalController
   ) {
     this.title = this.route.snapshot.paramMap.get('name');
     this.categoryId = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {}
+
   async getUserId() {
     this.userId = await this.logic.getUserId();
     console.log(`UserId in tab1 page ${this.userId}`);
   }
+
   ionViewDidEnter() {
     this.getUserId();
     this.getAllLaundries();
@@ -52,7 +61,6 @@ export class ViewLaundryPage implements OnInit {
     this.logic.getAllLaundries().subscribe({
       next: async (value: any) => {
         console.log('Shops Fetched!');
-
         console.log(value);
         this.allLaundries = value['data']['content'];
       },
@@ -61,6 +69,7 @@ export class ViewLaundryPage implements OnInit {
       },
     });
   }
+
   getLaundriesById() {
     // this.isLoading = true;
     // setTimeout(() => {
@@ -72,7 +81,6 @@ export class ViewLaundryPage implements OnInit {
     this.logic.laundryByCategory$.subscribe({
       next: async (value: any) => {
         console.log('Fetching all laundries');
-
         console.log(value);
         this.allLaundries = value['data'];
       },
@@ -84,13 +92,21 @@ export class ViewLaundryPage implements OnInit {
 
   applyFilter(filter: string) {
     this.haptics.hapticsImpactLight();
-
     this.selectedFilter = filter; // Set the active filter
     this.getAllLaundries();
   }
+
   openFilterModal() {
+    console.log('Opening filter modal, current state:', this.isFilterOpen);
     this.isFilterOpen = !this.isFilterOpen;
+    console.log('New modal state:', this.isFilterOpen);
   }
+
+  closeFilterModal() {
+    console.log('Closing filter modal');
+    this.isFilterOpen = false;
+  }
+
   onSearchChange(ev: any) {}
 
   openPage(page: string) {

@@ -1,37 +1,250 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
- 
+<ion-header [translucent]="true" class="ion-no-border premium-header">
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">Help & Support</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/tabs/tab3"
+        class="premium-back-button"
+      ></ion-back-button>
     </ion-buttons>
-   
   </ion-toolbar>
- 
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6">
-        <ion-label>Hi!
-          <p class="subtitle">How can we help you?</p>
-        </ion-label>
-      </ion-col>
-      <ion-col size="6">
-        <img src="assets/howhelp.svg" alt="">
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Premium Hero Section -->
+  <div class="help-hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Hi there! 👋</h1>
+        <p class="hero-subtitle">How can we help you today?</p>
+        <p class="hero-description">
+          We're here to make your laundry experience smooth and hassle-free
+        </p>
+      </div>
+      <div class="hero-illustration">
+        <img
+          src="assets/howhelp.svg"
+          alt="Help Illustration"
+          class="hero-image"
+        />
+        <div class="illustration-overlay"></div>
+      </div>
+    </div>
+  </div>
 
-  <ion-card (click)="openPage('chat')">
-    <ion-card-header style="border-left: 2px solid #8F35C7; background-color: #d0d0d0;">
-      <ion-card-subtitle >CONTACT SUPPORT</ion-card-subtitle>
-    </ion-card-header>
-    <ion-item detail lines="none">
-      <ion-avatar>
-        <img src="assets/icon/chat-bot.gif" />
-      </ion-avatar>
-      <ion-label>Chat with us</ion-label>
-    </ion-item>
-  </ion-card>
+  <!-- Premium Support Options -->
+  <div class="support-options">
+    <!-- Chat Support Card -->
+    <div class="support-card premium-card" (click)="openPage('chat')">
+      <div class="card-header chat-header">
+        <div class="header-icon-container">
+          <ion-icon name="chatbubbles-outline" class="header-icon"></ion-icon>
+        </div>
+        <div class="header-content">
+          <h3 class="card-title">Live Chat Support</h3>
+          <p class="card-subtitle">Get instant help from our team</p>
+        </div>
+        <div class="status-indicator online">
+          <span class="status-dot"></span>
+          <span class="status-text">Online</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="support-option">
+          <ion-avatar class="support-avatar">
+            <img src="assets/icon/chat-bot.gif" alt="Chat Bot" />
+          </ion-avatar>
+          <div class="support-info">
+            <h4 class="support-name">Chat with us</h4>
+            <p class="support-description">
+              Available 24/7 • Response time: < 2 min
+            </p>
+          </div>
+          <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Support Card -->
+    <div class="support-card premium-card" (click)="callSupport()">
+      <div class="card-header phone-header">
+        <div class="header-icon-container">
+          <ion-icon name="call-outline" class="header-icon"></ion-icon>
+        </div>
+        <div class="header-content">
+          <h3 class="card-title">Phone Support</h3>
+          <p class="card-subtitle">Speak directly with our experts</p>
+        </div>
+        <div class="status-indicator available">
+          <span class="status-dot"></span>
+          <span class="status-text">Available</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="support-option">
+          <ion-avatar class="support-avatar">
+            <ion-icon
+              name="person-outline"
+              class="phone-avatar-icon"
+            ></ion-icon>
+          </ion-avatar>
+          <div class="support-info">
+            <h4 class="support-name">Call us now</h4>
+            <p class="support-description">Mon-Sat: 9AM-8PM • Sun: 10AM-6PM</p>
+            <p class="phone-number">📞 +91 98765 43210</p>
+          </div>
+          <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Support Card -->
+    <div class="support-card premium-card" (click)="emailSupport()">
+      <div class="card-header email-header">
+        <div class="header-icon-container">
+          <ion-icon name="mail-outline" class="header-icon"></ion-icon>
+        </div>
+        <div class="header-content">
+          <h3 class="card-title">Email Support</h3>
+          <p class="card-subtitle">Send us a detailed message</p>
+        </div>
+        <div class="status-indicator available">
+          <span class="status-dot"></span>
+          <span class="status-text">Available</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="support-option">
+          <ion-avatar class="support-avatar">
+            <ion-icon name="mail-outline" class="email-avatar-icon"></ion-icon>
+          </ion-avatar>
+          <div class="support-info">
+            <h4 class="support-name">Send email</h4>
+            <p class="support-description">Response time: 2-4 hours</p>
+            <p class="email-address">✉️ supportlaundryapp.com</p>
+          </div>
+          <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- WhatsApp Support Card -->
+    <div class="support-card premium-card" (click)="whatsappSupport()">
+      <div class="card-header whatsapp-header">
+        <div class="header-icon-container">
+          <ion-icon name="logo-whatsapp" class="header-icon"></ion-icon>
+        </div>
+        <div class="header-content">
+          <h3 class="card-title">WhatsApp Support</h3>
+          <p class="card-subtitle">Quick help via WhatsApp</p>
+        </div>
+        <div class="status-indicator online">
+          <span class="status-dot"></span>
+          <span class="status-text">Online</span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="support-option">
+          <ion-avatar class="support-avatar">
+            <ion-icon
+              name="logo-whatsapp"
+              class="whatsapp-avatar-icon"
+            ></ion-icon>
+          </ion-avatar>
+          <div class="support-info">
+            <h4 class="support-name">WhatsApp us</h4>
+            <p class="support-description">Instant responses • Media sharing</p>
+            <p class="whatsapp-number">📱 +91 98765 43210</p>
+          </div>
+          <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium FAQ Section -->
+  <div class="faq-section">
+    <div class="faq-header">
+      <ion-icon name="help-circle-outline" class="faq-icon"></ion-icon>
+      <h3 class="faq-title">Frequently Asked Questions</h3>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item premium-faq-item" (click)="toggleFaq(1)">
+        <div class="faq-question">
+          <ion-icon name="time-outline" class="question-icon"></ion-icon>
+          <span class="question-text">How long does laundry take?</span>
+          <ion-icon
+            name="chevron-down"
+            class="chevron-icon"
+            [class.rotated]="openFaq === 1"
+          ></ion-icon>
+        </div>
+        <div class="faq-answer" [class.expanded]="openFaq === 1">
+          <p>
+            Standard service takes 24-48 hours. Express service is available for
+            same-day delivery at an additional cost.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item premium-faq-item" (click)="toggleFaq(2)">
+        <div class="faq-question">
+          <ion-icon name="pricetag-outline" class="question-icon"></ion-icon>
+          <span class="question-text">What are your pricing options?</span>
+          <ion-icon
+            name="chevron-down"
+            class="chevron-icon"
+            [class.rotated]="openFaq === 2"
+          ></ion-icon>
+        </div>
+        <div class="faq-answer" [class.expanded]="openFaq === 2">
+          <p>
+            We offer competitive per-kg pricing starting from ₹50/kg. Bulk
+            orders and subscriptions get special discounts.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item premium-faq-item" (click)="toggleFaq(3)">
+        <div class="faq-question">
+          <ion-icon name="location-outline" class="question-icon"></ion-icon>
+          <span class="question-text">Do you provide pickup and delivery?</span>
+          <ion-icon
+            name="chevron-down"
+            class="chevron-icon"
+            [class.rotated]="openFaq === 3"
+          ></ion-icon>
+        </div>
+        <div class="faq-answer" [class.expanded]="openFaq === 3">
+          <p>
+            Yes! We offer free pickup and delivery for orders above ₹200. Below
+            that, a small delivery fee applies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Contact Footer -->
+  <div class="contact-footer">
+    <div class="footer-content">
+      <ion-icon
+        name="information-circle-outline"
+        class="footer-icon"
+      ></ion-icon>
+      <p class="footer-text">
+        Need more help? Our support team is available 24/7 to assist you with
+        any questions or concerns.
+      </p>
+      <div class="emergency-contact">
+        <ion-icon name="warning-outline" class="emergency-icon"></ion-icon>
+        <span class="emergency-text">Emergency: +91 98765 43210</span>
+      </div>
+    </div>
+  </div>
 </ion-content>

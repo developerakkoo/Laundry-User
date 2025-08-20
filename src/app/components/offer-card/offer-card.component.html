@@ -1,17 +1,36 @@
-<div class="offer-card">
+<div class="offer-card premium-offer-card">
   <div class="offer-code-section">
     <span class="cut-out"></span>
-    <div class="promo-code">SAVE20</div>
+    <div class="promo-code">
+      <ion-icon name="pricetag-outline" class="code-icon"></ion-icon>
+      <span class="code-text">SAVE20</span>
+    </div>
     <span class="cut-out"></span>
   </div>
+
   <div class="offer-details">
     <div class="offer-description">
-      Get 20% off on your next purchase. Use the code at checkout.
+      <ion-icon name="gift-outline" class="gift-icon"></ion-icon>
+      <span>Get 20% off on your next purchase. Use the code at checkout.</span>
     </div>
+
     <div class="offer-more-details">
-      <p>Valid until: 31st December 2024</p>
-      <p>Terms and conditions apply.</p>
+      <div class="detail-item">
+        <ion-icon name="calendar-outline" class="detail-icon"></ion-icon>
+        <span>Valid until: 31st December 2024</span>
+      </div>
+      <div class="detail-item">
+        <ion-icon
+          name="information-circle-outline"
+          class="detail-icon"
+        ></ion-icon>
+        <span>Terms and conditions apply.</span>
+      </div>
     </div>
-    <button class="apply-button" (click)="applyCode()">Apply Code</button>
+
+    <button class="apply-button premium-button" (click)="applyCode()">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      Apply Code
+    </button>
   </div>
 </div>

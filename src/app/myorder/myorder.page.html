@@ -1,121 +1,216 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>My Orders</ion-title>
+<ion-header [translucent]="true" class="ion-no-border premium-header">
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">My Orders</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/tabs/tab3"
+        class="premium-back-button"
+      ></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-segment value="1" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="1">
-      <ion-label>Recent</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="2">
-      <ion-label>Previous</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-  <ion-list>
-    <ion-accordion-group>
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Premium Segment Control -->
+  <div class="segment-container">
+    <ion-segment
+      value="1"
+      (ionChange)="segmentChanged($event)"
+      class="premium-segment"
+    >
+      <ion-segment-button value="1" class="segment-button">
+        <ion-label>Recent</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2" class="segment-button">
+        <ion-label>Previous</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Premium Orders List -->
+  <div class="orders-container">
+    <ion-accordion-group class="premium-accordion-group">
       <ion-accordion
-        class="animate__animated animate__backInLeft"
+        class="premium-accordion animate__animated animate__backInLeft"
         *ngFor="let item of orders"
       >
+        <!-- Premium Order Header -->
         <ion-item
-          color="light"
           slot="header"
           lines="none"
-          class="ion-margin-top"
+          class="order-header premium-order-header"
           detail
         >
-          <img
-            class="hotel-thumbnail"
-            crossorigin="anonymous"
-            src="assets/washing.gif"
-          />
+          <div class="order-thumbnail-container">
+            <img
+              class="order-thumbnail"
+              crossorigin="anonymous"
+              src="assets/washing.gif"
+            />
+            <div class="thumbnail-overlay"></div>
+          </div>
 
-          <div class="hotel-item-container">
-            <ion-label class="ion-margin-start">
-              <p class="title">{{item.orderId}}</p>
-              <p class="sub-title">{{item.items.length}} X</p>
-            </ion-label>
-            <div class="ion-margin-start rating-container">
-              <p class="rating">{{item.createdAt | date:"shortDate"}}</p>
+          <div class="order-info-container">
+            <div class="order-main-info">
+              <h3 class="order-id">{{item.orderId}}</h3>
+              <p class="order-items-count">{{item.items.length}} Items</p>
             </div>
-            <div class="sort-badge ion-margin-start">
-              <p *ngIf="item.status === 0">Pending</p>
-              <p *ngIf="item.status === 1">Confirmed</p>
-              <p *ngIf="item.status === 2">Pickup started</p>
-              <p *ngIf="item.status === 3">Order Picked Up</p>
-              <p *ngIf="item.status === 4">In Process</p>
-              <p *ngIf="item.status === 5">Ready For Delivery</p>
-              <p *ngIf="item.status === 6">Delivery Started</p>
-              <p *ngIf="item.status === 7">Order Delivered</p>
+
+            <div class="order-date">
+              <ion-icon name="calendar-outline" class="date-icon"></ion-icon>
+              <span class="date-text"
+                >{{item.createdAt | date:"shortDate"}}</span
+              >
+            </div>
+
+            <div class="order-status-badge" [ngClass]="'status-' + item.status">
+              <ion-icon
+                name="time-outline"
+                class="status-icon"
+                *ngIf="item.status === 0"
+              ></ion-icon>
+              <ion-icon
+                name="checkmark-circle-outline"
+                class="status-icon"
+                *ngIf="item.status === 1"
+              ></ion-icon>
+              <ion-icon
+                name="bicycle-outline"
+                class="status-icon"
+                *ngIf="item.status === 2"
+              ></ion-icon>
+              <ion-icon
+                name="bag-outline"
+                class="status-icon"
+                *ngIf="item.status === 3"
+              ></ion-icon>
+              <ion-icon
+                name="sync-outline"
+                class="status-icon"
+                *ngIf="item.status === 4"
+              ></ion-icon>
+              <ion-icon
+                name="checkmark-done-outline"
+                class="status-icon"
+                *ngIf="item.status === 5"
+              ></ion-icon>
+              <ion-icon
+                name="car-outline"
+                class="status-icon"
+                *ngIf="item.status === 6"
+              ></ion-icon>
+              <ion-icon
+                name="home-outline"
+                class="status-icon"
+                *ngIf="item.status === 7"
+              ></ion-icon>
+              <span class="status-text">
+                <span *ngIf="item.status === 0">Pending</span>
+                <span *ngIf="item.status === 1">Confirmed</span>
+                <span *ngIf="item.status === 2">Pickup Started</span>
+                <span *ngIf="item.status === 3">Order Picked Up</span>
+                <span *ngIf="item.status === 4">In Process</span>
+                <span *ngIf="item.status === 5">Ready For Delivery</span>
+                <span *ngIf="item.status === 6">Delivery Started</span>
+                <span *ngIf="item.status === 7">Order Delivered</span>
+              </span>
             </div>
           </div>
         </ion-item>
-        <div class="ion-padding" slot="content">
-          <ion-list>
-            <ion-list-header>
-              <ion-label>Your Order Details</ion-label>
-            </ion-list-header>
-            <ion-item class="ion-margin-top" *ngFor="let i of item.items">
-              <img
-                class="hotel-thumbnail"
-                crossorigin="anonymous"
-                [src]="i.serviceId.image_url"
-              />
 
-              <div class="hotel-item-container">
-                <ion-label class="ion-margin-start">
-                  <p class="title">{{i.serviceId.name}}</p>
-                  <p class="sub-title">
-                    {{i.serviceId.perKgPrice | currency:"INR"}}
-                  </p>
-                  <span>X {{i.quantity}}</span>
-                </ion-label>
+        <!-- Premium Order Content -->
+        <div class="order-content" slot="content">
+          <!-- Order Details Header -->
+          <div class="order-details-header">
+            <ion-icon name="receipt-outline" class="details-icon"></ion-icon>
+            <h3 class="details-title">Your Order Details</h3>
+          </div>
+
+          <!-- Order Items List -->
+          <div class="order-items-list">
+            <div
+              class="order-item premium-order-item"
+              *ngFor="let i of item.items"
+            >
+              <div class="item-thumbnail-container">
+                <img
+                  class="item-thumbnail"
+                  crossorigin="anonymous"
+                  [src]="i.serviceId.image_url"
+                />
+                <div class="item-overlay"></div>
               </div>
-            </ion-item>
-          </ion-list>
-          <br />
 
-          <ion-item>
-            <ion-label>Subtotal</ion-label>
-            <p class="pricing" slot="end">
-              {{item.priceDetails.subtotal | currency:"INR"}}
-            </p>
-          </ion-item>
-          <ion-item>
-            <ion-label>Delivery</ion-label>
-            <p class="pricing" slot="end">
-              {{item.priceDetails.deliveryCharges | currency:"INR"}}
-            </p>
-          </ion-item>
-          <ion-item>
-            <ion-label>Handling Fees</ion-label>
-            <p class="pricing" slot="end">
-              {{item.priceDetails.platformFee | currency:"INR"}}
-            </p>
-          </ion-item>
-          <ion-item>
-            <ion-label>(GST)</ion-label>
-            <p class="pricing" slot="end">
-              {{item.priceDetails.gstAmount | currency:"INR"}}%
-            </p>
-          </ion-item>
-          <ion-item>
-            <ion-label>Total</ion-label>
-            <p class="pricing" slot="end">
-              {{item.priceDetails.totalAmountToPay | currency:"INR"}}%
-            </p>
-          </ion-item>
-          <br />
-          <ion-button expand="block" fill="clear" shape="round">
-            Help
-          </ion-button>
+              <div class="item-info-container">
+                <h4 class="item-name">{{i.serviceId.name}}</h4>
+                <p class="item-price">
+                  {{i.serviceId.perKgPrice | currency:"INR"}}
+                </p>
+                <span class="item-quantity">× {{i.quantity}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="order-summary">
+            <div class="summary-header">
+              <ion-icon
+                name="calculator-outline"
+                class="summary-icon"
+              ></ion-icon>
+              <h4 class="summary-title">Order Summary</h4>
+            </div>
+
+            <div class="summary-item">
+              <span class="summary-label">Subtotal</span>
+              <span class="summary-value"
+                >{{item.priceDetails.subtotal | currency:"INR"}}</span
+              >
+            </div>
+
+            <div class="summary-item">
+              <span class="summary-label">Delivery</span>
+              <span class="summary-value"
+                >{{item.priceDetails.deliveryCharges | currency:"INR"}}</span
+              >
+            </div>
+
+            <div class="summary-item">
+              <span class="summary-label">Handling Fees</span>
+              <span class="summary-value"
+                >{{item.priceDetails.platformFee | currency:"INR"}}</span
+              >
+            </div>
+
+            <div class="summary-item">
+              <span class="summary-label">GST</span>
+              <span class="summary-value"
+                >{{item.priceDetails.gstAmount | currency:"INR"}}</span
+              >
+            </div>
+
+            <div class="summary-total">
+              <span class="total-label">Total</span>
+              <span class="total-value"
+                >{{item.priceDetails.totalAmountToPay | currency:"INR"}}</span
+              >
+            </div>
+          </div>
+
+          <!-- Help Button -->
+          <div class="help-button-container">
+            <ion-button
+              expand="block"
+              fill="outline"
+              shape="round"
+              class="help-button"
+            >
+              <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+              Need Help?
+            </ion-button>
+          </div>
         </div>
       </ion-accordion>
     </ion-accordion-group>
-  </ion-list>
+  </div>
 </ion-content>

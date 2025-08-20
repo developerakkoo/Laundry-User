@@ -1,45 +1,74 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>Select Address</ion-title>
-    <ion-button (click)="close()" slot="end" fill="clear">
-      <ion-icon slot="icon-only" name="close"></ion-icon>
+<ion-header [translucent]="true" class="ion-no-border premium-header">
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">Select Address</ion-title>
+    <ion-button
+      (click)="close()"
+      slot="end"
+      fill="clear"
+      class="premium-close-button"
+    >
+      <ion-icon slot="icon-only" name="close" class="close-icon"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="container" *ngIf="address.length == 0">
-    <img src="assets/no-results.svg" alt="" srcset="" />
-    <ion-text color="primary" class="ion-text-center">
-      <p>You have no addresses added!</p>
-    </ion-text>
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Premium Empty State -->
+  <div class="empty-state-container" *ngIf="address.length == 0">
+    <div class="empty-state-content">
+      <div class="empty-state-icon">
+        <ion-icon name="location-outline" class="location-icon"></ion-icon>
+      </div>
+      <h3 class="empty-state-title">No Addresses Found</h3>
+      <p class="empty-state-subtitle">You haven't added any addresses yet.</p>
+      <p class="empty-state-description">
+        Add your first address to get started with deliveries.
+      </p>
+    </div>
   </div>
 
-  <ion-list *ngIf="address.length > 0">
-    <ion-list-header>
-      <ion-label>Saved Addresses</ion-label>
-    </ion-list-header>
-    <ion-item lines="full" *ngFor="let item of address" (click)="setAddressDefault(item)">
-      <ion-icon color="primary" name="home-outline" slot="start"></ion-icon>
-      <ion-label>
-        {{item.type |titlecase }}
-        <p>{{item.address}}</p>
-      </ion-label>
-      <ion-icon color="medium" name="pencil-outline" slot="end"></ion-icon>
-    </ion-item>
-   
-  </ion-list>
+  <!-- Premium Address List -->
+  <div class="address-list-container" *ngIf="address.length > 0">
+    <div class="list-header">
+      <ion-icon name="bookmark-outline" class="header-icon"></ion-icon>
+      <h2 class="list-title">Saved Addresses</h2>
+      <p class="list-subtitle">Tap an address to set it as default</p>
+    </div>
+
+    <div class="address-list">
+      <div
+        class="address-item premium-address-card"
+        *ngFor="let item of address"
+        (click)="setAddressDefault(item)"
+      >
+        <div class="address-icon-container">
+          <ion-icon name="home-outline" class="address-icon"></ion-icon>
+        </div>
+
+        <div class="address-details">
+          <div class="address-type">{{item.type | titlecase }}</div>
+          <div class="address-text">{{item.address}}</div>
+        </div>
+
+        <div class="address-actions">
+          <ion-icon name="pencil-outline" class="edit-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar class="ion-no-border" color="primary">
+<!-- Premium Footer -->
+<ion-footer class="ion-no-border premium-footer">
+  <ion-toolbar class="premium-footer-toolbar">
     <ion-button
       (click)="openAddAddressPage()"
-      color="light"
       expand="block"
-      fill="clear"
+      fill="solid"
+      class="add-address-button"
     >
-      Add new address
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Add New Address
     </ion-button>
   </ion-toolbar>
 </ion-footer>

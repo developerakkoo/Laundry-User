@@ -1,79 +1,128 @@
-<ion-content [fullscreen]="false" class="ion-padding">
-  <div class="Login_Container ion-margin-top">
-    <div class="animate__animated animate__slideInUp">
-      <div class="text-container">
-        <div class="brand">
-          <p class="lato-black brand-text">Breezy</p>
-          <p class="dark-text">Hi!👋 Welcome to Breezy.</p>
-          <p class="light-text">Create your account or Log in.</p>
+<ion-content [fullscreen]="false" class="premium-content">
+  <div class="login-container">
+    <!-- Premium Background Pattern -->
+    <div class="background-pattern">
+      <div class="pattern-circle circle-1"></div>
+      <div class="pattern-circle circle-2"></div>
+      <div class="pattern-circle circle-3"></div>
+    </div>
+
+    <!-- Premium Login Form -->
+    <div class="login-form-container animate__animated animate__slideInUp">
+      <!-- Premium Brand Section -->
+      <div class="brand-section">
+        <div class="brand-logo">
+          <ion-icon name="shirt-outline" class="logo-icon"></ion-icon>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">Breezy</h1>
+          <p class="brand-subtitle">Premium Laundry Service</p>
         </div>
       </div>
-      <br />
-      <form [formGroup]="form">
-        <div class="line">
-          <p class="input-text">Enter your phone number</p>
+
+      <!-- Premium Welcome Section -->
+      <div class="welcome-section">
+        <h2 class="welcome-title">Hi! 👋</h2>
+        <p class="welcome-subtitle">Welcome to Breezy</p>
+        <p class="welcome-description">
+          Create your account or Log in to get started
+        </p>
+      </div>
+
+      <!-- Premium Form Section -->
+      <div class="form-section">
+        <form [formGroup]="form" class="premium-form">
+          <div class="form-field">
+            <div class="field-label">
+              <ion-icon name="call-outline" class="label-icon"></ion-icon>
+              <span class="label-text">Enter your phone number</span>
+            </div>
+
+            <ion-input
+              #input
+              type="tel"
+              fill="outline"
+              lines="none"
+              mode="ios"
+              label="Mobile number"
+              labelPlacement="stacked"
+              formControlName="phoneNumber"
+              counter="true"
+              maxlength="10"
+              helperText="Securing your personal information is our priority"
+              class="premium-input"
+            >
+              <ion-icon
+                slot="start"
+                name="call"
+                aria-hidden="true"
+                class="input-icon"
+              ></ion-icon>
+            </ion-input>
+          </div>
+        </form>
+      </div>
+
+      <!-- Premium Button Section -->
+      <div class="button-section">
+        <div *ngIf="!submitted" class="button-container">
+          <ion-button
+            [disabled]="form.invalid"
+            color="primary"
+            (click)="getOTP()"
+            expand="block"
+            fill="solid"
+            mode="ios"
+            class="premium-button animate__animated animate__slideInUp"
+          >
+            <span class="button-text">Continue</span>
+            <ion-icon
+              class="animate__animated animate__shakeX animate__infinite slow button-icon"
+              slot="end"
+              name="arrow-forward"
+            ></ion-icon>
+          </ion-button>
         </div>
-        <ion-input
-        #input
-          type="tel"
-          fill="solid"
-          lines="none"
-          mode="md"
-          label="Mobile number"
-          labelPlacement="stacked"
-          formControlName="phoneNumber"
-          counter="true"
-          maxlength="10"
-          helperText="Securing your personal information is our priority"
-        >
-          <ion-icon slot="start" name="call" aria-hidden="true"></ion-icon
-        ></ion-input>
 
-        <br />
-      </form>
-    </div>
+        <div *ngIf="submitted" class="button-container">
+          <ion-button
+            [disabled]="form.invalid"
+            color="primary"
+            (click)="getOTP()"
+            expand="block"
+            fill="solid"
+            mode="ios"
+            class="premium-button loading-button animate__animated animate__slideInUp"
+          >
+            <ion-spinner name="lines" class="loading-spinner"></ion-spinner>
+          </ion-button>
+        </div>
+      </div>
 
-    <div *ngIf="!submitted" class="button-div">
-      <ion-button
-        [disabled]="form.invalid"
-        color="primary"
-        (click)="getOTP()"
-        expand="block"
-        fill="solid"
-        mode="ios"
-        class="animate__animated animate__slideInUp"
-      >
-        Continue
+      <!-- Premium Security Note -->
+      <div class="security-note">
         <ion-icon
-          class="animate__animated animate__shakeX animate__infinite slow"
-          slot="end"
-          name="arrow-forward"
+          name="shield-checkmark-outline"
+          class="security-icon"
         ></ion-icon>
-      </ion-button>
-    </div>
-    <div *ngIf="submitted" class="button-div">
-      <ion-button
-        [disabled]="form.invalid"
-        color="primary"
-        (click)="getOTP()"
-        expand="block"
-        fill="solid"
-        mode="ios"
-        class="animate__animated animate__slideInUp"
-      >
-        
-        <ion-spinner name="lines"></ion-spinner>
-      </ion-button>
+        <p class="security-text">Your data is encrypted and secure</p>
+      </div>
     </div>
   </div>
 </ion-content>
 
-<ion-footer class="ion-no-border animate__animated animate__slideInUp">
-  <ion-toolbar color="light" class="ion-no-border">
-    <ion-text class="ion-text-center" color="dark">
-      <ion-label style="font-size: 12px; text-align: center"
-        >By login, you agree to our <strong>terms and conditions.</strong>
-      </ion-label>
-    </ion-text>
+<ion-footer
+  class="ion-no-border premium-footer animate__animated animate__slideInUp"
+>
+  <ion-toolbar class="premium-footer-toolbar">
+    <div class="footer-content">
+      <ion-icon name="document-text-outline" class="footer-icon"></ion-icon>
+      <ion-text class="footer-text">
+        <ion-label class="footer-label">
+          By logging in, you agree to our
+          <strong class="terms-link">Terms and Conditions</strong>
+        </ion-label>
+      </ion-text>
+    </div>
   </ion-toolbar>
 </ion-footer>

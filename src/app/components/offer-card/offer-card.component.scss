@@ -1,101 +1,422 @@
-.offer-card {
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #fff;
-    position: relative;
-    margin: 15px;
+// Premium Offer Card Styling - Modern Design
+
+.premium-offer-card {
+  border: 2px dashed rgba(139, 92, 246, 0.3);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  margin: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 4px 16px rgba(139, 92, 246, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
   
-    .offer-code-section {
+  // Hover effects
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 16px 48px rgba(0, 0, 0, 0.12),
+      0 8px 24px rgba(139, 92, 246, 0.1);
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+  
+  // Active state
+  &:active {
+    transform: translateY(-2px);
+  }
+  
+  // Premium gradient overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(139, 92, 246, 0.6) 50%, 
+      transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// Offer Code Section
+.offer-code-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+  
+  .promo-code {
+    background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+    padding: 16px 24px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    flex-grow: 1;
+    border-radius: 16px;
+    margin: 0 16px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    }
+    
+    .code-icon {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .code-text {
+      letter-spacing: 1px;
+      font-family: 'Courier New', monospace;
+    }
+  }
+  
+  .cut-out {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 50%;
+    position: absolute;
+    border: 2px solid rgba(139, 92, 246, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+  }
+  
+  .cut-out:first-child {
+    left: -4px;
+  }
+  
+  .cut-out:last-child {
+    right: -4px;
+  }
+}
+
+// Offer Details
+.offer-details {
+  text-align: center;
+  width: 100%;
+  
+  .offer-description {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #1e293b;
+    font-weight: 500;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    .gift-icon {
+      font-size: 20px;
+      color: #8b5cf6;
+      flex-shrink: 0;
+    }
+    
+    span {
+      flex: 1;
+    }
+  }
+  
+  .offer-more-details {
+    margin-bottom: 24px;
+    
+    .detail-item {
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
-      position: relative;
-      width: 100%;
-  
-      .promo-code {
-        background-color: #dedede;
-        padding: 10px 20px;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-        flex-grow: 1;
-        border-radius: 5px;
-        margin: 0 10px;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.875rem;
+      color: #64748b;
+      font-weight: 500;
+      
+      &:last-child {
+        margin-bottom: 0;
       }
+      
+      .detail-icon {
+        font-size: 16px;
+        color: #8b5cf6;
+        flex-shrink: 0;
+      }
+      
+      span {
+        flex: 1;
+      }
+    }
+  }
   
+  .apply-button {
+    padding: 16px 24px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+      background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    &:focus {
+      outline: 2px solid rgba(139, 92, 246, 0.5);
+      outline-offset: 2px;
+    }
+    
+    ion-icon {
+      font-size: 20px;
+      color: white;
+    }
+  }
+}
+
+// Premium Button Variant
+.premium-button {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.2) 50%, 
+      transparent 100%);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .premium-offer-card {
+    padding: 20px;
+    margin: 16px;
+    
+    .offer-code-section {
+      margin-bottom: 16px;
+      
+      .promo-code {
+        font-size: 1.1rem;
+        padding: 14px 20px;
+        margin: 0 12px;
+        
+        .code-icon {
+          font-size: 18px;
+        }
+      }
+      
       .cut-out {
         width: 20px;
         height: 20px;
-        background-color: #fff;
-        border-radius: 50%;
-        position: absolute;
-      }
-  
-      .cut-out:first-child {
-        left: -3px;
-      }
-  
-      .cut-out:last-child {
-        right: -3px;
       }
     }
-  
+    
     .offer-details {
-      text-align: center;
-      width: 100%;
-  
       .offer-description {
-        font-size: 16px;
-        margin-bottom: 10px;
+        font-size: 0.9rem;
+        margin-bottom: 16px;
+        
+        .gift-icon {
+          font-size: 18px;
+        }
       }
-  
+      
       .offer-more-details {
-        font-size: 14px;
-        color: #666;
         margin-bottom: 20px;
-  
-        p {
-          margin: 5px 0;
+        
+        .detail-item {
+          font-size: 0.8rem;
+          
+          .detail-icon {
+            font-size: 14px;
+          }
         }
       }
-  
+      
       .apply-button {
-        padding: 20px;
-        border-radius: 20px;
-        background: var(--ion-color-primary);
-        color: #f8f8f8;
-        width: 100%;
-        font-size: 14px;
-        font-weight: 500;
+        padding: 14px 20px;
+        font-size: 0.9rem;
+        
+        ion-icon {
+          font-size: 18px;
+        }
       }
     }
   }
-  
-  /* Media queries for responsive design */
-  @media (max-width: 768px) {
-    .offer-card {
-      padding: 15px;
-  
-      .offer-code-section {
-        .promo-code {
+}
+
+@media (max-width: 480px) {
+  .premium-offer-card {
+    padding: 16px;
+    margin: 12px;
+    
+    .offer-code-section {
+      .promo-code {
+        font-size: 1rem;
+        padding: 12px 16px;
+        margin: 0 8px;
+        
+        .code-icon {
           font-size: 16px;
-          padding: 8px 16px;
         }
       }
-  
-      .offer-details {
-        .offer-description {
-          font-size: 14px;
+      
+      .cut-out {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    
+    .offer-details {
+      .offer-description {
+        font-size: 0.85rem;
+        
+        .gift-icon {
+          font-size: 16px;
         }
-  
-        .offer-more-details {
-          font-size: 12px;
+      }
+      
+      .offer-more-details {
+        .detail-item {
+          font-size: 0.75rem;
+          
+          .detail-icon {
+            font-size: 12px;
+          }
+        }
+      }
+      
+      .apply-button {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+        
+        ion-icon {
+          font-size: 16px;
         }
       }
     }
   }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  .premium-offer-card {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(139, 92, 246, 0.4);
+    
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.6);
+    }
+  }
+  
+  .offer-details {
+    .offer-description {
+      color: #f1f5f9;
+    }
+    
+    .offer-more-details {
+      .detail-item {
+        color: #94a3b8;
+      }
+    }
+  }
+  
+  .cut-out {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-color: rgba(139, 92, 246, 0.3);
+    
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.5);
+    }
+  }
+}
+
+// Animation for new cards
+.premium-offer-card {
+  animation: cardSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Enhanced focus states for accessibility
+.premium-offer-card:focus-within {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
+}
+
+// Hover effects for interactive elements
+.promo-code:hover,
+.apply-button:hover {
+  cursor: pointer;
+}
+
+// Smooth transitions for all interactive elements
+.promo-code,
+.apply-button,
+.cut-out {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
   

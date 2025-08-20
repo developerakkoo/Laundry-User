@@ -1,23 +1,137 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="container">
-    <div class="top-circle animate__animated animate__slideInDown">
-      <ion-text color="primary" class="ion-text-center">
-        <h1 class="lato-bold brand">Breezy</h1>
-      </ion-text>
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Premium Background Pattern -->
+  <div class="background-pattern">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+    <div class="gradient-overlay"></div>
+  </div>
+
+  <!-- Premium Splash Container -->
+  <div class="splash-container">
+    <!-- Premium Brand Section -->
+    <div class="brand-section animate__animated animate__fadeInDown">
+      <div class="brand-logo">
+        <div class="logo-circle">
+          <ion-icon name="shirt-outline" class="logo-icon"></ion-icon>
+        </div>
+        <div class="logo-rings">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+        </div>
+      </div>
+
+      <div class="brand-text">
+        <h1 class="brand-title">Breezy</h1>
+        <p class="brand-subtitle">Premium Laundry Service</p>
+      </div>
     </div>
 
-    <div class="middle-img animate__animated animate__shakeY  animate__infinite">
-      <img src="/assets/laundry.svg" alt="" />
+    <!-- Premium Hero Illustration -->
+    <div class="hero-section animate__animated animate__fadeInUp">
+      <div class="illustration-container">
+        <div class="illustration-background">
+          <div class="bg-circle bg-circle-1"></div>
+          <div class="bg-circle bg-circle-2"></div>
+          <div class="bg-circle bg-circle-3"></div>
+        </div>
+
+        <div class="main-illustration">
+          <img
+            src="/assets/laundry.svg"
+            alt="Laundry Service"
+            class="hero-image"
+          />
+          <div class="image-glow"></div>
+        </div>
+
+        <div class="floating-elements">
+          <div class="float-element float-1">
+            <ion-icon name="sparkles-outline" class="float-icon"></ion-icon>
+          </div>
+          <div class="float-element float-2">
+            <ion-icon name="star-outline" class="float-icon"></ion-icon>
+          </div>
+          <div class="float-element float-3">
+            <ion-icon name="diamond-outline" class="float-icon"></ion-icon>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="last-container animate__animated animate__slideInUp">
-      <p class="title">Let's start the Laundry 😎.</p>
-      <p class="subtitle">
-        Your Convenient Laundry Solution, Just a Tap Away & Enjoy!
-      </p>
-      <ion-button (click)="openPage('/login')" expand="block" mode="ios">
-        Get Started
+    <!-- Premium Welcome Section -->
+    <div class="welcome-section animate__animated animate__fadeInUp">
+      <div class="welcome-content">
+        <h2 class="welcome-title">Let's start the Laundry 😎</h2>
+        <p class="welcome-subtitle">
+          Your Convenient Laundry Solution, Just a Tap Away & Enjoy!
+        </p>
+
+        <div class="features-preview">
+          <div class="feature-item">
+            <ion-icon
+              name="checkmark-circle-outline"
+              class="feature-icon"
+            ></ion-icon>
+            <span class="feature-text">Premium Quality</span>
+          </div>
+          <div class="feature-item">
+            <ion-icon
+              name="checkmark-circle-outline"
+              class="feature-icon"
+            ></ion-icon>
+            <span class="feature-text">Fast Delivery</span>
+          </div>
+          <div class="feature-item">
+            <ion-icon
+              name="checkmark-circle-outline"
+              class="feature-icon"
+            ></ion-icon>
+            <span class="feature-text">Best Prices</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Premium Action Section -->
+    <div class="action-section animate__animated animate__fadeInUp">
+      <ion-button
+        (click)="openPage('/login')"
+        expand="block"
+        mode="ios"
+        class="premium-button"
+      >
+        <ion-icon
+          name="rocket-outline"
+          slot="start"
+          class="button-icon"
+        ></ion-icon>
+        <span class="button-text">Get Started</span>
+        <ion-icon
+          name="arrow-forward"
+          slot="end"
+          class="button-arrow"
+        ></ion-icon>
       </ion-button>
+
+      <div class="trust-indicators">
+        <div class="trust-item">
+          <ion-icon
+            name="shield-checkmark-outline"
+            class="trust-icon"
+          ></ion-icon>
+          <span class="trust-text">Secure & Trusted</span>
+        </div>
+        <div class="trust-item">
+          <ion-icon name="time-outline" class="trust-icon"></ion-icon>
+          <span class="trust-text">24/7 Support</span>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

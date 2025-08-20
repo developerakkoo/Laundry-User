@@ -244,4 +244,9 @@ export class AddPage implements OnInit {
   applyFilter() {
     this.haptics.hapticsImpactLight();
   }
+
+  clearSearch() {
+    this.productFilter.name = '';
+    this.haptics.hapticsImpactLight();
+  }
 }

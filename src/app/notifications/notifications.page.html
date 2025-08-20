@@ -4,13 +4,63 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tabs/tab1"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="mark-all-read-btn">
+        <ion-icon name="checkmark-done-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-text color="primary" class="ion-text-center">
-      <h1>No Notifications!</h1>
-    </ion-text>
-  </ion-list>
+  <!-- Empty State -->
+  <div class="empty-notifications">
+    <div class="empty-content">
+      <div class="empty-icon-container">
+        <ion-icon name="notifications-outline" class="empty-icon"></ion-icon>
+        <div class="icon-background"></div>
+      </div>
+
+      <h2 class="empty-title">No Notifications</h2>
+      <p class="empty-subtitle">
+        You're all caught up! We'll notify you when there's something new.
+      </p>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <ion-button fill="outline" class="refresh-btn">
+          <ion-icon name="refresh-outline" slot="start"></ion-icon>
+          Refresh
+        </ion-button>
+
+        <ion-button fill="outline" class="settings-btn">
+          <ion-icon name="settings-outline" slot="start"></ion-icon>
+          Settings
+        </ion-button>
+      </div>
+
+      <!-- Notification Types Info -->
+      <div class="notification-types">
+        <h3 class="types-title">What you'll be notified about:</h3>
+        <div class="type-list">
+          <div class="type-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <span>Order updates and tracking</span>
+          </div>
+          <div class="type-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <span>Special offers and discounts</span>
+          </div>
+          <div class="type-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <span>Service reminders</span>
+          </div>
+          <div class="type-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <span>Account security alerts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

@@ -1,0 +1,561 @@
+// Premium Add Address Page Styling - Professional Form Design
+
+// Premium Content Background
+.premium-content {
+  --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --color: #1e293b;
+  padding: 0;
+}
+
+// Premium Header Styling
+.premium-header {
+  --background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  
+  .premium-toolbar {
+    --background: transparent;
+    --border-color: transparent;
+    --color: #1e293b;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    
+    .premium-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: 0.5px;
+    }
+    
+    .premium-close-button {
+      --color: #64748b;
+      --color-hover: #ef4444;
+      --color-activated: #ef4444;
+      --border-radius: 12px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.1);
+        --color: #ef4444;
+      }
+      
+      .close-icon {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+// Premium Address Display
+.address-display-container {
+  padding: 24px 20px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  position: relative;
+  overflow: hidden;
+  
+  // Animated background pattern
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    animation: patternMove 20s linear infinite;
+  }
+  
+  .address-display-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    .location-display-icon {
+      font-size: 48px;
+      color: white;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+    
+    .address-display-text {
+      flex: 1;
+      
+      .address-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0 0 4px 0;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        animation: contentSlideIn 0.8s ease-out 0.2s both;
+      }
+      
+      .address-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        margin: 0;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        animation: contentSlideIn 0.8s ease-out 0.4s both;
+        line-height: 1.3;
+      }
+    }
+  }
+}
+
+// Premium Form Container
+.form-container {
+  padding: 24px 20px;
+}
+
+.premium-form {
+  .form-field {
+    margin-bottom: 24px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Premium Input Styling
+.premium-input {
+  --background: rgba(255, 255, 255, 0.95);
+  --background-hover: rgba(255, 255, 255, 0.98);
+  --background-focused: rgba(255, 255, 255, 0.98);
+  --border-color: rgba(148, 163, 184, 0.2);
+  --border-color-hover: rgba(139, 92, 246, 0.3);
+  --border-color-focused: rgba(139, 92, 246, 0.4);
+  --border-radius: 16px;
+  --border-width: 2px;
+  --color: #1e293b;
+  --color-hover: #1e293b;
+  --color-focused: #1e293b;
+  --placeholder-color: #94a3b8;
+  --placeholder-color-hover: #64748b;
+  --placeholder-color-focused: #64748b;
+  --label-color: #64748b;
+  --label-color-hover: #8b5cf6;
+  --label-color-focused: #8b5cf6;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --box-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --box-shadow-focused: 0 8px 32px rgba(139, 92, 246, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  &:focus-within {
+    transform: translateY(-2px);
+  }
+  
+  .input-icon {
+    font-size: 20px;
+    color: #8b5cf6;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover .input-icon {
+    color: #7c3aed;
+    transform: scale(1.1);
+  }
+  
+  &:focus-within .input-icon {
+    color: #7c3aed;
+    transform: scale(1.1);
+  }
+}
+
+// Premium Select Container
+.select-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 20px;
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  
+  .select-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+  }
+  
+  &:hover .select-label {
+    color: #8b5cf6;
+  }
+  
+  .premium-select {
+    --background: transparent;
+    --color: #1e293b;
+    --placeholder-color: #94a3b8;
+    --border-color: transparent;
+    --border-width: 0;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    
+    &::part(icon) {
+      color: #8b5cf6;
+      font-size: 20px;
+    }
+  }
+}
+
+// Premium Checkbox Container
+.checkbox-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 20px;
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  
+  .checkbox-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
+    transition: color 0.3s ease;
+  }
+  
+  &:hover .checkbox-label {
+    color: #8b5cf6;
+  }
+  
+  .premium-checkbox {
+    --border-radius: 8px;
+    --border-width: 2px;
+    --border-color: rgba(139, 92, 246, 0.3);
+    --border-color-checked: #8b5cf6;
+    --background: rgba(255, 255, 255, 0.9);
+    --background-checked: #8b5cf6;
+    --checkmark-color: white;
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+      --border-color: #8b5cf6;
+    }
+  }
+}
+
+// Premium Submit Button
+.submit-field {
+  margin-top: 32px;
+}
+
+.submit-button {
+  --background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  --background-hover: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+  --background-activated: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+  --color: white;
+  --color-hover: white;
+  --color-activated: white;
+  --border-radius: 16px;
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  --box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 1.1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    --box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    --background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+    --box-shadow: 0 4px 16px rgba(148, 163, 184, 0.2);
+    transform: none;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+      --box-shadow: 0 4px 16px rgba(148, 163, 184, 0.2);
+    }
+  }
+  
+  ion-icon {
+    margin-right: 8px;
+    font-size: 22px;
+  }
+}
+
+// Premium Button Variant
+.premium-button {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.2) 50%, 
+      transparent 100%);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+// Premium Animations
+@keyframes patternMove {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(-60px) translateY(-60px); }
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes contentSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation for form fields
+.form-field {
+  animation: fieldSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
+  &:nth-child(6) { animation-delay: 0.6s; }
+}
+
+@keyframes fieldSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Responsive Design
+@media (max-width: 480px) {
+  .premium-header {
+    .premium-toolbar {
+      .premium-title {
+        font-size: 1.25rem;
+      }
+    }
+  }
+  
+  .address-display-container {
+    padding: 20px 16px;
+    
+    .address-display-content {
+      .location-display-icon {
+        font-size: 40px;
+      }
+      
+      .address-display-text {
+        .address-label {
+          font-size: 0.8rem;
+        }
+        
+        .address-value {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+  
+  .form-container {
+    padding: 20px 16px;
+  }
+  
+  .premium-input {
+    --padding-start: 14px;
+    --padding-end: 14px;
+    --padding-top: 14px;
+    --padding-bottom: 14px;
+    
+    .input-icon {
+      font-size: 18px;
+    }
+  }
+  
+  .select-container,
+  .checkbox-container {
+    padding: 16px;
+  }
+  
+  .submit-button {
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    font-size: 1rem;
+    
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  .premium-content {
+    --background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --color: #f1f5f9;
+  }
+  
+  .premium-header {
+    --background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: rgba(148, 163, 184, 0.2);
+  }
+  
+  .premium-toolbar {
+    .premium-title {
+      color: #f1f5f9;
+    }
+    
+    .premium-close-button {
+      --color: #94a3b8;
+      --color-hover: #f87171;
+      --color-activated: #f87171;
+    }
+  }
+  
+  .premium-input {
+    --background: rgba(15, 23, 42, 0.95);
+    --background-hover: rgba(15, 23, 42, 0.98);
+    --background-focused: rgba(15, 23, 42, 0.98);
+    --color: #f1f5f9;
+    --color-hover: #f1f5f9;
+    --color-focused: #f1f5f9;
+    --placeholder-color: #64748b;
+    --placeholder-color-hover: #94a3b8;
+    --placeholder-color-focused: #94a3b8;
+    --label-color: #94a3b8;
+    --label-color-hover: #a78bfa;
+    --label-color-focused: #a78bfa;
+  }
+  
+  .select-container,
+  .checkbox-container {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(148, 163, 184, 0.2);
+    
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+    
+    .select-label,
+    .checkbox-label {
+      color: #94a3b8;
+      
+      &:hover {
+        color: #a78bfa;
+      }
+    }
+  }
+  
+  .premium-select {
+    --color: #f1f5f9;
+    --placeholder-color: #64748b;
+    
+    &::part(icon) {
+      color: #a78bfa;
+    }
+  }
+  
+  .premium-checkbox {
+    --background: rgba(15, 23, 42, 0.9);
+    --background-checked: #a78bfa;
+    --border-color: rgba(139, 92, 246, 0.4);
+    --border-color-checked: #a78bfa;
+  }
+}
+
+// Enhanced focus states for accessibility
+.premium-input:focus-within,
+.select-container:focus-within,
+.checkbox-container:focus-within {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
+}
+
+.submit-button:focus {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
+}
+
+// Hover effects for interactive elements
+.premium-input:hover,
+.select-container:hover,
+.checkbox-container:hover {
+  cursor: pointer;
+}
+
+// Smooth transitions for all interactive elements
+.premium-input,
+.select-container,
+.checkbox-container,
+.premium-checkbox,
+.submit-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

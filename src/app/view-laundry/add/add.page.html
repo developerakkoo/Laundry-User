@@ -1,73 +1,116 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>Create Order</ion-title>
+<ion-header [translucent]="true" class="ion-no-border premium-header">
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">Create Order</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/tab1"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/tabs/tab1"
+        class="premium-back-button"
+      ></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar
-    placeholder="Filter services"
-    inputmode="decimal"
-    type="decimal"
-    mode="ios"
-    [(ngModel)]="productFilter.name"
-    (ionChange)="onSearchChange($event)"
-    [debounce]="250"
-    showCancelButton="always"
-  ></ion-searchbar>
-</ion-header>
-<!-- <ion-toolbar>
-  <div class="filter-container">
-    <div class="filter-badge">Filters</div>
-    <div class="filter-badge-outline" (click)="applyFilter()">Low to high</div>
-    <div class="filter-badge-outline" (click)="applyFilter()">By KG</div>
-    <div class="filter-badge-outline" (click)="applyFilter()"> Only dryclean</div>
-    <div class="filter-badge-outline" (click)="applyFilter()">Highest Rated</div>
+
+  <!-- Premium Search Bar -->
+  <div class="search-container">
+    <ion-searchbar
+      placeholder="Filter services"
+      inputmode="decimal"
+      type="decimal"
+      mode="ios"
+      [(ngModel)]="productFilter.name"
+      (ionChange)="onSearchChange($event)"
+      [debounce]="250"
+      showCancelButton="always"
+      class="premium-searchbar"
+    ></ion-searchbar>
   </div>
-</ion-toolbar> -->
+</ion-header>
 
-<ion-content [fullscreen]="true">
-  <!-- <div class="centered-image" *ngIf="items.length == 0">
-    <img src="assets/empty-laundry.png" alt="" />
-    <p>No Items Added!</p>
-  </div> -->
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Premium Loading State -->
+  <div class="loading-container" *ngIf="items.length === 0">
+    <div class="loading-content">
+      <img src="assets/empty-laundry.png" alt="No items" class="loading-img" />
+      <p class="loading-text">No Items Added!</p>
+      <p class="loading-subtext">Start adding items to create your order</p>
+    </div>
+  </div>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" *ngIf="(items | filterBy: productFilter).length > 0">
-        <ion-list>
-          <app-product-card
-            *ngFor="let item of items | filterBy: productFilter"
-            [productImageUrl]="item?.image_url"
-            [productName]="item?.name"
-            [quantityAcceptedIn]="item?.quantityAcceptedIn"
-            [_id]="item._id"
-            [quantity]="item?.quantity"
-            [desc]="item?.description"
-            (quantityEvent)="addItem($event)"
-            (quantityEventRemove)="deleteItem($event)"
-            [productPricePerKg]="item?.perKgPrice"
-            [productPricePerPiece]="item?.perPeacePrice"
-          >
-          </app-product-card>
-        </ion-list>
-      </ion-col>
-      <ion-col size="12" *ngIf="(items | filterBy: productFilter).length == 0">
-        <div class="container">
-          <img src="assets/no-results.svg" alt="" srcset="" />
-          <p class="search-heading">
-            Sorry we couldn't find any matches for your search.
-          </p>
-          <p class="search-sub-heading">
-            Please try searching with another term.
-          </p>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <!-- Premium Product Grid -->
+  <div class="main-container" *ngIf="items.length > 0">
+    <ion-grid class="premium-grid">
+      <ion-row>
+        <ion-col size="12" *ngIf="(items | filterBy: productFilter).length > 0">
+          <ion-list class="premium-list">
+            <app-product-card
+              *ngFor="let item of items | filterBy: productFilter"
+              [productImageUrl]="item?.image_url"
+              [productName]="item?.name"
+              [quantityAcceptedIn]="item?.quantityAcceptedIn"
+              [_id]="item._id"
+              [quantity]="item?.quantity"
+              [desc]="item?.description"
+              (quantityEvent)="addItem($event)"
+              (quantityEventRemove)="deleteItem($event)"
+              [productPricePerKg]="item?.perKgPrice"
+              [productPricePerKg]="item?.perPeacePrice"
+            >
+            </app-product-card>
+          </ion-list>
+        </ion-col>
+
+        <!-- Premium No Results State -->
+        <ion-col
+          size="12"
+          *ngIf="(items | filterBy: productFilter).length == 0"
+        >
+          <div class="no-results-container">
+            <div class="no-results-content">
+              <img
+                src="assets/no-results.svg"
+                alt="No results"
+                class="no-results-img"
+              />
+              <h3 class="no-results-heading">
+                Sorry, we couldn't find any matches for your search.
+              </h3>
+              <p class="no-results-subheading">
+                Please try searching with another term or browse our available
+                services.
+              </p>
+              <ion-button
+                fill="outline"
+                class="premium-button"
+                (click)="clearSearch()"
+              >
+                <ion-icon name="refresh-outline" slot="start"></ion-icon>
+                Clear Search
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
-<ion-footer color="primary" class="ion-no-border" routerLink="tabs/tabs/tab2">
-  <ion-toolbar color="primary" class="ion-text-center">
-    You have {{products.length}} Items in your cart.
+
+<!-- Premium Footer -->
+<ion-footer class="ion-no-border premium-footer" routerLink="tabs/tabs/tab2">
+  <ion-toolbar class="premium-footer-toolbar">
+    <div class="footer-content">
+      <div class="cart-info">
+        <ion-icon name="cart-outline" class="cart-icon"></ion-icon>
+        <span class="cart-text"
+          >You have {{products.length}} items in your cart</span
+        >
+      </div>
+      <ion-button
+        fill="solid"
+        class="view-cart-button"
+        routerLink="tabs/tabs/tab2"
+      >
+        View Cart
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-footer>

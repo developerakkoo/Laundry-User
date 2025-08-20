@@ -1,33 +1,99 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>Offers</ion-title>
+<ion-header [translucent]="true" class="ion-no-border premium-header">
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">Special Offers</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/tabs/tab3"
+        class="premium-back-button"
+      ></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
- <app-offer-card (appliedEvent)="promoCodeApplied($event)"></app-offer-card>
-
- <ion-modal id="example-modal" #modal [isOpen]="isPromoCodeSuccessDialogOpen">
-  <ng-template>
-    
-      <div class="modal-container">
-        <img src="assets/icon/balloons.gif" alt="">
-        <p class="applied">'SAVE20' applied</p>
-        <p class="title">You Saved 20</p>
-        <p class="label">with this coupon code.</p>
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Premium Offers Header -->
+  <div class="offers-hero">
+    <div class="hero-content">
+      <div class="hero-icon">
+        <ion-icon name="gift-outline" class="gift-icon"></ion-icon>
       </div>
- 
-    <ion-footer lines="full">
-   
-       <ion-button (click)="okay()" expand="block" fill="clear" shape="round">
-        Woohoo! Thanks
-       </ion-button>
-    
-    </ion-footer>
-  </ng-template>
-</ion-modal>
-<canvas id="confetti-canvas"></canvas>
+      <h1 class="hero-title">Exclusive Deals</h1>
+      <p class="hero-subtitle">
+        Unlock amazing savings on premium laundry services
+      </p>
+    </div>
+
+    <!-- Floating Offer Badge -->
+    <div class="floating-offer-badge">
+      <span class="badge-text">SAVE UP TO</span>
+      <span class="badge-amount">50%</span>
+    </div>
+  </div>
+
+  <!-- Premium Offer Cards -->
+  <div class="offers-container">
+    <app-offer-card
+      (appliedEvent)="promoCodeApplied($event)"
+      class="premium-offer-card"
+    ></app-offer-card>
+  </div>
+
+  <!-- Premium Success Modal -->
+  <ion-modal
+    id="success-modal"
+    #modal
+    [isOpen]="isPromoCodeSuccessDialogOpen"
+    class="premium-modal"
+  >
+    <ng-template>
+      <div class="modal-container premium-modal-content">
+        <!-- Success Animation Container -->
+        <div class="success-animation">
+          <div class="success-circle">
+            <ion-icon name="checkmark" class="checkmark-icon"></ion-icon>
+          </div>
+          <div class="confetti-container">
+            <div
+              class="confetti-piece"
+              *ngFor="let piece of confettiPieces; let i = index"
+              [style.animation-delay]="i * 0.1 + 's'"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Success Content -->
+        <div class="success-content">
+          <h2 class="success-title">🎉 Congratulations!</h2>
+          <div class="coupon-applied">
+            <ion-icon name="pricetag" class="coupon-icon"></ion-icon>
+            <span class="coupon-code">'SAVE20' Applied</span>
+          </div>
+          <div class="savings-display">
+            <span class="savings-amount">₹20</span>
+            <span class="savings-label">Saved Successfully!</span>
+          </div>
+          <p class="success-message">
+            Your discount has been applied to your next order.
+          </p>
+        </div>
+      </div>
+
+      <!-- Premium Modal Footer -->
+      <ion-footer class="ion-no-border premium-modal-footer">
+        <ion-button
+          (click)="okay()"
+          expand="block"
+          fill="solid"
+          shape="round"
+          class="celebration-button"
+        >
+          <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+          Woohoo! Thanks
+        </ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Enhanced Confetti Canvas -->
+  <canvas id="confetti-canvas" class="premium-confetti"></canvas>
 </ion-content>

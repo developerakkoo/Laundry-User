@@ -1,22 +1,75 @@
-<div class="card">
-  <img [src]="imageUrl" alt="Image" class="card-image">
-  <div class="icon-top">
-    <ion-icon class="icon" (click)="action('like')" color="danger" slot="start" [name]="isLiked ? 'heart' : 'heart-outline'"></ion-icon>
-    <ion-icon class="icon" (click)="action('share')" color="primary" slot="start"  name="share-outline"></ion-icon>
+<div class="laundry-card" [class.liked]="isLiked">
+  <!-- Card Image with Overlay -->
+  <div class="card-image-container">
+    <img [src]="imageUrl" alt="Laundry Image" class="card-image" />
+    <div class="image-overlay"></div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button
+        class="action-btn like-btn"
+        [class.active]="isLiked"
+        (click)="action('like')"
+        type="button"
+      >
+        <div class="heart-container">
+          <ion-icon
+            [name]="isLiked ? 'heart' : 'heart-outline'"
+            class="heart-icon"
+          ></ion-icon>
+          <div class="heart-particles" *ngIf="isLiked">
+            <div class="particle" *ngFor="let i of [1, 2, 3, 4, 5]"></div>
+          </div>
+        </div>
+      </button>
+
+      <button
+        class="action-btn share-btn"
+        (click)="action('share')"
+        type="button"
+      >
+        <ion-icon name="share-outline" class="share-icon"></ion-icon>
+      </button>
+    </div>
+
+    <!-- Category Badge -->
+    <div class="category-badge" *ngIf="category">
+      <span>{{ category }}</span>
+    </div>
   </div>
+
+  <!-- Card Content -->
   <div class="card-content" (click)="clickHandler()">
+    <!-- Card Header -->
     <div class="card-header">
-      <div>
-        <h2>{{name}}</h2>
-        <p>
-          <ion-icon color="success" name="star"></ion-icon>
-          {{ratings}}
-        </p>
+      <div class="laundry-info">
+        <h3 class="laundry-name">{{ name }}</h3>
+        <div class="rating-container">
+          <ion-icon name="star" class="star-icon"></ion-icon>
+          <span class="rating-text">{{ ratings }}</span>
+          <span class="rating-label">Rating</span>
+        </div>
+      </div>
+
+      <!-- Like Count -->
+      <div class="like-count" *ngIf="likes && likes.length > 0">
+        <ion-icon name="heart" class="like-icon"></ion-icon>
+        <span>{{ likes.length }}</span>
       </div>
     </div>
+
+    <!-- Card Footer -->
     <div class="card-footer">
-      <p>{{address}}</p>
-      <!-- <p class="distance">1 km away</p> -->
+      <div class="location-info">
+        <ion-icon name="location-outline" class="location-icon"></ion-icon>
+        <span class="address-text">{{ address }}</span>
+      </div>
+
+      <!-- View Details Button -->
+      <div class="view-details">
+        <span>View Details</span>
+        <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+      </div>
     </div>
   </div>
 </div>

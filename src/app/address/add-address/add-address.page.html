@@ -1,100 +1,148 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>Enter address details</ion-title>
-    <ion-button (click)="close()" fill="clear" slot="end" color="primary">
-      <ion-icon slot="icon-only" name="close"></ion-icon>
+<ion-header [translucent]="true" class="ion-no-border premium-header">
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">Enter Address Details</ion-title>
+    <ion-button
+      (click)="close()"
+      fill="clear"
+      slot="end"
+      class="premium-close-button"
+    >
+      <ion-icon slot="icon-only" name="close" class="close-icon"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-label class="ion-padding">
-    <p>Your Address is</p>
-    {{value | uppercase}}
-  </ion-label>
-  <br /><br />
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <ion-input
-      class="animate__animated animate__fadeIn"
-      color="medium"
-      labelPlacement="stacked"
-      label="Address"
-      placeholder="XXXX XXXX XXXX XXX."
-      fill="outline"
-      formControlName="address"
-    >
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Premium Address Display -->
+  <div class="address-display-container">
+    <div class="address-display-content">
       <ion-icon
-        color="primary"
-        slot="start"
-        name="home-outline"
-        aria-hidden="true"
+        name="location-outline"
+        class="location-display-icon"
       ></ion-icon>
-    </ion-input>
-    <br />
+      <div class="address-display-text">
+        <p class="address-label">Your Address is</p>
+        <h2 class="address-value">{{value | uppercase}}</h2>
+      </div>
+    </div>
+  </div>
 
-    <ion-input
-      type="text"
-      fill="outline"
-      label="Landmark"
-      labelPlacement="stacked"
-      formControlName="landmark"
-    ></ion-input>
-    <br />
-    <ion-input
-      type="number"
-      fill="outline"
-      label="Pincode"
-      labelPlacement="stacked"
-      formControlName="pinCode"
-    ></ion-input>
-    <!-- <ion-chip color="primary" mode="ios" outline="true">
-  <ion-label>Default</ion-label>
-  <ion-icon name="close-circle"></ion-icon>
-</ion-chip>
-<ion-chip color="primary" mode="ios" outline="false">
-  <ion-label>Default</ion-label>
-</ion-chip>
-<ion-chip color="primary" mode="ios" outline="true">
-  <ion-label>Home</ion-label>
-</ion-chip>
-<ion-chip color="primary" mode="ios" outline="true">
-  <ion-label>Office</ion-label>
-</ion-chip>
-<ion-chip color="primary" mode="ios" outline="true">
-  <ion-label>Other</ion-label>
-</ion-chip> -->
-    <ion-item>
-      <ion-label>Address Type</ion-label>
-      <ion-select
-        formControlName="type"
-        value="home"
-        interface="action-sheet"
-        placeholder="Select Type"
-      >
-        <ion-select-option value="home">Home</ion-select-option>
-        <ion-select-option value="office">Office</ion-select-option>
-        <ion-select-option value="other">Other</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <!-- Premium Form Container -->
+  <div class="form-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="premium-form">
+      <!-- Address Input -->
+      <div class="form-field">
+        <ion-input
+          class="premium-input animate__animated animate__fadeIn"
+          color="medium"
+          labelPlacement="stacked"
+          label="Address"
+          placeholder="Enter your complete address"
+          fill="outline"
+          formControlName="address"
+        >
+          <ion-icon
+            slot="start"
+            name="home-outline"
+            class="input-icon"
+            aria-hidden="true"
+          ></ion-icon>
+        </ion-input>
+      </div>
 
-    <ion-item>
-      <ion-label>Set Default?</ion-label>
-      <ion-checkbox
-        mode="ios"
-        formControlName="selected"
-        slot="end"
-      ></ion-checkbox>
-    </ion-item>
-    <br />
+      <!-- Landmark Input -->
+      <div class="form-field">
+        <ion-input
+          type="text"
+          fill="outline"
+          label="Landmark"
+          labelPlacement="stacked"
+          placeholder="Near any recognizable place"
+          formControlName="landmark"
+          class="premium-input"
+        >
+          <ion-icon
+            slot="start"
+            name="flag-outline"
+            class="input-icon"
+            aria-hidden="true"
+          ></ion-icon>
+        </ion-input>
+      </div>
 
-    <ion-button
-      expand="block"
-      mode="ios"
-      color="primary"
-      type="submit"
-      [disabled]="form.invalid"
-    >
-      Save
-    </ion-button>
-  </form>
+      <!-- Pincode Input -->
+      <div class="form-field">
+        <ion-input
+          type="number"
+          fill="outline"
+          label="Pincode"
+          labelPlacement="stacked"
+          placeholder="Enter 6-digit pincode"
+          formControlName="pinCode"
+          class="premium-input"
+        >
+          <ion-icon
+            slot="start"
+            name="mail-outline"
+            class="input-icon"
+            aria-hidden="true"
+          ></ion-icon>
+        </ion-input>
+      </div>
+
+      <!-- Address Type Selection -->
+      <div class="form-field">
+        <div class="select-container">
+          <ion-label class="select-label">Address Type</ion-label>
+          <ion-select
+            formControlName="type"
+            value="home"
+            interface="action-sheet"
+            placeholder="Select Type"
+            class="premium-select"
+          >
+            <ion-select-option value="home">
+              <ion-icon name="home-outline" slot="start"></ion-icon>
+              Home
+            </ion-select-option>
+            <ion-select-option value="office">
+              <ion-icon name="business-outline" slot="start"></ion-icon>
+              Office
+            </ion-select-option>
+            <ion-select-option value="other">
+              <ion-icon name="location-outline" slot="start"></ion-icon>
+              Other
+            </ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+      <!-- Default Address Toggle -->
+      <div class="form-field">
+        <div class="checkbox-container">
+          <ion-label class="checkbox-label">Set as Default Address?</ion-label>
+          <ion-checkbox
+            mode="ios"
+            formControlName="selected"
+            slot="end"
+            class="premium-checkbox"
+          ></ion-checkbox>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-field submit-field">
+        <ion-button
+          expand="block"
+          mode="ios"
+          type="submit"
+          [disabled]="form.invalid"
+          class="submit-button premium-button"
+        >
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          Save Address
+        </ion-button>
+      </div>
+    </form>
+  </div>
 </ion-content>

@@ -1,87 +1,774 @@
-.title{
+// Premium My Orders Page Styling - Professional Design
+
+// Premium Content Background
+.premium-content {
+  --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --color: #1e293b;
+  padding: 0;
+}
+
+// Premium Header Styling
+.premium-header {
+  --background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  
+  .premium-toolbar {
+    --background: transparent;
+    --border-color: transparent;
+    --color: #1e293b;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    
+    .premium-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: 0.5px;
+    }
+    
+    .premium-back-button {
+      --color: #64748b;
+      --color-hover: #3b82f6;
+      --color-activated: #3b82f6;
+      --icon-font-size: 24px;
+      --icon-padding-start: 8px;
+      --icon-padding-end: 8px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      --border-radius: 12px;
+      --background: rgba(59, 130, 246, 0.1);
+      --background-hover: rgba(59, 130, 246, 0.2);
+      --background-activated: rgba(59, 130, 246, 0.2);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateX(-2px);
+      }
+    }
+  }
+}
+
+// Premium Segment Control
+.segment-container {
+  padding: 20px 20px 0;
+}
+
+.premium-segment {
+  --background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+  .segment-button {
+    --color: #64748b;
+    --color-checked: #8b5cf6;
+    --background-checked: rgba(139, 92, 246, 0.1);
+    --border-radius: 12px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      --color: #8b5cf6;
+    }
+    
+    ion-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  }
+}
+
+// Premium Orders Container
+.orders-container {
+  padding: 20px;
+}
+
+.premium-accordion-group {
+  --ion-item-background: transparent;
+}
+
+// Premium Accordion
+.premium-accordion {
+  margin-bottom: 16px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Premium Order Header
+.premium-order-header {
+  --background: transparent;
+  --border-color: transparent;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  --inner-padding-end: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    --background: rgba(139, 92, 246, 0.05);
+  }
+}
+
+// Order Thumbnail Container
+.order-thumbnail-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  margin-right: 16px;
+  flex-shrink: 0;
+  
+  .order-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+  }
+  
+  .thumbnail-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(139, 92, 246, 0.1) 0%, 
+      rgba(59, 130, 246, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .premium-order-header:hover & {
+    .order-thumbnail {
+      transform: scale(1.05);
+    }
+    
+    .thumbnail-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+// Order Info Container
+.order-info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-main-info {
+  .order-id {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+    transition: color 0.3s ease;
+    
+    .premium-order-header:hover & {
+      color: #8b5cf6;
+    }
+  }
+  
+  .order-items-count {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.order-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  
+  .date-icon {
+    font-size: 16px;
+    color: #8b5cf6;
+  }
+  
+  .date-text {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+}
+
+// Premium Order Status Badge
+.order-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  max-width: fit-content;
+  transition: all 0.3s ease;
+  
+  .status-icon {
     font-size: 14px;
+  }
+  
+  .status-text {
+    font-weight: 600;
+  }
+  
+  // Status-specific styling
+  &.status-0 {
+    background: rgba(251, 191, 36, 0.1);
+    color: #d97706;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+  }
+  
+  &.status-1 {
+    background: rgba(34, 197, 94, 0.1);
+    color: #059669;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  &.status-2 {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  &.status-3 {
+    background: rgba(139, 92, 246, 0.1);
+    color: #7c3aed;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+  }
+  
+  &.status-4 {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+  
+  &.status-5 {
+    background: rgba(34, 197, 94, 0.1);
+    color: #059669;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  &.status-6 {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  &.status-7 {
+    background: rgba(34, 197, 94, 0.1);
+    color: #059669;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  
+  .premium-order-header:hover & {
+    transform: scale(1.05);
+  }
+}
+
+// Premium Order Content
+.order-content {
+  padding: 24px;
+  background: rgba(248, 250, 252, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+// Order Details Header
+.order-details-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  
+  .details-icon {
+    font-size: 24px;
+    color: #8b5cf6;
+  }
+  
+  .details-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+  }
+}
+
+// Premium Order Items List
+.order-items-list {
+  margin-bottom: 24px;
+}
+
+.premium-order-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.item-thumbnail-container {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  
+  .item-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+  }
+  
+  .item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(139, 92, 246, 0.1) 0%, 
+      rgba(59, 130, 246, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .premium-order-item:hover & {
+    .item-thumbnail {
+      transform: scale(1.05);
+    }
+    
+    .item-overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.item-info-container {
+  flex: 1;
+  
+  .item-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+  }
+  
+  .item-price {
+    font-size: 0.9rem;
+    color: #8b5cf6;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+  }
+  
+  .item-quantity {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+}
+
+// Premium Order Summary
+.order-summary {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.summary-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  
+  .summary-icon {
+    font-size: 20px;
+    color: #8b5cf6;
+  }
+  
+  .summary-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+  }
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  
+  .summary-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+  
+  .summary-value {
+    font-size: 0.9rem;
+    color: #1e293b;
+    font-weight: 600;
+  }
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0 8px 0;
+  border-top: 2px solid rgba(139, 92, 246, 0.2);
+  margin-top: 8px;
+  
+  .total-label {
+    font-size: 1.1rem;
+    color: #1e293b;
     font-weight: 700;
   }
   
-  .sub-title{
+  .total-value {
+    font-size: 1.1rem;
+    color: #8b5cf6;
+    font-weight: 700;
+  }
+}
+
+// Premium Help Button
+.help-button-container {
+  text-align: center;
+}
+
+.help-button {
+  --background: transparent;
+  --background-hover: rgba(139, 92, 246, 0.1);
+  --background-activated: rgba(139, 92, 246, 0.1);
+  --color: #8b5cf6;
+  --color-hover: #7c3aed;
+  --color-activated: #7c3aed;
+  --border-color: rgba(139, 92, 246, 0.3);
+  --border-color-hover: rgba(139, 92, 246, 0.5);
+  --border-color-activated: rgba(139, 92, 246, 0.5);
+  --border-radius: 16px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border-width: 2px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    --background: rgba(139, 92, 246, 0.1);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  ion-icon {
+    margin-right: 8px;
     font-size: 18px;
   }
-
-  .pricing{
-    color: #22A45D;
-    font-size: 15px;
-    font-weight: 700;
 }
 
-  .ion-item{
-    height: fit-content;
-   
+// Premium Animations
+@keyframes accordionSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-ion-accordion{
-    border-radius: 12px;
+// Animation for accordion items
+.premium-accordion {
+  animation: accordionSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
 }
 
-.hotel-thumbnail{
-    height: 80px;
-    width: 80px;
-    border-radius: 8px;
-}
-.hotel-item-container{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+// Responsive Design
+@media (max-width: 480px) {
+  .premium-header {
+    .premium-toolbar {
+      .premium-title {
+        font-size: 1.25rem;
+      }
+    }
   }
   
-  ion-item .rating-container .rating{
-    font-size: 10px;
-    margin: 0;
+  .segment-container {
+    padding: 16px 16px 0;
   }
-.rating{
-    margin: 0;
-    font-size: 14px;
-}
-.rating-container{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2px;
-}
-.sub-title{
-    font-size: 12px;
+  
+  .orders-container {
+    padding: 16px;
+  }
+  
+  .premium-order-header {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+  }
+  
+  .order-thumbnail-container {
+    width: 70px;
+    height: 70px;
+    margin-right: 12px;
+  }
+  
+  .order-content {
+    padding: 20px;
+  }
+  
+  .premium-order-item {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .item-thumbnail-container {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .order-summary {
+    padding: 16px;
+  }
+  
+  .help-button {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }
 }
 
-ion-icon{
-    font-size:20px;
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  .premium-content {
+    --background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --color: #f1f5f9;
+  }
+  
+  .premium-header {
+    --background: rgba(15, 23, 42, 0.95);
+    border-bottom-color: rgba(148, 163, 184, 0.2);
+  }
+  
+  .premium-toolbar {
+    .premium-title {
+      color: #f1f5f9;
+    }
+    
+    .premium-back-button {
+      --color: #94a3b8;
+      --color-hover: #60a5fa;
+      --color-activated: #60a5fa;
+      --background: rgba(96, 165, 250, 0.1);
+      --background-hover: rgba(96, 165, 250, 0.2);
+      --background-activated: rgba(96, 165, 250, 0.2);
+    }
+  }
+  
+  .premium-segment {
+    --background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(148, 163, 184, 0.2);
+    
+    .segment-button {
+      --color: #94a3b8;
+      --color-checked: #a78bfa;
+      --background-checked: rgba(139, 92, 246, 0.15);
+      
+      &:hover {
+        --color: #a78bfa;
+      }
+    }
+  }
+  
+  .premium-accordion {
+    background: rgba(15, 23, 42, 0.95);
+    border-color: rgba(148, 163, 184, 0.2);
+    
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+  }
+  
+  .premium-order-header {
+    &:hover {
+      --background: rgba(139, 92, 246, 0.08);
+    }
+  }
+  
+  .order-main-info {
+    .order-id {
+      color: #f1f5f9;
+      
+      .premium-order-header:hover & {
+        color: #a78bfa;
+      }
+    }
+    
+    .order-items-count {
+      color: #94a3b8;
+    }
+  }
+  
+  .order-date {
+    .date-text {
+      color: #94a3b8;
+    }
+  }
+  
+  .order-content {
+    background: rgba(15, 23, 42, 0.8);
+  }
+  
+  .order-details-header {
+    .details-title {
+      color: #f1f5f9;
+    }
+  }
+  
+  .premium-order-item {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(148, 163, 184, 0.2);
+    
+    &:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+  }
+  
+  .item-info-container {
+    .item-name {
+      color: #f1f5f9;
+    }
+    
+    .item-quantity {
+      color: #94a3b8;
+    }
+  }
+  
+  .order-summary {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: rgba(148, 163, 184, 0.2);
+  }
+  
+  .summary-header {
+    .summary-title {
+      color: #f1f5f9;
+    }
+  }
+  
+  .summary-item {
+    .summary-label {
+      color: #94a3b8;
+    }
+    
+    .summary-value {
+      color: #f1f5f9;
+    }
+  }
+  
+  .summary-total {
+    .total-label {
+      color: #f1f5f9;
+    }
+  }
 }
 
-.sort-badge{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #E7FFF1;
-    height: 20px;
-    width: 57px;
-    border-radius: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-top: 6px;
+// Enhanced focus states for accessibility
+.premium-accordion:focus-within {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
 }
 
-.sort-badge p {
-    font-size: 12px;
-    color: #00C54F;
+.premium-order-header:focus {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
 }
 
-ion-item:active{
-    -webkit-animation: scale-down-center 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: scale-down-center 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+.help-button:focus {
+  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline-offset: 2px;
 }
 
-ion-chip{
-    margin-right: 10px;
+// Hover effects for interactive elements
+.premium-accordion:hover,
+.premium-order-header:hover,
+.premium-order-item:hover {
+  cursor: pointer;
+}
 
+// Smooth transitions for all interactive elements
+.premium-accordion,
+.premium-order-header,
+.premium-order-item,
+.order-thumbnail-container,
+.item-thumbnail-container,
+.order-status-badge,
+.help-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

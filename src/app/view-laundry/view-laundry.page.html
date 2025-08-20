@@ -4,55 +4,75 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="filter-btn" (click)="openFilterModal()">
+        <ion-icon name="options-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
-  <ion-searchbar
-    placeholder="Filter laundries"
-    inputmode="decimal"
-    type="decimal"
-    mode="ios"
-     [(ngModel)]="laundryFilter.name"
-    (ionChange)="onSearchChange($event)"
-    [debounce]="250"
-    showCancelButton="always"
-  ></ion-searchbar>
 
+  <!-- Premium Search Bar -->
+  <div class="search-container">
+    <ion-searchbar
+      placeholder="Search laundries..."
+      inputmode="text"
+      type="text"
+      mode="ios"
+      [(ngModel)]="laundryFilter.name"
+      (ionChange)="onSearchChange($event)"
+      [debounce]="250"
+      showCancelButton="always"
+      class="premium-searchbar"
+    ></ion-searchbar>
+  </div>
+
+  <!-- Enhanced Filter Container -->
   <div class="filter-container">
-    <div class="filter-badge" (click)="openFilterModal()">Filters</div>
+    <div class="filter-badge primary" (click)="openFilterModal()">
+      <ion-icon name="funnel-outline" class="filter-icon"></ion-icon>
+      <span>Filters</span>
+    </div>
+
     <div
       class="filter-badge-outline"
-      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'nearme', 'filter-badge-outline': selectedFilter !== 'nearme' }"
+      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'nearme' }"
       (click)="applyFilter('nearme')"
     >
-      Near me
+      <ion-icon name="location-outline" class="filter-icon"></ion-icon>
+      <span>Near me</span>
     </div>
 
     <div
       class="filter-badge-outline"
-      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'fastdelivery', 'filter-badge-outline': selectedFilter !== 'fastdelivery' }"
+      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'fastdelivery' }"
       (click)="applyFilter('fastdelivery')"
     >
-      Fast Delivery
+      <ion-icon name="flash-outline" class="filter-icon"></ion-icon>
+      <span>Fast Delivery</span>
     </div>
 
     <div
       class="filter-badge-outline"
-      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'radius', 'filter-badge-outline': selectedFilter !== 'radius' }"
+      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'radius' }"
       (click)="applyFilter('radius')"
     >
-      5 Km's Radius
+      <ion-icon name="radio-outline" class="filter-icon"></ion-icon>
+      <span>5 Km Radius</span>
     </div>
 
     <div
       class="filter-badge-outline"
-      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'rating', 'filter-badge-outline': selectedFilter !== 'rating' }"
+      [ngClass]="{ 'filter-badge-solid': selectedFilter === 'rating' }"
       (click)="applyFilter('rating')"
     >
-      Highest Rated
+      <ion-icon name="star-outline" class="filter-icon"></ion-icon>
+      <span>Highest Rated</span>
     </div>
   </div>
 </ion-header>
 
 <ion-content [fullscreen]="false">
+  <!-- Premium Pull to Refresh -->
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-down"
@@ -62,17 +82,27 @@
     >
     </ion-refresher-content>
   </ion-refresher>
+
+  <!-- Enhanced Loading State -->
   <div class="loading-container" *ngIf="isLoading">
-    <img class="loading-img" src="assets/icon/laundry.gif" />
+    <div class="loading-content">
+      <img class="loading-img" src="assets/icon/laundry.gif" />
+      <p class="loading-text">Finding the best laundries...</p>
+    </div>
   </div>
 
-  <div class="container">
-    <ion-list *ngIf="!isLoading">
-      <ion-list-header>
-        <ion-label style="font-size: 16px; font-weight: 500"
-          >Top Laundries
-        </ion-label>
-      </ion-list-header>
+  <!-- Main Content Container -->
+  <div class="main-container" *ngIf="!isLoading">
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title">Top Laundries</h2>
+      <span class="results-count"
+        >{{ (allLaundries | filterBy: laundryFilter).length }} found</span
+      >
+    </div>
+
+    <!-- Laundries Grid -->
+    <div class="laundries-grid">
       <app-laundry-card
         *ngFor="let item of allLaundries | filterBy: laundryFilter"
         imageUrl="assets/laundry-demo.svg"
@@ -84,44 +114,73 @@
         [category]="item?.category[0]?.name"
         [currentUserId]="userId"
         [address]="item?.address?.city"
+        class="laundry-card-item"
       >
       </app-laundry-card>
-    </ion-list>
+    </div>
+
+    <!-- Empty State -->
+    <div
+      class="empty-state"
+      *ngIf="(allLaundries | filterBy: laundryFilter).length === 0"
+    >
+      <div class="empty-content">
+        <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+        <h3 class="empty-title">No Laundries Found</h3>
+        <p class="empty-subtitle">
+          Try adjusting your search or filters to find more options
+        </p>
+      </div>
+    </div>
   </div>
+
+  <!-- Enhanced Filter Modal -->
   <ion-modal
     class="filter-modal"
     #modal
     [isOpen]="isFilterOpen"
-    [initialBreakpoint]="0.45"
-    [breakpoints]="[0, 0.25, 0.5, 0.45]"
+    [initialBreakpoint]="0.50"
+    [breakpoints]="[0, 0.25, 0.5, 0.50]"
   >
     <ng-template>
       <ion-content>
         <ion-list>
           <ion-list-header>
-            <ion-label class="nunito-bold">Sort By</ion-label>
+            <ion-label class="modal-title">Sort & Filter</ion-label>
+            <ion-button
+              fill="clear"
+              class="close-btn"
+              (click)="closeFilterModal()"
+            >
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
           </ion-list-header>
           <hr />
           <ion-radio-group value="strawberries" mode="md">
             <ion-item lines="none">
-              <ion-label class="nutino-regular">Rating: High To Low</ion-label>
+              <ion-label class="radio-label">Rating: High To Low</ion-label>
               <ion-radio slot="end"></ion-radio>
             </ion-item>
             <ion-item lines="none">
-              <ion-label class="nutino-regular"
-                >Delivery time:High To Low</ion-label
+              <ion-label class="radio-label"
+                >Delivery time: High To Low</ion-label
               >
               <ion-radio slot="end"></ion-radio>
             </ion-item>
             <ion-item lines="none">
-              <ion-label class="nutino-regular">Cost: High To Low</ion-label>
+              <ion-label class="radio-label">Cost: High To Low</ion-label>
               <ion-radio slot="end"></ion-radio>
             </ion-item>
             <ion-item lines="none">
-              <ion-label class="nutino-regular">Cost: Low To high</ion-label>
+              <ion-label class="radio-label">Cost: Low To High</ion-label>
               <ion-radio slot="end"></ion-radio>
             </ion-item>
           </ion-radio-group>
+
+          <div class="filter-actions">
+            <ion-button fill="outline" class="reset-btn">Reset</ion-button>
+            <ion-button class="apply-btn">Apply Filters</ion-button>
+          </div>
         </ion-list>
       </ion-content>
     </ng-template>

@@ -1,21 +1,21 @@
-<ion-tabs class="">
+<ion-tabs class="" (ionTabsDidChange)="onTabChange($event)">
 
-  <ion-tab-bar slot="bottom" class="animate__animated animate__slideInUp">
-    <ion-tab-button tab="tab1" href="/tabs/tab1" (click)="haptic()">
-      <ion-icon aria-hidden="true" name="home-outline"></ion-icon>
-      <ion-label class="nunito-bold">Home</ion-label>
+  <ion-tab-bar slot="bottom" class="animate__animated animate__slideInUp premium-tab-bar">
+    <ion-tab-button tab="tab1" href="/tabs/tab1" (click)="haptic()" class="tab-button">
+      <ion-icon aria-hidden="true" name="home-outline" class="tab-icon"></ion-icon>
+      <ion-label class="nunito-bold tab-label">Home</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2" href="/tabs/tab2" (click)="haptic()">
-      <ion-icon aria-hidden="true" name="cart-outline"></ion-icon>
-      <ion-label class="nunito-bold">Cart</ion-label>
+    <ion-tab-button tab="tab2" href="/tabs/tab2" (click)="haptic()" class="tab-button">
+      <ion-icon aria-hidden="true" name="cart-outline" class="tab-icon"></ion-icon>
+      <ion-label class="nunito-bold tab-label">Cart</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3" href="/tabs/tab3" (click)="haptic()">
-      <ion-icon aria-hidden="true" name="person-outline">
-        <ion-badge color="primary" mode="ios">42</ion-badge>
+    <ion-tab-button tab="tab3" href="/tabs/tab3" (click)="haptic()" class="tab-button">
+      <ion-icon aria-hidden="true" name="person-outline" class="tab-icon">
+        <ion-badge color="primary" mode="ios" class="notification-badge">42</ion-badge>
       </ion-icon>
-      <ion-label class="nunito-bold">Profile</ion-label>
+      <ion-label class="nunito-bold tab-label">Profile</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

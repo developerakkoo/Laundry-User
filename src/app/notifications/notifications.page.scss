@@ -1,0 +1,431 @@
+// Premium Notifications Page Styling
+ion-content {
+  --background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --color: #1e293b;
+}
+
+// Premium Header Styling (Reusable across app)
+ion-header {
+  --background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  
+  ion-toolbar {
+    --background: transparent;
+    --border-color: transparent;
+    --color: #1e293b;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    
+    ion-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: 0.5px;
+    }
+    
+    ion-back-button {
+      --color: #64748b;
+      --color-hover: #3b82f6;
+      --color-activated: #3b82f6;
+      --icon-font-size: 24px;
+      --icon-padding-start: 8px;
+      --icon-padding-end: 8px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      --border-radius: 12px;
+      --background: rgba(59, 130, 246, 0.1);
+      --background-hover: rgba(59, 130, 246, 0.2);
+      --background-activated: rgba(59, 130, 246, 0.2);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateX(-2px);
+      }
+    }
+    
+    .mark-all-read-btn {
+      --color: #64748b;
+      --color-hover: #10b981;
+      --color-activated: #10b981;
+      --border-radius: 12px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.1);
+        --color: #10b981;
+      }
+    }
+  }
+}
+
+// Empty Notifications State
+.empty-notifications {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.empty-content {
+  max-width: 500px;
+  width: 100%;
+}
+
+.empty-icon-container {
+  position: relative;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-icon {
+  font-size: 80px;
+  color: #3b82f6;
+  position: relative;
+  z-index: 2;
+  animation: iconFloat 3s ease-in-out infinite;
+}
+
+.icon-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 70%, transparent 100%);
+  border-radius: 50%;
+  animation: backgroundPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes backgroundPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.empty-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+  background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.empty-subtitle {
+  font-size: 1.125rem;
+  color: #64748b;
+  margin: 0 0 40px 0;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+// Quick Actions
+.quick-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.refresh-btn,
+.settings-btn {
+  --border-color: rgba(59, 130, 246, 0.3);
+  --color: #3b82f6;
+  --border-width: 2px;
+  --border-radius: 16px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    --background: rgba(59, 130, 246, 0.1);
+    --border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+  }
+  
+  ion-icon {
+    margin-right: 8px;
+  }
+}
+
+// Notification Types Info
+.notification-types {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.types-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+  text-align: center;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    border-radius: 2px;
+  }
+}
+
+.type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.type-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.2);
+    transform: translateX(4px);
+  }
+  
+  .check-icon {
+    color: #10b981;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  
+  span {
+    font-size: 0.95rem;
+    color: #1e293b;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .empty-notifications {
+    padding: 32px 16px;
+  }
+  
+  .empty-icon {
+    font-size: 64px;
+  }
+  
+  .icon-background {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .empty-title {
+    font-size: 1.75rem;
+  }
+  
+  .empty-subtitle {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+  
+  .quick-actions {
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  
+  .refresh-btn,
+  .settings-btn {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }
+  
+  .notification-types {
+    padding: 24px;
+  }
+  
+  .types-title {
+    font-size: 1.125rem;
+  }
+  
+  .type-item {
+    padding: 10px 14px;
+    
+    span {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .empty-notifications {
+    padding: 24px 12px;
+  }
+  
+  .empty-icon {
+    font-size: 56px;
+  }
+  
+  .icon-background {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .empty-title {
+    font-size: 1.5rem;
+  }
+  
+  .empty-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .quick-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .refresh-btn,
+  .settings-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .notification-types {
+    padding: 20px;
+  }
+  
+  .type-item {
+    padding: 8px 12px;
+    
+    span {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Animation for page elements
+.empty-notifications {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.notification-types {
+  animation: slideInUp 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Focus states for accessibility
+.refresh-btn:focus,
+.settings-btn:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.type-item:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+// Loading states
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+// Smooth transitions for all interactive elements
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Enhanced hover effects
+.empty-icon-container:hover .empty-icon {
+  animation-play-state: paused;
+}
+
+.empty-icon-container:hover .icon-background {
+  animation-play-state: paused;
+}
+
+// Enhanced visual hierarchy
+.types-title::after {
+  transition: width 0.3s ease;
+}
+
+.notification-types:hover .types-title::after {
+  width: 60px;
+}
+
+// Enhanced button interactions
+.refresh-btn:hover,
+.settings-btn:hover {
+  --background: rgba(59, 130, 246, 0.15);
+}
+
+// Enhanced type item interactions
+.type-item:hover .check-icon {
+  transform: scale(1.1);
+  color: #059669;
+}

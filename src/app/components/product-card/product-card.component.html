@@ -1,29 +1,52 @@
-<div class="product-card">
+<div class="product-card premium-card">
   <div class="product-info">
-    <img
-      [src]="productImageUrl"
-      alt="Product Image"
-      crossorigin="anonymous"
-      class="product-image"
-    />
-    <div class="product-details">
-      <h2>{{ productName }}</h2>
-      <p class="pricing" *ngIf="quantityAcceptedIn == 1">
-        Price: {{ productPricePerKg }}
-        <span>per KG</span>
-      </p>
+    <div class="image-container">
+      <img
+        [src]="productImageUrl"
+        alt="Product Image"
+        crossorigin="anonymous"
+        class="product-image"
+      />
+      <div class="image-overlay"></div>
+    </div>
 
-      <p class="pricing" *ngIf="quantityAcceptedIn == 0">
-        Price: {{ productPricePerPiece }}
-        <span>per Item</span>
-      </p>
-      <p class="quantity">About: {{ desc }}</p>
+    <div class="product-details">
+      <h3 class="product-title">{{ productName }}</h3>
+
+      <div class="pricing-container">
+        <div class="price-badge" *ngIf="quantityAcceptedIn == 1">
+          <ion-icon name="scale-outline" class="price-icon"></ion-icon>
+          <span class="price-amount">₹{{ productPricePerKg }}</span>
+          <span class="price-unit">per KG</span>
+        </div>
+
+        <div class="price-badge" *ngIf="quantityAcceptedIn == 0">
+          <ion-icon name="pricetag-outline" class="price-icon"></ion-icon>
+          <span class="price-amount">₹{{ productPricePerPiece }}</span>
+          <span class="price-unit">per Item</span>
+        </div>
+      </div>
+
+      <p class="product-description">{{ desc }}</p>
     </div>
   </div>
+
   <div class="cart-actions">
-    <button (click)="decrementQuantity()">-</button>
-    <span>{{ quantity }}</span>
-    <button (click)="incrementQuantity()">+</button>
-    <!-- <ion-button>Add to Cart</ion-button> -->
+    <button
+      class="quantity-btn decrement-btn"
+      (click)="decrementQuantity()"
+      [disabled]="quantity <= 0"
+    >
+      <ion-icon name="remove-outline"></ion-icon>
+    </button>
+
+    <div class="quantity-display">
+      <span class="quantity-number">{{ quantity }}</span>
+      <span class="quantity-label">Qty</span>
+    </div>
+
+    <button class="quantity-btn increment-btn" (click)="incrementQuantity()">
+      <ion-icon name="add-outline"></ion-icon>
+    </button>
   </div>
 </div>
