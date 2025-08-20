@@ -127,34 +127,70 @@ export class SubscriptionsPage implements OnInit {
     rzp1.open();
   }
 
-  getUserPurchasedSubscription(){
-    this.logic.getSubscriptionByUserId()
-    .subscribe({
-      next:async(value:any) =>{
+  getUserPurchasedSubscription() {
+    this.logic.getSubscriptionByUserId().subscribe({
+      next: async (value: any) => {
         console.log(value);
-        
       },
-      error:async(error:HttpErrorResponse) =>{
+      error: async (error: HttpErrorResponse) => {
         console.log(error);
-        
-      }
-    })
+      },
+    });
   }
-  createSubscription(id:any){
-    let paymentDetails =  `{paymentId: ${id},success: true}`
-    this.logic.purchaseSubscription(this.selectedPlanId, paymentDetails.toString())
-    .subscribe({
-      next:async(value:any) =>{
-        console.log(value);
-        this.presentToast();
-        this.getUserPurchasedSubscription();
-        
-      },
-      error:async(error:HttpErrorResponse) =>{
-        console.log(error);
-        
-      }
-    })
 
+  getDefaultDescription(validity: number): string {
+    switch (validity) {
+      case 1:
+        return 'Perfect for trying out our premium services. Get access to all features for one month.';
+      case 3:
+        return 'Our most popular choice! Save money with 3 months of premium access and exclusive benefits.';
+      case 6:
+        return 'Great value for long-term users. Enjoy 6 months of premium features with additional savings.';
+      case 12:
+        return 'Best long-term value! Get a full year of premium access with maximum savings and priority support.';
+      default:
+        return 'Premium subscription plan with exclusive features and benefits.';
+    }
+  }
+
+  getFeatures(validity: number): string[] {
+    const baseFeatures = [
+      'Premium laundry services',
+      'Priority customer support',
+      'Exclusive discounts',
+      'Free delivery & pickup',
+    ];
+
+    if (validity >= 3) {
+      baseFeatures.push('Loyalty rewards program');
+    }
+
+    if (validity >= 6) {
+      baseFeatures.push('VIP customer status');
+      baseFeatures.push('Special seasonal offers');
+    }
+
+    if (validity >= 12) {
+      baseFeatures.push('Annual bonus credits');
+      baseFeatures.push('Dedicated account manager');
+    }
+
+    return baseFeatures;
+  }
+
+  createSubscription(id: any) {
+    let paymentDetails = `{paymentId: ${id},success: true}`;
+    this.logic
+      .purchaseSubscription(this.selectedPlanId, paymentDetails.toString())
+      .subscribe({
+        next: async (value: any) => {
+          console.log(value);
+          this.presentToast();
+          this.getUserPurchasedSubscription();
+        },
+        error: async (error: HttpErrorResponse) => {
+          console.log(error);
+        },
+      });
   }
 }

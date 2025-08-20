@@ -1,34 +1,153 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title> Profile </ion-title>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="edit-profile-btn">
+        <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-profile-card
-    class="animate__animated animate__fadeIn"
-    profileImageUrl="assets/icon/user.png"
-    userName="Hello User!"
-    [phoneNumber]="userProfile.phoneNumber"
-  >
-  </app-profile-card>
-  <br />
-  <ion-list class="ion-padding animate__animated animate__fadeIn">
-    <ion-item detail lines="none" (click)="openPage('/myorder')">
-      <ion-icon color="primary" slot="start" name="today-outline"></ion-icon>
-      <ion-label>My Orders</ion-label>
-    </ion-item>
-    <ion-item detail lines="none" (click)="openPage('/subscriptions')">
-      <ion-icon color="primary" slot="start" name="card-outline"></ion-icon>
-      <ion-label>Subscriptions</ion-label>
-    </ion-item>
-    <ion-item detail lines="none" (click)="openPage('/helppage')">
-      <ion-icon color="primary" slot="start" name="help-outline"></ion-icon>
-      <ion-label>Help</ion-label>
-    </ion-item>
-    <ion-item detail lines="none" (click)="logout()">
-      <ion-icon color="primary" slot="start" name="log-out-outline"></ion-icon>
-      <ion-label>Sign Out</ion-label>
-    </ion-item>
-  </ion-list>
+  <!-- Profile Header Section -->
+  <div class="profile-header">
+    <div class="profile-avatar-container">
+      <div class="profile-avatar">
+        <img
+          [src]="userProfile.profileImage || 'assets/icon/user.png'"
+          alt="Profile"
+        />
+        <div class="avatar-status">
+          <ion-icon name="checkmark-circle" class="status-icon"></ion-icon>
+        </div>
+      </div>
+      <div class="profile-info">
+        <h2 class="user-name">{{ userProfile.name || 'Hello User!' }}</h2>
+        <p class="user-phone">
+          {{ userProfile.phoneNumber || '+91 98765 43210' }}
+        </p>
+        <div class="user-status">
+          <ion-icon name="shield-checkmark" class="verified-icon"></ion-icon>
+          <span>Verified Account</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="quick-stats">
+      <div class="stat-item">
+        <div class="stat-number">{{ userProfile.totalOrders || 0 }}</div>
+        <div class="stat-label">Orders</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">
+          {{ userProfile.activeSubscriptions || 0 }}
+        </div>
+        <div class="stat-label">Subscriptions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ userProfile.loyaltyPoints || 0 }}</div>
+        <div class="stat-label">Points</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <div class="menu-section">
+    <h3 class="section-title">Quick Actions</h3>
+
+    <div class="menu-grid">
+      <div class="menu-item primary" (click)="openPage('/myorder')">
+        <div class="menu-icon">
+          <ion-icon name="bag-outline"></ion-icon>
+        </div>
+        <div class="menu-content">
+          <h4>My Orders</h4>
+          <p>Track your laundry orders</p>
+        </div>
+        <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+      </div>
+
+      <div class="menu-item secondary" (click)="openPage('/subscriptions')">
+        <div class="menu-icon">
+          <ion-icon name="card-outline"></ion-icon>
+        </div>
+        <div class="menu-content">
+          <h4>Subscriptions</h4>
+          <p>Manage your plans</p>
+        </div>
+        <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+      </div>
+
+      <div class="menu-item tertiary" (click)="openPage('/helppage')">
+        <div class="menu-icon">
+          <ion-icon name="help-circle-outline"></ion-icon>
+        </div>
+        <div class="menu-content">
+          <h4>Help & Support</h4>
+          <p>Get assistance</p>
+        </div>
+        <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+      </div>
+
+      <div class="menu-item settings" (click)="openPage('/edit-profile')">
+        <div class="menu-icon">
+          <ion-icon name="settings-outline"></ion-icon>
+        </div>
+        <div class="menu-content">
+          <h4>Settings</h4>
+          <p>Customize your profile</p>
+        </div>
+        <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Account Actions -->
+  <div class="account-section">
+    <h3 class="section-title">Account</h3>
+
+    <div class="account-actions">
+      <div class="action-item" (click)="openPage('/notifications')">
+        <div class="action-icon">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </div>
+        <div class="action-content">
+          <h4>Notifications</h4>
+          <p>Manage your alerts</p>
+        </div>
+        <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+      </div>
+
+      <div class="action-item" (click)="openPage('/feedback')">
+        <div class="action-icon">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        </div>
+        <div class="action-content">
+          <h4>Feedback</h4>
+          <p>Share your thoughts</p>
+        </div>
+        <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sign Out Section -->
+  <div class="signout-section">
+    <ion-button
+      fill="clear"
+      class="signout-button"
+      (click)="logout()"
+      expand="block"
+    >
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Sign Out
+    </ion-button>
+  </div>
+
+  <!-- App Version -->
+  <div class="app-version">
+    <p>Laundry App v1.0.0</p>
+  </div>
 </ion-content>

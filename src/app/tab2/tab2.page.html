@@ -1,86 +1,108 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title> Cart </ion-title>
+    <ion-title>Cart</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" class="cart-info-btn">
+        <ion-icon name="information-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="products.length == 0">
-  <div class="center-container">
-    <img
-      class="centered-image"
-      src="assets/empty-laundry.png"
-      alt=""
-      srcset=""
-    />
-    <ion-text color="primary" class="ion-text-center">
-      <p>Your cart is empty!</p>
-    </ion-text>
-    <ion-button
-      (click)="goToHome()"
-      color="primary"
-      expand="block"
-      fill="solid"
-      mode="ios"
-    >
-      Go And Add Your Laundry now!
-    </ion-button>
+  <div class="empty-cart-container">
+    <div class="empty-cart-content">
+      <img
+        class="empty-cart-image"
+        src="assets/empty-laundry.png"
+        alt="Empty Cart"
+      />
+      <h2 class="empty-cart-title">Your cart is empty!</h2>
+      <p class="empty-cart-subtitle">
+        Start adding your laundry items to get started
+      </p>
+      <ion-button
+        (click)="goToHome()"
+        color="primary"
+        expand="block"
+        fill="solid"
+        mode="ios"
+        class="add-laundry-btn"
+      >
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Go And Add Your Laundry now!
+      </ion-button>
+    </div>
   </div>
 </ion-content>
+
 <ion-content [fullscreen]="true" *ngIf="products.length > 0">
-  <ion-card class="ion-padding">
-    <ion-card-header>
-      <!-- <ion-card-subtitle
-        >(Add more 100 worth items to get free delivery!)</ion-card-subtitle
-      > -->
-      <ion-card-title>Cart Items({{products.length}} Items)</ion-card-title>
-    </ion-card-header>
-    <app-product-card
-      *ngFor="let item of products"
-      [productImageUrl]="item?.serviceId?.image_url"
-      [productName]="item?.serviceId?.name"
-      [quantityAcceptedIn]="item?.selectedQuantityType"
-      [quantity]="item?.quantity"
-      [desc]="item?.serviceId?.description"
-      (quantityEvent)="addItem($event)"
-      (quantityEventRemove)="deleteItem($event)"
-      [_id]="item?.serviceId?._id"
-      [productPricePerKg]="item?.serviceId?.perKgPrice"
-      [productPricePerPiece]="item?.serviceId?.perPeacePrice
-"
-    >
-    </app-product-card>
-  </ion-card>
-  <ion-card>
-    <div class="icon">
+  <!-- Cart Items Section -->
+  <div class="cart-section">
+    <div class="section-header">
+      <h3 class="section-title">Cart Items</h3>
+      <span class="item-count">({{products.length}} Items)</span>
+    </div>
+
+    <div class="cart-items-container">
+      <app-product-card
+        *ngFor="let item of products"
+        [productImageUrl]="item?.serviceId?.image_url"
+        [productName]="item?.serviceId?.name"
+        [quantityAcceptedIn]="item?.selectedQuantityType"
+        [quantity]="item?.quantity"
+        [desc]="item?.serviceId?.description"
+        (quantityEvent)="addItem($event)"
+        (quantityEventRemove)="deleteItem($event)"
+        [_id]="item?.serviceId?._id"
+        [productPricePerKg]="item?.serviceId?.perKgPrice"
+        [productPricePerPiece]="item?.serviceId?.perPeacePrice"
+      >
+      </app-product-card>
+    </div>
+  </div>
+
+  <!-- Shipping Details Section -->
+  <div class="info-section">
+    <div class="section-header">
+      <h3 class="section-title">Shipping Details</h3>
       <ion-chip
         color="primary"
         mode="ios"
         outline="true"
+        class="select-chip"
         (click)="openModalAddress()"
       >
+        <ion-icon name="location-outline" slot="start"></ion-icon>
         <ion-label>Select</ion-label>
       </ion-chip>
     </div>
-    <ion-card-header>
-      <ion-card-subtitle>Shipping Details </ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <p><strong>Delivery To:</strong></p>
-      <p>{{address?.address | titlecase}}</p>
-      <p></p
-    ></ion-card-content>
-  </ion-card>
 
-  <ion-card>
-    <div class="icon">
+    <div class="info-content">
+      <div class="info-item">
+        <ion-icon name="location" class="info-icon"></ion-icon>
+        <div class="info-details">
+          <p class="info-label">Delivery To:</p>
+          <p class="info-value">{{address?.address | titlecase}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offers Section -->
+  <div class="info-section">
+    <div class="section-header">
+      <h3 class="section-title">Offers & Coupons</h3>
       <ion-chip
         *ngIf="!isPromoCodeApplied"
         color="primary"
         mode="ios"
         outline="true"
+        class="apply-chip"
         (click)="applyOffer()"
         [disabled]="offerFirst.length == 0"
       >
+        <ion-icon name="pricetag-outline" slot="start"></ion-icon>
         <ion-label>Apply</ion-label>
       </ion-chip>
 
@@ -89,60 +111,92 @@
         color="danger"
         mode="ios"
         outline="true"
+        class="remove-chip"
         (click)="removeOffer()"
         [disabled]="offerFirst.length == 0"
       >
+        <ion-icon name="close-circle-outline" slot="start"></ion-icon>
         <ion-label>Remove</ion-label>
       </ion-chip>
     </div>
-    <ion-card-header *ngIf="offerFirst.length == 0">
-      <ion-card-subtitle>You have no offers currently!</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-header *ngIf="offerFirst.length > 0">
-      <ion-card-subtitle *ngIf="!isPromoCodeApplied"
-        >Save {{offerFirst[0]['discountAmount'] | currency:"INR"}} with
-        '{{offerFirst[0]['code']}}'
-      </ion-card-subtitle>
-      <ion-card-subtitle *ngIf="isPromoCodeApplied"
-        >You have saved {{offerFirst[0]['discountAmount'] | currency:"INR"}}
-        with '{{offerFirst[0]['code']}}'
-      </ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <p [routerLink]="['/offers']" routerLinkActive="router-link-active">
-        <strong>View all coupons</strong>
-      </p>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Order Details</ion-card-subtitle>
-    </ion-card-header>
-    <ion-item>
-      <ion-label style="font-size: 14px; font-weight: 300">Subtotal</ion-label>
-      <p class="pricing" slot="end">{{subtotal | currency:"INR"}}</p>
-    </ion-item>
-    <ion-item>
-      <ion-label style="font-size: 14px; font-weight: 300">Delivery</ion-label>
-      <p class="pricing" slot="end">{{deliveryCharges | currency:"INR"}}</p>
-    </ion-item>
-    <ion-item>
-      <ion-label style="font-size: 14px; font-weight: 300"
-        >Handling Fees</ion-label
+    <div class="info-content">
+      <div class="info-item" *ngIf="offerFirst.length == 0">
+        <ion-icon
+          name="information-circle"
+          class="info-icon warning"
+        ></ion-icon>
+        <div class="info-details">
+          <p class="info-label">No offers available</p>
+          <p class="info-value">You have no offers currently!</p>
+        </div>
+      </div>
+
+      <div class="info-item" *ngIf="offerFirst.length > 0">
+        <ion-icon name="pricetag" class="info-icon success"></ion-icon>
+        <div class="info-details">
+          <p class="info-label" *ngIf="!isPromoCodeApplied">
+            Save {{offerFirst[0]['discountAmount'] | currency:"INR"}} with
+            '{{offerFirst[0]['code']}}'
+          </p>
+          <p class="info-label success" *ngIf="isPromoCodeApplied">
+            You have saved {{offerFirst[0]['discountAmount'] | currency:"INR"}}
+            with '{{offerFirst[0]['code']}}'
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="view-all-offers"
+        [routerLink]="['/offers']"
+        routerLinkActive="router-link-active"
       >
-      <p class="pricing" slot="end">{{handlingFeed + "%"}}</p>
-    </ion-item>
-    <ion-item *ngIf="gstCharges > 0">
-      <ion-label style="font-size: 14px; font-weight: 300">(GST)</ion-label>
-      <p class="pricing" slot="end">{{gstCharges | currency:"INR"}}</p>
-    </ion-item>
-    <ion-item>
-      <ion-label style="font-size: 14px; font-weight: 300">Total</ion-label>
-      <p class="pricing" slot="end">{{total | currency:"INR"}}</p>
-    </ion-item>
-  </ion-card>
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+        <span>View all coupons</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Summary Section -->
+  <div class="order-summary-section">
+    <div class="section-header">
+      <h3 class="section-title">Order Summary</h3>
+    </div>
+
+    <div class="order-summary-content">
+      <div class="summary-item">
+        <span class="summary-label">Subtotal</span>
+        <span class="summary-value">{{subtotal | currency:"INR"}}</span>
+      </div>
+
+      <div class="summary-item">
+        <span class="summary-label">Delivery</span>
+        <span class="summary-value">{{deliveryCharges | currency:"INR"}}</span>
+      </div>
+
+      <div class="summary-item">
+        <span class="summary-label">Handling Fees</span>
+        <span class="summary-value">{{handlingFeed}}%</span>
+      </div>
+
+      <div class="summary-item" *ngIf="gstCharges > 0">
+        <span class="summary-label">GST</span>
+        <span class="summary-value">{{gstCharges | currency:"INR"}}</span>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-item total">
+        <span class="summary-label">Total</span>
+        <span class="summary-value">{{total | currency:"INR"}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
+
+  <!-- Promo Code Success Modal -->
   <ion-modal
     id="example-modal"
     #modal
@@ -151,7 +205,7 @@
   >
     <ng-template>
       <div class="modal-container">
-        <img src="assets/icon/balloons.gif" alt="" />
+        <img src="assets/icon/balloons.gif" alt="Celebration" />
         <p class="applied">'{{offerFirst[0]['code']}}' applied</p>
         <p class="title">
           You Saved {{offerFirst[0]['discountAmount'] | currency:"INR"}}
@@ -161,24 +215,30 @@
     </ng-template>
   </ion-modal>
 </ion-content>
-<ion-footer
-  class="animate__animated animate__slideInUp"
-  *ngIf="products.length > 0"
->
-  <ion-toolbar color="primary">
+
+<!-- Footer with Checkout Button -->
+<ion-footer class="checkout-footer" *ngIf="products.length > 0">
+  <ion-toolbar>
     <ion-button
-      color="light"
+      color="primary"
       (click)="presentActionSheet()"
       expand="block"
-      fill="clear"
+      fill="solid"
       shape="round"
+      class="checkout-button"
     >
-      Your Order Total is {{total |currency:"INR"}}
+      <ion-icon name="card-outline" slot="start"></ion-icon>
+      Proceed to Checkout
       <ion-icon
-        class="animate__animated animate__shakeX animate__slower animate__infinite"
         slot="end"
         name="arrow-forward-outline"
+        class="arrow-icon"
       ></ion-icon>
     </ion-button>
+
+    <div class="total-display">
+      <span class="total-label">Total Amount:</span>
+      <span class="total-amount">{{total | currency:"INR"}}</span>
+    </div>
   </ion-toolbar>
 </ion-footer>

@@ -1,6 +1,6 @@
-<ion-header [translucent]="true" color="dark" class="ion-no-border">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Subscription Plan</ion-title>
+    <ion-title>Choose Your Plan</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
     </ion-buttons>
@@ -9,32 +9,88 @@
 
 <ion-content [fullscreen]="true">
   <div class="container-flex">
-    <ion-radio-group name="auto"  [value]="selectedPlanId" (ionChange)="radioButtonEvent($event)">
-      <div *ngFor="let item of subs" #first class="container" [class.active]="selectedPlanId === item._id">
-        <div *ngIf="item.validity == 3" #badge class="badge" [class.active]="item.validity == 3">
-          <p>Best value</p>
+    <!-- Header Section -->
+    <div class="header-section">
+      <h1 class="main-title">Unlock Premium Features</h1>
+      <p class="subtitle">Choose the perfect plan that fits your needs</p>
+    </div>
+
+    <!-- Subscription Cards -->
+    <ion-radio-group
+      name="auto"
+      [value]="selectedPlanId"
+      (ionChange)="radioButtonEvent($event)"
+      class="subscription-cards"
+    >
+      <div
+        *ngFor="let item of subs"
+        class="subscription-card"
+        [class.active]="selectedPlanId === item._id"
+      >
+        <!-- Best Value Badge -->
+        <div *ngIf="item.validity == 3" class="best-value-badge">
+          <ion-icon name="star"></ion-icon>
+          <span>Best Value</span>
         </div>
-        <div class="first">
-          <p>{{ item.name }}</p>
-          <p>
-            Only ${{ item.price | currency : "INR" }} for {{ item.validity }}
-            months
-          </p>
+
+        <!-- Popular Badge for other plans -->
+        <div *ngIf="item.validity != 3" class="popular-badge">
+          <span>Popular</span>
         </div>
-        <div class="last">
+
+        <!-- Card Header -->
+        <div class="card-header">
+          <h3 class="plan-name">{{ item.name }}</h3>
+          <div class="price-section">
+            <span class="currency">₹</span>
+            <span class="price">{{ item.price }}</span>
+            <span class="period">/{{ item.validity }} months</span>
+          </div>
+        </div>
+
+        <!-- Card Description -->
+        <div class="card-description">
+          <p>{{ item.description || getDefaultDescription(item.validity) }}</p>
+        </div>
+
+        <!-- Features List -->
+        <div class="features-list">
+          <div
+            class="feature-item"
+            *ngFor="let feature of getFeatures(item.validity)"
+          >
+            <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+            <span>{{ feature }}</span>
+          </div>
+        </div>
+
+        <!-- Radio Button -->
+        <div class="radio-container">
           <ion-radio [value]="item._id" mode="md"></ion-radio>
         </div>
       </div>
     </ion-radio-group>
 
-    <ion-button
-      color="primary"
-      (click)="purchase()"
-      expand="block"
-      fill="solid"
-      mode="ios"
-    >
-      Subscribe
-    </ion-button>
+    <!-- Subscribe Button -->
+    <div class="button-section">
+      <ion-button
+        color="primary"
+        (click)="purchase()"
+        expand="block"
+        fill="solid"
+        mode="ios"
+        class="subscribe-button"
+        [disabled]="!selectedPlanId"
+      >
+        <ion-icon name="card" slot="start"></ion-icon>
+        Subscribe Now
+      </ion-button>
+
+      <p class="terms-text">
+        By subscribing, you agree to our
+        <a href="#" class="terms-link">Terms of Service</a> and
+        <a href="#" class="terms-link">Privacy Policy</a>
+      </p>
+    </div>
   </div>
 </ion-content>

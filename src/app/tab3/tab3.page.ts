@@ -14,7 +14,15 @@ import { DataService } from '../services/data.service';
 export class Tab3Page {
   getUserProfileSubscription: Subscription = new Subscription();
 
-  userProfile:any = {};
+  userProfile: any = {
+    name: 'Hello User!',
+    phoneNumber: '+91 98765 43210',
+    profileImage: 'assets/icon/user.png',
+    totalOrders: 0,
+    activeSubscriptions: 0,
+    loyaltyPoints: 0,
+  };
+
   constructor(
     private router: Router,
     private haptics: HapticsService,
@@ -29,6 +37,7 @@ export class Tab3Page {
   ionViewDidLeave() {
     this.getUserProfileSubscription.unsubscribe();
   }
+
   openPage(page: string) {
     this.haptics.hapticsImpactLight();
     this.router.navigate([page]);
@@ -38,7 +47,12 @@ export class Tab3Page {
     this.getUserProfileSubscription = this.logic.getUserProfile().subscribe({
       next: (value: any) => {
         console.log(value);
-        this.userProfile = value['data'];
+        if (value && value['data']) {
+          this.userProfile = {
+            ...this.userProfile, // Keep default values
+            ...value['data'], // Override with actual data
+          };
+        }
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
@@ -46,19 +60,16 @@ export class Tab3Page {
     });
   }
 
- async logout(){
-  this.logic.logout()
-  .subscribe({
-    next:async(value:any) =>{
-      console.log(value);
-      await this.storage.clearAll();
-
-      this.router.navigate([''])
-    },
-    error:async(error:HttpErrorResponse) =>{
-      console.log(error);
-      
-    }
-  })
+  async logout() {
+    this.logic.logout().subscribe({
+      next: async (value: any) => {
+        console.log(value);
+        await this.storage.clearAll();
+        this.router.navigate(['']);
+      },
+      error: async (error: HttpErrorResponse) => {
+        console.log(error);
+      },
+    });
   }
 }
