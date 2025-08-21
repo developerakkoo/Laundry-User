@@ -178,6 +178,8 @@
             [category]="item?.category[0]?.name"
             [currentUserId]="userId"
             [address]="item?.address?.city"
+            [isAcceptExpressService]="item?.isAcceptExpressService || false"
+            [isOpen]="item?.isOpen !== false"
           >
           </app-laundry-card>
         </swiper-slide>
@@ -207,6 +209,8 @@
         [category]="item?.category[0]?.name"
         [currentUserId]="userId"
         [address]="item?.address?.city"
+        [isAcceptExpressService]="item?.isAcceptExpressService || false"
+        [isOpen]="item?.isOpen !== false"
       >
       </app-laundry-card>
     </div>

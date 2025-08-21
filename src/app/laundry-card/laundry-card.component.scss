@@ -38,6 +38,30 @@
       }
     }
   }
+  
+  // Closed shop styling
+  &.closed {
+    opacity: 0.7;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+    
+    .card-image {
+      filter: grayscale(0.3);
+    }
+    
+    .card-content {
+      pointer-events: none;
+    }
+    
+    .action-buttons {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
 }
 
 // Card Image Container
@@ -67,6 +91,55 @@
     rgba(0, 0, 0, 0.2) 100%
   );
   pointer-events: none;
+}
+
+// Closed Shop Overlay
+.closed-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  
+  .closed-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    
+    .closed-icon {
+      font-size: 32px;
+      color: #ffffff;
+      animation: closedIconPulse 2s ease-in-out infinite;
+    }
+    
+    .closed-text {
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+@keyframes closedIconPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
 }
 
 // Action Buttons
@@ -235,6 +308,54 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
+// Express Delivery Badge
+.express-badge {
+  position: absolute;
+  top: 16px;
+  right: 80px; // Position to the left of action buttons
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  backdrop-filter: blur(10px);
+  color: #1f2937;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: expressBadgeGlow 2s ease-in-out infinite alternate;
+  
+  .express-icon {
+    font-size: 14px;
+    color: #1f2937;
+    animation: expressIconFlash 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes expressBadgeGlow {
+  0% {
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(251, 191, 36, 0.6), 0 0 20px rgba(251, 191, 36, 0.3);
+  }
+}
+
+@keyframes expressIconFlash {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
 // Card Content
 .card-content {
   padding: 20px;
@@ -352,6 +473,43 @@
   }
 }
 
+// Closed Status
+.closed-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ef4444;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  
+  .closed-status-icon {
+    font-size: 14px;
+    color: #ef4444;
+    animation: closedStatusPulse 2s ease-in-out infinite;
+  }
+  
+  .closed-status-text {
+    color: #ef4444;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+@keyframes closedStatusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
 // Responsive Design
 @media (max-width: 768px) {
   .laundry-card {
@@ -378,6 +536,17 @@
     left: 12px;
     padding: 4px 10px;
     font-size: 0.7rem;
+  }
+  
+  .express-badge {
+    top: 12px;
+    right: 72px;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    
+    .express-icon {
+      font-size: 12px;
+    }
   }
   
   .laundry-name {
@@ -414,12 +583,31 @@
     font-size: 18px;
   }
   
+  .express-badge {
+    right: 68px;
+    padding: 3px 8px;
+    font-size: 0.65rem;
+    
+    .express-icon {
+      font-size: 11px;
+    }
+  }
+  
   .laundry-name {
     font-size: 0.95rem;
   }
   
   .view-details {
     font-size: 0.8rem;
+  }
+  
+  .closed-status {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    
+    .closed-status-icon {
+      font-size: 12px;
+    }
   }
 }
 
@@ -430,6 +618,10 @@
 
 .laundry-card:hover .category-badge {
   background: rgba(59, 130, 246, 1);
+  transform: scale(1.05);
+}
+
+.laundry-card:hover .express-badge {
   transform: scale(1.05);
 }
 

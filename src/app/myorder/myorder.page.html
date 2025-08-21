@@ -21,7 +21,7 @@
       <ion-segment-button value="1" class="segment-button">
         <ion-label>Recent</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="2" class="segment-button">
+      <ion-segment-button value="7" class="segment-button">
         <ion-label>Previous</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -194,6 +194,79 @@
               <span class="total-value"
                 >{{item.priceDetails.totalAmountToPay | currency:"INR"}}</span
               >
+            </div>
+          </div>
+
+          <!-- Rating Section for Completed Orders -->
+          <div
+            *ngIf="isOrderCompleted(item) && !isOrderRated(item)"
+            class="rating-section"
+          >
+            <div class="rating-header">
+              <ion-icon name="star-outline" class="rating-icon"></ion-icon>
+              <h4 class="rating-title">Rate Your Experience</h4>
+              <p class="rating-subtitle">
+                How was your laundry service experience?
+              </p>
+            </div>
+
+            <!-- Star Rating -->
+            <div class="star-rating-container">
+              <div class="stars-wrapper">
+                <ion-icon
+                  *ngFor="let star of getRatingStars(5)"
+                  [name]="star <= selectedRating ? 'star' : 'star-outline'"
+                  class="star-icon"
+                  [class.filled]="star <= selectedRating"
+                  [class.hover]="star <= selectedRating"
+                  (click)="setRating(star)"
+                ></ion-icon>
+              </div>
+              <p class="rating-text" *ngIf="selectedRating > 0">
+                {{ getRatingText(selectedRating) }}
+              </p>
+            </div>
+
+            <!-- Rating Comment -->
+            <div class="rating-comment-container">
+              <ion-textarea
+                placeholder="Share your experience (optional)"
+                class="rating-comment"
+                rows="3"
+                maxlength="200"
+                [value]="ratingComment"
+                (ionInput)="onCommentInput($event)"
+              ></ion-textarea>
+              <div class="comment-counter">{{ ratingComment.length }}/200</div>
+            </div>
+
+            <!-- Submit Rating Button -->
+            <div class="rating-submit-container">
+              <ion-button
+                expand="block"
+                fill="solid"
+                shape="round"
+                class="rating-submit-button"
+                (click)="submitRating()"
+                [disabled]="selectedRating === 0"
+              >
+                <ion-icon name="send-outline" slot="start"></ion-icon>
+                Submit Rating
+              </ion-button>
+            </div>
+          </div>
+
+          <!-- Already Rated Message -->
+          <div
+            *ngIf="isOrderCompleted(item) && isOrderRated(item)"
+            class="already-rated-section"
+          >
+            <div class="rated-content">
+              <ion-icon name="checkmark-circle" class="rated-icon"></ion-icon>
+              <h4 class="rated-title">Thank You!</h4>
+              <p class="rated-message">
+                You've already rated this order. We appreciate your feedback!
+              </p>
             </div>
           </div>
 

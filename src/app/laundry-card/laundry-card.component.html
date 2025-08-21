@@ -1,8 +1,16 @@
-<div class="laundry-card" [class.liked]="isLiked">
+<div class="laundry-card" [class.liked]="isLiked" [class.closed]="!isOpen">
   <!-- Card Image with Overlay -->
   <div class="card-image-container">
     <img [src]="imageUrl" alt="Laundry Image" class="card-image" />
     <div class="image-overlay"></div>
+
+    <!-- Closed Shop Overlay -->
+    <div class="closed-overlay" *ngIf="!isOpen">
+      <div class="closed-content">
+        <ion-icon name="time-outline" class="closed-icon"></ion-icon>
+        <span class="closed-text">Shop Closed</span>
+      </div>
+    </div>
 
     <!-- Action Buttons -->
     <div class="action-buttons">
@@ -36,6 +44,12 @@
     <div class="category-badge" *ngIf="category">
       <span>{{ category }}</span>
     </div>
+
+    <!-- Express Delivery Badge -->
+    <div class="express-badge" *ngIf="isAcceptExpressService">
+      <ion-icon name="flash-outline" class="express-icon"></ion-icon>
+      <span>Express</span>
+    </div>
   </div>
 
   <!-- Card Content -->
@@ -66,9 +80,15 @@
       </div>
 
       <!-- View Details Button -->
-      <div class="view-details">
+      <div class="view-details" *ngIf="isOpen">
         <span>View Details</span>
         <ion-icon name="arrow-forward" class="arrow-icon"></ion-icon>
+      </div>
+
+      <!-- Closed Status -->
+      <div class="closed-status" *ngIf="!isOpen">
+        <ion-icon name="time-outline" class="closed-status-icon"></ion-icon>
+        <span class="closed-status-text">Closed</span>
       </div>
     </div>
   </div>

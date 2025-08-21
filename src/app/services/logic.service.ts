@@ -106,6 +106,17 @@ export class LogicService {
     );
   }
 
+  getNotifications() {
+    return this.http
+      .get(environment.URL + `notification/get/all/user/${this.userId.value}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteNotification(notificationId: string) {
+    return this.http
+      .delete(environment.URL + `notification/delete/${notificationId}`)
+      .pipe(catchError(this.handleError));
+  }
   getAllCategories() {
     this.http
       .get(environment.URL + `partner/category/getAll`)

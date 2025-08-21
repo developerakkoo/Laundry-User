@@ -19,6 +19,8 @@ export class LaundryCardComponent implements OnInit {
   @Input() currentUserId!: string;
   @Input() category!: string;
   @Input() categories: any[] = [];
+  @Input() isAcceptExpressService: boolean = false; // Express delivery service availability
+  @Input() isOpen: boolean = true; // Shop open/closed status
 
   @Output() clickEvent = new EventEmitter();
 
@@ -102,6 +104,12 @@ export class LaundryCardComponent implements OnInit {
   }
 
   clickHandler() {
+    // Don't allow navigation if shop is closed
+    if (!this.isOpen) {
+      this.haptics.hapticsImpactMedium();
+      return;
+    }
+
     this.haptics.hapticsImpactLight();
     this.router.navigate(['view-laundry', this.name, this.id, 'add', this.id]);
     this.clickEvent.emit({ id: this.id, category: this.category });

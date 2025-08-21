@@ -5,7 +5,12 @@
       <ion-back-button defaultHref="/tabs/tabs/tab1"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button fill="clear" class="mark-all-read-btn">
+      <ion-button
+        fill="clear"
+        class="mark-all-read-btn"
+        (click)="markAllAsRead()"
+        [disabled]="getUnreadCount() === 0"
+      >
         <ion-icon name="checkmark-done-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,8 +18,160 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+    <p class="loading-text">Loading notifications...</p>
+  </div>
+
+  <!-- Notifications List -->
+  <div
+    class="notifications-container"
+    *ngIf="!isLoading && notifications.length > 0"
+  >
+    <!-- Header with unread count -->
+    <div class="notifications-header">
+      <div class="header-info">
+        <h2 class="header-title">Notifications</h2>
+        <div class="unread-badge" *ngIf="getUnreadCount() > 0">
+          <span class="unread-count">{{ getUnreadCount() }}</span>
+          <span class="unread-text">unread</span>
+        </div>
+      </div>
+      <ion-button fill="clear" class="refresh-btn" (click)="getNotifications()">
+        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Notifications List -->
+    <div class="notifications-list">
+      <div
+        class="notification-item"
+        *ngFor="let notification of notifications; trackBy: trackByNotificationId"
+        [class.unread]="!notification.read"
+        [class.read]="notification.read"
+      >
+        <!-- Notification Icon -->
+        <div class="notification-icon-container">
+          <ion-icon
+            [name]="getNotificationIcon(notification.title)"
+            class="notification-icon"
+            [class]="'icon-' + getNotificationColor(notification.title)"
+          ></ion-icon>
+          <div class="unread-indicator" *ngIf="!notification.read"></div>
+        </div>
+
+        <!-- Notification Content -->
+        <div
+          class="notification-content"
+          (click)="markAsRead(notification._id)"
+        >
+          <div class="notification-header">
+            <h3 class="notification-title">{{ notification.title }}</h3>
+            <span class="notification-time"
+              >{{ formatDate(notification.createdAt) }}</span
+            >
+          </div>
+
+          <!-- Order Details (if available) -->
+          <div
+            class="order-details"
+            *ngIf="parseNotificationContent(notification.content)"
+          >
+            <div class="order-info">
+              <div class="order-id">
+                <ion-icon name="receipt-outline" class="order-icon"></ion-icon>
+                <span class="order-number"
+                  >Order #{{
+                  parseNotificationContent(notification.content)?.orderId
+                  }}</span
+                >
+              </div>
+
+              <div
+                class="order-status"
+                *ngIf="parseNotificationContent(notification.content)?.status !== undefined"
+              >
+                <ion-badge
+                  [color]="getOrderStatusColor(parseNotificationContent(notification.content)?.status)"
+                  class="status-badge"
+                >
+                  {{
+                  getOrderStatusText(parseNotificationContent(notification.content)?.status)
+                  }}
+                </ion-badge>
+              </div>
+            </div>
+
+            <!-- Price Information -->
+            <div
+              class="price-info"
+              *ngIf="parseNotificationContent(notification.content)?.priceDetails"
+            >
+              <div class="total-amount">
+                <span class="amount-label">Total Amount:</span>
+                <span class="amount-value"
+                  >₹{{
+                  parseNotificationContent(notification.content)?.priceDetails?.totalAmountToPay
+                  }}</span
+                >
+              </div>
+
+              <div
+                class="delivery-info"
+                *ngIf="parseNotificationContent(notification.content)?.pickupTime && parseNotificationContent(notification.content)?.dropoffTime"
+              >
+                <div class="time-info">
+                  <ion-icon name="time-outline" class="time-icon"></ion-icon>
+                  <span class="time-text">
+                    Pickup: {{
+                    parseNotificationContent(notification.content)?.pickupTime
+                    }} | Delivery: {{
+                    parseNotificationContent(notification.content)?.dropoffTime
+                    }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simple Content (if no order details) -->
+          <p
+            class="notification-message"
+            *ngIf="!parseNotificationContent(notification.content)"
+          >
+            {{ notification.content }}
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="notification-actions">
+          <ion-button
+            fill="clear"
+            class="action-btn mark-read-btn"
+            (click)="markAsRead(notification._id)"
+            *ngIf="!notification.read"
+          >
+            <ion-icon name="checkmark-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+
+          <ion-button
+            fill="clear"
+            class="action-btn delete-btn"
+            (click)="deleteNotification(notification._id)"
+          >
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Empty State -->
-  <div class="empty-notifications">
+  <div
+    class="empty-notifications"
+    *ngIf="!isLoading && notifications.length === 0"
+  >
     <div class="empty-content">
       <div class="empty-icon-container">
         <ion-icon name="notifications-outline" class="empty-icon"></ion-icon>
@@ -28,7 +185,11 @@
 
       <!-- Quick Actions -->
       <div class="quick-actions">
-        <ion-button fill="outline" class="refresh-btn">
+        <ion-button
+          fill="outline"
+          class="refresh-btn"
+          (click)="getNotifications()"
+        >
           <ion-icon name="refresh-outline" slot="start"></ion-icon>
           Refresh
         </ion-button>
