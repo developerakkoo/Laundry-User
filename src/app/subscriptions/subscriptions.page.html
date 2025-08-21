@@ -13,10 +13,38 @@
     <div class="header-section">
       <h1 class="main-title">Unlock Premium Features</h1>
       <p class="subtitle">Choose the perfect plan that fits your needs</p>
+
+      <!-- Current Subscription Status -->
+      <div *ngIf="userSubscription" class="current-subscription-status">
+        <div class="status-container">
+          <ion-icon
+            [name]="isSubscriptionExpired() ? 'alert-circle-outline' : 'checkmark-circle-outline'"
+            class="status-icon"
+            [class.expired]="isSubscriptionExpired()"
+            [class.active]="!isSubscriptionExpired()"
+          ></ion-icon>
+          <div class="status-details">
+            <span class="status-text">{{ getSubscriptionStatusText() }}</span>
+            <span class="plan-name"
+              >{{ userSubscription.subscriptionPlanId.name }}</span
+            >
+            <span class="expiry-date"
+              >Expires: {{ getSubscriptionExpiryDate() }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+      <p class="loading-text">Loading subscription plans...</p>
     </div>
 
     <!-- Subscription Cards -->
     <ion-radio-group
+      *ngIf="!isLoading"
       name="auto"
       [value]="selectedPlanId"
       (ionChange)="radioButtonEvent($event)"
@@ -26,6 +54,8 @@
         *ngFor="let item of subs"
         class="subscription-card"
         [class.active]="selectedPlanId === item._id"
+        [class.user-subscription]="isUserSubscription(item._id)"
+        [class.expired-subscription]="isUserSubscription(item._id) && isSubscriptionExpired()"
       >
         <!-- Best Value Badge -->
         <div *ngIf="item.validity == 3" class="best-value-badge">
@@ -36,6 +66,21 @@
         <!-- Popular Badge for other plans -->
         <div *ngIf="item.validity != 3" class="popular-badge">
           <span>Popular</span>
+        </div>
+
+        <!-- Current Subscription Badge -->
+        <div
+          *ngIf="isUserSubscription(item._id)"
+          class="current-subscription-badge"
+        >
+          <ion-icon
+            [name]="isSubscriptionExpired() ? 'time-outline' : 'checkmark-circle-outline'"
+            [class.expired]="isSubscriptionExpired()"
+            [class.active]="!isSubscriptionExpired()"
+          ></ion-icon>
+          <span
+            >{{ isSubscriptionExpired() ? 'Expired' : 'Current Plan' }}</span
+          >
         </div>
 
         <!-- Card Header -->
@@ -55,18 +100,42 @@
 
         <!-- Features List -->
         <div class="features-list">
-          <div
-            class="feature-item"
-            *ngFor="let feature of getFeatures(item.validity)"
-          >
+          <div class="feature-item" *ngFor="let feature of item.features">
             <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
-            <span>{{ feature }}</span>
+            <span>{{ feature.title }}</span>
           </div>
         </div>
 
         <!-- Radio Button -->
         <div class="radio-container">
-          <ion-radio [value]="item._id" mode="md"></ion-radio>
+          <ion-radio
+            [value]="item._id"
+            mode="md"
+            [disabled]="isUserSubscription(item._id)"
+          ></ion-radio>
+        </div>
+
+        <!-- Subscription Status Info -->
+        <div *ngIf="isUserSubscription(item._id)" class="subscription-info">
+          <div class="info-item">
+            <ion-icon name="calendar-outline" class="info-icon"></ion-icon>
+            <span class="info-text"
+              >Started: {{ userSubscription.createdAt | date:'mediumDate'
+              }}</span
+            >
+          </div>
+          <div class="info-item">
+            <ion-icon name="time-outline" class="info-icon"></ion-icon>
+            <span class="info-text"
+              >Expires: {{ getSubscriptionExpiryDate() }}</span
+            >
+          </div>
+          <div class="info-item">
+            <ion-icon name="card-outline" class="info-icon"></ion-icon>
+            <span class="info-text"
+              >Payment: {{ userSubscription.paymentDetails }}</span
+            >
+          </div>
         </div>
       </div>
     </ion-radio-group>
@@ -74,16 +143,20 @@
     <!-- Subscribe Button -->
     <div class="button-section">
       <ion-button
+        *ngIf="!isLoading"
         color="primary"
         (click)="purchase()"
         expand="block"
         fill="solid"
         mode="ios"
         class="subscribe-button"
-        [disabled]="!selectedPlanId"
+        [disabled]="!selectedPlanId || isUserSubscription(selectedPlanId)"
       >
         <ion-icon name="card" slot="start"></ion-icon>
-        Subscribe Now
+        <span *ngIf="!isUserSubscription(selectedPlanId)">Subscribe Now</span>
+        <span *ngIf="isUserSubscription(selectedPlanId)"
+          >Already Subscribed</span
+        >
       </ion-button>
 
       <p class="terms-text">

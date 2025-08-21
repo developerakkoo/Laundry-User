@@ -99,8 +99,93 @@ ion-header {
   .subtitle {
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.9);
-    margin: 0;
+    margin: 0 0 24px 0;
     font-weight: 400;
+  }
+}
+
+// Current Subscription Status
+.current-subscription-status {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 400px;
+  animation: slideInUp 0.6s ease-out 0.3s both;
+  
+  .status-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    .status-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+      
+      &.active {
+        color: #4ade80;
+        animation: statusPulse 2s ease-in-out infinite;
+      }
+      
+      &.expired {
+        color: #f87171;
+        animation: statusShake 0.5s ease-in-out;
+      }
+    }
+    
+    .status-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+      
+      .status-text {
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      
+      .plan-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      
+      .expiry-date {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Loading State
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  
+  .loading-spinner {
+    width: 48px;
+    height: 48px;
+    --color: #ffffff;
+    margin-bottom: 16px;
+  }
+  
+  .loading-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
   }
 }
 
@@ -157,6 +242,46 @@ ion-header {
       opacity: 1;
     }
   }
+  
+  // User's current subscription styling
+  &.user-subscription {
+    background: rgba(74, 222, 128, 0.15);
+    border-color: #4ade80;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.2), 0 20px 40px rgba(0, 0, 0, 0.2);
+    
+    &::before {
+      background: linear-gradient(135deg, rgba(74, 222, 128, 0.1) 0%, rgba(74, 222, 128, 0.05) 100%);
+      opacity: 1;
+    }
+    
+    .plan-name {
+      color: #4ade80;
+    }
+    
+    .price-section .price {
+      color: #4ade80;
+    }
+  }
+  
+  // Expired subscription styling
+  &.expired-subscription {
+    background: rgba(248, 113, 113, 0.15);
+    border-color: #f87171;
+    box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.2), 0 20px 40px rgba(0, 0, 0, 0.2);
+    
+    &::before {
+      background: linear-gradient(135deg, rgba(248, 113, 113, 0.1) 0%, rgba(248, 113, 113, 0.05) 100%);
+      opacity: 1;
+    }
+    
+    .plan-name {
+      color: #f87171;
+    }
+    
+    .price-section .price {
+      color: #f87171;
+    }
+  }
 }
 
 // Badges
@@ -194,6 +319,45 @@ ion-header {
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
   z-index: 10;
+}
+
+// Current Subscription Badge
+.current-subscription-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
+  z-index: 10;
+  
+  ion-icon {
+    font-size: 16px;
+    color: white;
+    
+    &.expired {
+      background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    &.active {
+      color: white;
+    }
+  }
+  
+  &.expired {
+    background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.4);
+  }
 }
 
 // Card Header
@@ -292,6 +456,44 @@ ion-header {
     --outer-border-radius: 50%;
     --checkmark-color: #ffffff;
     --checkmark-width: 2px;
+    
+    &:disabled {
+      --color: rgba(255, 255, 255, 0.3);
+      --border-color: rgba(255, 255, 255, 0.2);
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Subscription Info
+.subscription-info {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    .info-icon {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
+      flex-shrink: 0;
+    }
+    
+    .info-text {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+    }
   }
 }
 
@@ -322,6 +524,7 @@ ion-header {
       --color: rgba(255, 255, 255, 0.5);
       --box-shadow: none;
       cursor: not-allowed;
+      transform: none;
     }
     
     ion-icon {
@@ -366,6 +569,24 @@ ion-header {
   .card-header .price-section .price {
     font-size: 2rem;
   }
+  
+  .current-subscription-status {
+    margin: 0 16px;
+    
+    .status-container {
+      gap: 12px;
+      
+      .status-icon {
+        font-size: 28px;
+      }
+      
+      .status-details {
+        .plan-name {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
 }
 
 // Animation for card entrance
@@ -377,6 +598,30 @@ ion-header {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Status animations
+@keyframes statusPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes statusShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
   }
 }
 

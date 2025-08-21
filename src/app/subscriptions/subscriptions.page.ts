@@ -14,6 +14,9 @@ export class SubscriptionsPage implements OnInit {
   subs: any;
   selectedPlanId: string = '';
   total: any;
+  userSubscription: any = null; // Store user's current subscription
+  isLoading: boolean = false; // Loading state
+
   constructor(
     private logic: LogicService,
     private toastController: ToastController,
@@ -24,18 +27,23 @@ export class SubscriptionsPage implements OnInit {
 
   ionViewDidEnter() {
     this.getAllSubscriptions();
+    this.getUserPurchasedSubscription(); // Fetch user's subscription on page load
   }
 
   ionViewDidLeave() {}
 
   getAllSubscriptions() {
+    this.isLoading = true;
     this.logic.getUserSubscription().subscribe({
       next: async (value: any) => {
         console.log(value);
         this.subs = value['data'];
+        this.isLoading = false;
+        this.highlightUserSubscription(); // Highlight user's subscription after loading
       },
       error: async (error: HttpErrorResponse) => {
         console.log(error);
+        this.isLoading = false;
       },
     });
   }
@@ -49,6 +57,7 @@ export class SubscriptionsPage implements OnInit {
     });
     toast.present();
   }
+
   purchase() {
     console.log(this.selectedPlanId);
     console.log(this.total);
@@ -73,14 +82,15 @@ export class SubscriptionsPage implements OnInit {
   checkout() {
     this.logic.checkout(this.total).subscribe({
       next: async (value: any) => {
-        console.log(value['data']['id']);
-        this.razorpayCheckput(value['data']['id'], value['data']['amount']);
+        console.log(value);
+        this.razorpayCheckput(value['order']['id'], value['order']['amount']);
       },
       error: async (error: HttpErrorResponse) => {
         console.log(error);
       },
     });
   }
+
   razorpayCheckput(orderId: any, amount: any) {
     var options = {
       key: 'rzp_test_q92KbX0ZwFyaN0', // Enter the Key ID generated from the Dashboard
@@ -130,12 +140,75 @@ export class SubscriptionsPage implements OnInit {
   getUserPurchasedSubscription() {
     this.logic.getSubscriptionByUserId().subscribe({
       next: async (value: any) => {
-        console.log(value);
+        console.log('User subscription:', value);
+        if (value && value.success && value.data) {
+          this.userSubscription = value.data;
+          this.highlightUserSubscription(); // Highlight user's subscription
+        }
       },
       error: async (error: HttpErrorResponse) => {
-        console.log(error);
+        console.log('Error fetching user subscription:', error);
       },
     });
+  }
+
+  // Highlight the user's current subscription
+  highlightUserSubscription() {
+    if (this.userSubscription && this.subs) {
+      // Find the plan that matches the user's subscription
+      const userPlan = this.subs.find(
+        (plan: any) => plan._id === this.userSubscription.subscriptionPlanId._id
+      );
+
+      if (userPlan) {
+        // Set the selected plan to the user's current subscription
+        this.selectedPlanId = userPlan._id;
+        this.total = userPlan.price;
+        console.log('User subscription highlighted:', userPlan.name);
+      }
+    }
+  }
+
+  // Check if a plan is the user's current subscription
+  isUserSubscription(planId: string): boolean {
+    return (
+      this.userSubscription &&
+      this.userSubscription.subscriptionPlanId &&
+      this.userSubscription.subscriptionPlanId._id === planId
+    );
+  }
+
+  // Check if a plan is expired
+  isSubscriptionExpired(): boolean {
+    if (!this.userSubscription || !this.userSubscription.expiryDate) {
+      return false;
+    }
+
+    const expiryDate = new Date(this.userSubscription.expiryDate);
+    const currentDate = new Date();
+    return currentDate > expiryDate;
+  }
+
+  // Get subscription status text
+  getSubscriptionStatusText(): string {
+    if (!this.userSubscription) {
+      return '';
+    }
+
+    if (this.isSubscriptionExpired()) {
+      return 'Expired';
+    }
+
+    return 'Active';
+  }
+
+  // Get subscription expiry date
+  getSubscriptionExpiryDate(): string {
+    if (!this.userSubscription || !this.userSubscription.expiryDate) {
+      return '';
+    }
+
+    return this.userSubscription.expiryDate;
   }
 
   getDefaultDescription(validity: number): string {
@@ -186,7 +259,7 @@ export class SubscriptionsPage implements OnInit {
         next: async (value: any) => {
           console.log(value);
           this.presentToast();
-          this.getUserPurchasedSubscription();
+          this.getUserPurchasedSubscription(); // Refresh user subscription after purchase
         },
         error: async (error: HttpErrorResponse) => {
           console.log(error);
