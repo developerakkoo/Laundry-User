@@ -112,6 +112,10 @@ export class AddPage implements OnInit {
   //   })
   // }
 
+  goToCart() {
+    this.haptics.hapticsImpactLight();
+    this.router.navigate(['/tabs/tabs/tab2']);
+  }
   async fetchCartAndServices() {
     this.logic.fetchCartAndServices(this.laundryId).subscribe({
       next: async (value: any) => {

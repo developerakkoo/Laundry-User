@@ -3,6 +3,7 @@ import { LogicService } from '../services/logic.service';
 import { HapticsService } from '../services/haptics.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertController, ToastController } from '@ionic/angular';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-myorder',
@@ -21,31 +22,72 @@ export class MyorderPage implements OnInit {
   selectedRating: number = 0;
   ratingComment: string = '';
   ratingOrderId: string = '';
+  ratingShopId: string = '';
+  currentUserId: string = '';
+  ratedOrders: Set<string> = new Set(); // Track rated orders locally
 
   constructor(
     private logic: LogicService,
     private haptics: HapticsService,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private dataService: DataService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCurrentUserId();
+  }
 
   ionViewDidEnter() {
     this.getOrders();
   }
 
+  async getCurrentUserId() {
+    try {
+      this.currentUserId = (await this.dataService.get('userId')) || '';
+      console.log('Current User ID:', this.currentUserId);
+    } catch (error) {
+      console.error('Error getting user ID:', error);
+    }
+  }
+
   getOrders() {
     this.logic.getAllUserOrders().subscribe({
-      next: (value: any) => {
+      next: async (value: any) => {
         console.log(value);
         this.allOrders = value['value'];
         this.applyFilter(this.currentSegment);
+        // Load rated orders after getting orders
+        await this.loadRatedOrders();
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
       },
     });
+  }
+
+  async loadRatedOrders() {
+    if (!this.currentUserId) return;
+
+    try {
+      // Load all rated orders from local storage
+      for (const order of this.orders) {
+        if (order.shopId) {
+          const ratingKey = `rating_${order.shopId}_${this.currentUserId}`;
+          const ratingData = await this.dataService.get(ratingKey);
+
+          if (ratingData) {
+            const parsedData = JSON.parse(ratingData);
+            // Check if the rating is for this specific order
+            if (parsedData.orderId === order._id) {
+              this.ratedOrders.add(order._id);
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error loading rated orders:', error);
+    }
   }
 
   segmentChanged(ev: any) {
@@ -54,6 +96,8 @@ export class MyorderPage implements OnInit {
     const seg = Number(ev.detail.value); // ion-segment gives string → convert
     this.currentSegment = seg;
     this.applyFilter(seg);
+    // Reload rated orders when segment changes
+    this.loadRatedOrders();
   }
 
   applyFilter(seg: number) {
@@ -75,11 +119,38 @@ export class MyorderPage implements OnInit {
     this.haptics.hapticsImpactLight();
   }
 
-  openRatingDialog(orderId: string) {
+  openRatingDialog(orderId: string, shopId: string) {
+    // Only open dialog if we have valid data
+    if (!orderId || !shopId) {
+      this.showErrorToast('Order information not available');
+      return;
+    }
+
     this.ratingOrderId = orderId;
+    this.ratingShopId = shopId;
     this.selectedRating = 0;
     this.ratingComment = '';
     this.haptics.hapticsImpactMedium();
+
+    // Show a simple alert to guide the user
+    this.showRatingGuide();
+  }
+
+  async showRatingGuide() {
+    const alert = await this.alertController.create({
+      header: 'Rate Your Experience',
+      message:
+        'Click on the stars to select your rating, add a comment if you wish, then click Submit Rating.',
+      buttons: [
+        {
+          text: 'Got it!',
+          handler: () => {
+            this.haptics.hapticsImpactLight();
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   async submitRating() {
@@ -93,23 +164,91 @@ export class MyorderPage implements OnInit {
       return;
     }
 
-    try {
-      // Here you would typically send the rating to your backend
-      // For now, we'll simulate the API call
-      console.log('Submitting rating:', {
-        orderId: this.ratingOrderId,
-        rating: this.selectedRating,
-        comment: this.ratingComment,
-      });
+    if (!this.currentUserId || !this.ratingShopId) {
+      this.showErrorToast('User or shop information not available');
+      return;
+    }
 
-      // Simulate API call delay
-      setTimeout(() => {
-        this.showThankYouDialog();
-      }, 500);
+    try {
+      // Prepare rating data
+      const ratingData = {
+        userId: this.currentUserId,
+        shopId: this.ratingShopId,
+        description: this.ratingComment,
+        star: this.selectedRating,
+      };
+
+      console.log('Submitting rating:', ratingData);
+
+      // Call the rating API
+      this.logic.addRating(ratingData).subscribe({
+        next: async (response: any) => {
+          console.log('Rating submitted successfully:', response);
+
+          if (response.success) {
+            // Store rating locally to mark as rated
+            await this.storeRatingLocally(
+              this.ratingOrderId,
+              this.ratingShopId
+            );
+
+            // Add to rated orders set
+            this.ratedOrders.add(this.ratingOrderId);
+
+            // Show success dialog
+            this.showThankYouDialog();
+
+            // Reset rating state
+            this.resetRating();
+          } else {
+            this.showErrorToast(response.message || 'Failed to submit rating');
+          }
+        },
+        error: async (error: HttpErrorResponse) => {
+          console.error('Error submitting rating:', error);
+
+          if (
+            error.status === 400 &&
+            error.error?.message?.includes('already exist')
+          ) {
+            this.showErrorToast('You have already rated this shop');
+            // Mark as rated locally since it already exists
+            await this.storeRatingLocally(
+              this.ratingOrderId,
+              this.ratingShopId
+            );
+            this.ratedOrders.add(this.ratingOrderId);
+          } else {
+            this.showErrorToast('Failed to submit rating. Please try again.');
+          }
+        },
+      });
     } catch (error) {
       console.error('Error submitting rating:', error);
-      this.showErrorToast();
+      this.showErrorToast('An unexpected error occurred');
     }
+  }
+
+  async storeRatingLocally(orderId: string, shopId: string) {
+    try {
+      const ratingKey = `rating_${shopId}_${this.currentUserId}`;
+      const ratingData = {
+        orderId: orderId,
+        shopId: shopId,
+        userId: this.currentUserId,
+        timestamp: new Date().toISOString(),
+      };
+
+      await this.dataService.set(ratingKey, JSON.stringify(ratingData));
+      console.log('Rating stored locally:', ratingData);
+    } catch (error) {
+      console.error('Error storing rating locally:', error);
+    }
+  }
+
+  // Check if order has been rated (synchronous check using local set)
+  isOrderRated(order: any): boolean {
+    return this.ratedOrders.has(order._id);
   }
 
   async showThankYouDialog() {
@@ -138,7 +277,6 @@ export class MyorderPage implements OnInit {
           text: 'Awesome!',
           handler: () => {
             this.haptics.hapticsImpactMedium();
-            this.resetRating();
           },
         },
       ],
@@ -147,9 +285,9 @@ export class MyorderPage implements OnInit {
     await alert.present();
   }
 
-  async showErrorToast() {
+  async showErrorToast(message: string) {
     const toast = await this.toastController.create({
-      message: 'Failed to submit rating. Please try again.',
+      message: message,
       duration: 3000,
       color: 'danger',
       position: 'bottom',
@@ -172,18 +310,12 @@ export class MyorderPage implements OnInit {
     this.selectedRating = 0;
     this.ratingComment = '';
     this.ratingOrderId = '';
+    this.ratingShopId = '';
   }
 
   // Check if order is completed (status 7)
   isOrderCompleted(order: any): boolean {
     return Number(order.status) === 7;
-  }
-
-  // Check if order has been rated (you can add this logic based on your backend)
-  isOrderRated(order: any): boolean {
-    // This would typically check if the order has a rating in your backend
-    // For now, we'll return false to show rating UI
-    return false;
   }
 
   // Get rating stars for display

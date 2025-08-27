@@ -45,6 +45,11 @@ export class Tab2Page {
   isPromoCodeApplied: boolean = false;
   isPromoCodeSuccessDialogOpen: boolean = false;
 
+  // Free delivery properties
+  freeDeliveryThreshold: number = 500;
+  isFreeDelivery: boolean = false;
+  itemsNeededForFreeDelivery: number = 0;
+
   priceDetailsObject: any = {};
   coordinates!: Position;
   defaultAddress: any;
@@ -105,7 +110,7 @@ export class Tab2Page {
     this.logic.checkout(this.total).subscribe({
       next: async (value: any) => {
         console.log(value);
-        this.razorpayCheckput(value['data']['id'], value['data']['amount']);
+        this.razorpayCheckput(value['order']['id'], value['order']['amount']);
       },
       error: async (error: HttpErrorResponse) => {
         console.log(error);
@@ -266,6 +271,9 @@ export class Tab2Page {
           this.subtotal = value['data']['subtotal'];
           this.getAllOffers(this.subtotal);
 
+          // Calculate free delivery logic
+          this.calculateFreeDeliveryStatus();
+
           if (this.subtotal < 500) {
             this.addMoreItemsWorthAmount = 500 - this.subtotal;
           }
@@ -282,6 +290,30 @@ export class Tab2Page {
           console.log(error);
         },
       });
+  }
+
+  calculateFreeDeliveryStatus() {
+    if (this.subtotal >= this.freeDeliveryThreshold) {
+      this.isFreeDelivery = true;
+      this.itemsNeededForFreeDelivery = 0;
+      this.deliveryCharges = 0; // Set delivery charges to 0 for free delivery
+    } else {
+      this.isFreeDelivery = false;
+      this.itemsNeededForFreeDelivery =
+        this.freeDeliveryThreshold - this.subtotal;
+    }
+  }
+
+  getProgressPercentage(): number {
+    const percentage = (this.subtotal / this.freeDeliveryThreshold) * 100;
+    const result = Math.max(percentage, 5); // Minimum 5% to ensure visibility
+
+    return result;
+  }
+
+  // Test method to see if binding works
+  getTestProgress(): number {
+    return 25; // Fixed 25% for testing
   }
 
   razorpayCheckput(orderId: any, amount: any) {

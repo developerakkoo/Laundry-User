@@ -1,42 +1,129 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Profile Details</ion-title>
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">Profile Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/tabs/tabs/tab3"
+        class="premium-back-button"
+      ></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <ion-input
-      required
-      fill="outline"
-      mode="md"
-      lines="none"
-      formControlName="name"
-      type="text"
-      labelPlacement="stacked"
-      label="Name"
-    ></ion-input>
-    <br />
-    <ion-input
-      fill="outline"
-      mode="md"
-      lines="none"
-      required
-      label="Email"
-      labelPlacement="stacked"
-      helperText="Email is required for Order related updates and bills."
-      formControlName="email"
-      type="email"
-    ></ion-input>
-    <ion-button
-      mode="ios"
-      fill="solid"
-      expand="block"
-      color="primary"
-      type="submit"
-      [disabled]="form.invalid"
-    >
-      Save
-    </ion-button>
-  </form>
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Background Pattern -->
+  <div class="background-pattern"></div>
+
+  <!-- Main Container -->
+  <div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <ion-icon name="person-circle" class="avatar-icon"></ion-icon>
+        <div class="avatar-ring"></div>
+      </div>
+      <h1 class="profile-title">Edit Profile</h1>
+      <p class="profile-subtitle">Update your personal information</p>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="profile-form-container">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="premium-form">
+        <!-- Name Field -->
+        <div class="form-field">
+          <div class="field-label">
+            <ion-icon name="person-outline" class="label-icon"></ion-icon>
+            <span class="label-text">Full Name</span>
+          </div>
+          <ion-input
+            required
+            fill="outline"
+            mode="md"
+            lines="none"
+            formControlName="name"
+            type="text"
+            labelPlacement="stacked"
+            label=""
+            placeholder="Enter your full name"
+            class="premium-input"
+            [class.field-error]="form.get('name')?.invalid && form.get('name')?.touched"
+          ></ion-input>
+          <div
+            class="field-error-message"
+            *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+          >
+            <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+            <span>Name is required</span>
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-field">
+          <div class="field-label">
+            <ion-icon name="mail-outline" class="label-icon"></ion-icon>
+            <span class="label-text">Email Address</span>
+          </div>
+          <ion-input
+            fill="outline"
+            mode="md"
+            lines="none"
+            required
+            label=""
+            labelPlacement="stacked"
+            helperText="Email is required for Order related updates and bills."
+            formControlName="email"
+            type="email"
+            placeholder="Enter your email address"
+            class="premium-input"
+            [class.field-error]="form.get('email')?.invalid && form.get('email')?.touched"
+          ></ion-input>
+          <div
+            class="field-error-message"
+            *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+          >
+            <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+            <span>Please enter a valid email address</span>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="submit-field">
+          <ion-button
+            mode="ios"
+            fill="solid"
+            expand="block"
+            type="submit"
+            [disabled]="form.invalid || isSubmitting"
+            class="submit-button premium-button"
+          >
+            <ion-icon
+              name="checkmark-circle"
+              slot="start"
+              class="button-icon"
+            ></ion-icon>
+            <span class="button-text"
+              >{{ isSubmitting ? 'Saving...' : 'Save Changes' }}</span
+            >
+            <ion-spinner
+              name="crescent"
+              *ngIf="isSubmitting"
+              class="button-spinner"
+            ></ion-spinner>
+          </ion-button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Security Note -->
+    <div class="security-note">
+      <ion-icon name="shield-checkmark" class="security-icon"></ion-icon>
+      <div class="security-content">
+        <h4 class="security-title">Your Data is Secure</h4>
+        <p class="security-text">
+          We use industry-standard encryption to protect your personal
+          information
+        </p>
+      </div>
+    </div>
+  </div>
 </ion-content>

@@ -201,6 +201,7 @@
           <div
             *ngIf="isOrderCompleted(item) && !isOrderRated(item)"
             class="rating-section"
+            (click)="openRatingDialog(item._id, item.shopId)"
           >
             <div class="rating-header">
               <ion-icon name="star-outline" class="rating-icon"></ion-icon>
@@ -219,7 +220,7 @@
                   class="star-icon"
                   [class.filled]="star <= selectedRating"
                   [class.hover]="star <= selectedRating"
-                  (click)="setRating(star)"
+                  (click)="setRating(star); $event.stopPropagation()"
                 ></ion-icon>
               </div>
               <p class="rating-text" *ngIf="selectedRating > 0">
@@ -235,7 +236,8 @@
                 rows="3"
                 maxlength="200"
                 [value]="ratingComment"
-                (ionInput)="onCommentInput($event)"
+                (ionInput)="onCommentInput($event); $event.stopPropagation()"
+                (click)="$event.stopPropagation()"
               ></ion-textarea>
               <div class="comment-counter">{{ ratingComment.length }}/200</div>
             </div>
@@ -247,7 +249,7 @@
                 fill="solid"
                 shape="round"
                 class="rating-submit-button"
-                (click)="submitRating()"
+                (click)="submitRating(); $event.stopPropagation()"
                 [disabled]="selectedRating === 0"
               >
                 <ion-icon name="send-outline" slot="start"></ion-icon>

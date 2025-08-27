@@ -94,7 +94,7 @@
 </ion-content>
 
 <!-- Premium Footer -->
-<ion-footer class="ion-no-border premium-footer" routerLink="tabs/tabs/tab2">
+<ion-footer class="ion-no-border premium-footer" >
   <ion-toolbar class="premium-footer-toolbar">
     <div class="footer-content">
       <div class="cart-info">
@@ -106,7 +106,7 @@
       <ion-button
         fill="solid"
         class="view-cart-button"
-        routerLink="tabs/tabs/tab2"
+        (click)="goToCart()"
       >
         View Cart
         <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>

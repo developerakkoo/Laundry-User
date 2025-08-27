@@ -522,6 +522,22 @@ ion-header {
   box-shadow: 0 4px 20px rgba(139, 92, 246, 0.1);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.3);
+    
+    &::after {
+      opacity: 1;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
   
   &::before {
     content: '';
@@ -531,6 +547,20 @@ ion-header {
     right: 0;
     height: 4px;
     background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  }
+  
+  &::after {
+    content: 'Click to start rating';
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    color: #8b5cf6;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
   }
 }
 

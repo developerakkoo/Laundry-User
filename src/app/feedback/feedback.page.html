@@ -1,16 +1,189 @@
 <ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar [color]="backgroundColor">
-    <ion-title>Feedback</ion-title>
+  <ion-toolbar class="premium-toolbar">
+    <ion-title class="premium-title">Share Your Experience</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tabs/tab3"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/tabs/tab3"
+        class="premium-back-button"
+      ></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" [color]="backgroundColor" class="ion-padding">
-  <div class="emoji-container">
-    <ion-button fill="clear" (click)="setFeedback('happy')">😊</ion-button>
-    <ion-button fill="clear" (click)="setFeedback('neutral')">😐</ion-button>
-    <ion-button fill="clear" (click)="setFeedback('sad')">😢</ion-button>
+<ion-content [fullscreen]="true" class="premium-content">
+  <!-- Background Pattern -->
+  <div class="background-pattern"></div>
+
+  <!-- Main Container -->
+  <div class="feedback-container">
+    <!-- Feedback Header -->
+    <div class="feedback-header">
+      <div class="feedback-icon-container">
+        <ion-icon name="chatbubble-ellipses" class="feedback-icon"></ion-icon>
+        <div class="icon-glow"></div>
+      </div>
+      <h1 class="feedback-title">How was your experience?</h1>
+      <p class="feedback-subtitle">
+        Your feedback helps us improve our service
+      </p>
+    </div>
+
+    <!-- Feedback Options -->
+    <div class="feedback-options" *ngIf="!feedbackSubmitted">
+      <div
+        class="feedback-option"
+        [class.selected]="selectedFeedback === 'excellent'"
+        (click)="setFeedback('excellent')"
+      >
+        <div class="emoji-container">
+          <span class="emoji">😍</span>
+          <div class="emoji-glow"></div>
+        </div>
+        <h3 class="option-title">Excellent!</h3>
+        <p class="option-description">Absolutely loved it!</p>
+        <div class="selection-indicator">
+          <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+        </div>
+      </div>
+
+      <div
+        class="feedback-option"
+        [class.selected]="selectedFeedback === 'good'"
+        (click)="setFeedback('good')"
+      >
+        <div class="emoji-container">
+          <span class="emoji">😊</span>
+          <div class="emoji-glow"></div>
+        </div>
+        <h3 class="option-title">Good</h3>
+        <p class="option-description">Pretty satisfied</p>
+        <div class="selection-indicator">
+          <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+        </div>
+      </div>
+
+      <div
+        class="feedback-option"
+        [class.selected]="selectedFeedback === 'okay'"
+        (click)="setFeedback('okay')"
+      >
+        <div class="emoji-container">
+          <span class="emoji">😐</span>
+          <div class="emoji-glow"></div>
+        </div>
+        <h3 class="option-title">Okay</h3>
+        <p class="option-description">It was fine</p>
+        <div class="selection-indicator">
+          <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+        </div>
+      </div>
+
+      <div
+        class="feedback-option"
+        [class.selected]="selectedFeedback === 'poor'"
+        (click)="setFeedback('poor')"
+      >
+        <div class="emoji-container">
+          <span class="emoji">😞</span>
+          <div class="emoji-glow"></div>
+        </div>
+        <h3 class="option-title">Poor</h3>
+        <p class="option-description">Could be better</p>
+        <div class="selection-indicator">
+          <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Feedback Form -->
+    <div
+      class="additional-feedback"
+      *ngIf="selectedFeedback && !feedbackSubmitted"
+    >
+      <div class="form-container">
+        <h3 class="form-title">Tell us more (optional)</h3>
+        <ion-textarea
+          [(ngModel)]="additionalFeedback"
+          placeholder="Share your thoughts, suggestions, or any issues you encountered..."
+          rows="4"
+          class="feedback-textarea"
+          [class.focused]="isTextareaFocused"
+          (ionFocus)="onTextareaFocus()"
+          (ionBlur)="onTextareaBlur()"
+        ></ion-textarea>
+
+        <div class="submit-section">
+          <ion-button
+            expand="block"
+            class="submit-feedback-btn"
+            (click)="submitFeedback()"
+            [disabled]="!selectedFeedback"
+          >
+            <ion-icon
+              name="paper-plane"
+              slot="start"
+              class="button-icon"
+            ></ion-icon>
+            <span class="button-text">Submit Feedback</span>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success State -->
+    <div class="success-state" *ngIf="feedbackSubmitted">
+      <div class="success-animation">
+        <div class="success-circle">
+          <ion-icon name="checkmark" class="success-icon"></ion-icon>
+        </div>
+        <div class="success-rings">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+        </div>
+      </div>
+
+      <h2 class="success-title">Thank You!</h2>
+      <p class="success-message">
+        Your feedback has been submitted successfully.
+      </p>
+
+      <!-- Rating Prompt for Positive Feedback -->
+      <div class="rating-prompt" *ngIf="showRatingPrompt">
+        <div class="rating-content">
+          <ion-icon name="star" class="rating-icon"></ion-icon>
+          <h3 class="rating-title">Enjoying our app?</h3>
+          <p class="rating-message">
+            Help others discover us by rating on the {{ platformStoreName }}
+          </p>
+
+          <div class="rating-actions">
+            <ion-button
+              fill="outline"
+              class="rate-now-btn"
+              (click)="rateOnStore()"
+            >
+              <ion-icon name="star" slot="start"></ion-icon>
+              Rate Now
+            </ion-button>
+
+            <ion-button
+              fill="clear"
+              class="maybe-later-btn"
+              (click)="maybeLater()"
+            >
+              Maybe Later
+            </ion-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="back-to-app">
+        <ion-button fill="clear" class="back-btn" (click)="goBack()">
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+          Back to App
+        </ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>

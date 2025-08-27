@@ -365,4 +365,12 @@ export class LogicService {
       paymentDetails: paymentDetails,
     });
   }
+
+  addRating(ratingData: any) {
+    return this.http.post(environment.URL + 'ratting/add', ratingData, {
+      headers: {
+        'x-access-token': this.accessToken.value,
+      },
+    });
+  }
 }

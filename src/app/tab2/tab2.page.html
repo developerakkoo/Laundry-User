@@ -60,6 +60,60 @@
       >
       </app-product-card>
     </div>
+
+    <!-- Free Delivery Progress -->
+    <div
+      class="free-delivery-progress"
+      *ngIf="!isFreeDelivery && itemsNeededForFreeDelivery > 0"
+    >
+      <div class="progress-header">
+        <ion-icon name="truck-outline" class="progress-icon"></ion-icon>
+        <span class="progress-text"
+          >Add ₹{{itemsNeededForFreeDelivery}} more for FREE delivery!</span
+        >
+      </div>
+
+      <div
+        style="
+          margin-top: 12px;
+          padding: 8px;
+          background: #e0f2fe;
+          border-radius: 8px;
+        "
+      >
+        <p style="margin: 0 0 8px 0; font-size: 12px; color: #666">
+          Free Delivery Progress: {{getProgressPercentage() | number:'1.0-0'}}%
+          Complete
+        </p>
+        <div
+          style="
+            width: 100%;
+            height: 12px;
+            background: #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+          "
+        >
+          <div
+            [style.width.%]="getProgressPercentage()"
+            style="height: 100%; background: #3b82f6; border-radius: 6px"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Free Delivery Achieved -->
+    <div class="free-delivery-achieved" *ngIf="isFreeDelivery">
+      <div class="achieved-content">
+        <ion-icon name="checkmark-circle" class="achieved-icon"></ion-icon>
+        <div class="achieved-text">
+          <h4 class="achieved-title">🎉 Free Delivery Unlocked!</h4>
+          <p class="achieved-subtitle">
+            You've qualified for free delivery on this order
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Shipping Details Section -->
@@ -84,6 +138,42 @@
         <div class="info-details">
           <p class="info-label">Delivery To:</p>
           <p class="info-value">{{address?.address | titlecase}}</p>
+        </div>
+      </div>
+
+      <!-- Free Delivery Status -->
+      <div class="info-item" *ngIf="isFreeDelivery">
+        <ion-icon name="checkmark-circle" class="info-icon success"></ion-icon>
+        <div class="info-details">
+          <p class="info-label success">Free Delivery!</p>
+          <p class="info-value">You've qualified for free delivery</p>
+        </div>
+      </div>
+
+      <!-- Add More Items for Free Delivery -->
+      <div
+        class="info-item"
+        *ngIf="!isFreeDelivery && itemsNeededForFreeDelivery > 0"
+      >
+        <ion-icon
+          name="information-circle"
+          class="info-icon warning"
+        ></ion-icon>
+        <div class="info-details">
+          <p class="info-label warning">Add more items for free delivery</p>
+          <p class="info-value">
+            Add items worth ₹{{itemsNeededForFreeDelivery}} more to get free
+            delivery
+          </p>
+        </div>
+      </div>
+
+      <!-- Delivery Charges Info -->
+      <div class="info-item" *ngIf="!isFreeDelivery">
+        <ion-icon name="car" class="info-icon"></ion-icon>
+        <div class="info-details">
+          <p class="info-label">Delivery Charges:</p>
+          <p class="info-value">₹{{deliveryCharges}}</p>
         </div>
       </div>
     </div>
@@ -171,7 +261,12 @@
 
       <div class="summary-item">
         <span class="summary-label">Delivery</span>
-        <span class="summary-value">{{deliveryCharges | currency:"INR"}}</span>
+        <span class="summary-value" *ngIf="!isFreeDelivery"
+          >{{deliveryCharges | currency:"INR"}}</span
+        >
+        <span class="summary-value free-delivery" *ngIf="isFreeDelivery"
+          >FREE</span
+        >
       </div>
 
       <div class="summary-item">
